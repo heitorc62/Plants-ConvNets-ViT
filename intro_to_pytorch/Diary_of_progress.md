@@ -7,3 +7,7 @@ In this document, I will register my progress with the video throught time.
     * start:
     * end: 2:27:25
 
+* 07/16/2023:
+    * start: 2:27:25
+    * end: 3:08:37  - Stacking tensors (vstack)
+
