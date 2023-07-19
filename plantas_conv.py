@@ -216,4 +216,4 @@ if __name__ == "__main__":
     torch.save(model_ft.state_dict(), "model.pth")
 
     # Save the training history
-    np.savetxt("training_history.csv", hist, delimiter=",")
+    np.savetxt("training_history.csv", hist.cpu().numpy(), delimiter=",")
