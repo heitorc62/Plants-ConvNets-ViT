@@ -191,6 +191,7 @@ if __name__ == "__main__":
     batch_size = 8 
     num_epochs = 15
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print("The selected device is:", device)
     feature_extract = True  # Flag for feature extracting. When False, we finetune the whole model, 
                             # when True we only update the reshaped layer params
 
