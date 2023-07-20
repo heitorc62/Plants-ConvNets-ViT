@@ -7,9 +7,7 @@ import numpy as np
 import torchvision
 from torchvision import datasets, models, transforms
 from torch.utils.data import random_split
-import matplotlib.pyplot as plt
 import time
-import os
 import copy
 import pandas as pd
 print("PyTorch Version: ",torch.__version__)
