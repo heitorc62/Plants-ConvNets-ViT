@@ -24,9 +24,6 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
     since = time.time()
 
     val_acc_history = []
-
-    train_preds, train_true = [], []  # for training phase
-    val_preds, val_true = [], []      # for validation phase
     
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -34,6 +31,10 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
+
+        # temporary variables to store predictions and true labels
+        epoch_preds = []
+        epoch_true = []
 
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
@@ -64,23 +65,21 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
                     _, preds = torch.max(outputs, 1)
 
-                    # store predictions and true labels
-                    if phase == 'train':
-                        train_preds.extend(preds.tolist())
-                        train_true.extend(labels.data.tolist())
-                    else:
-                        val_preds.extend(preds.tolist())
-                        val_true.extend(labels.data.tolist())
-
-
                     # backward + optimize only if in training phase
                     if phase == 'train':
                         loss.backward()
                         optimizer.step()
 
+
                 # statistics
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
+
+                # store predictions and true labels
+                # we're only interested in validation performance
+                if phase == 'val':  
+                    epoch_preds.extend(preds.tolist())
+                    epoch_true.extend(labels.data.tolist())
 
 
 
@@ -93,6 +92,8 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
+                best_preds, best_true = epoch_preds, epoch_true
+
             if phase == 'val':
                 val_acc_history.append(epoch_acc)
 
@@ -104,7 +105,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
     # load best model weights
     model.load_state_dict(best_model_wts)
-    return model, val_acc_history, train_preds, train_true, val_preds, val_true
+    return model, val_acc_history, best_preds, best_true
 
 
 
@@ -227,7 +228,7 @@ if __name__ == "__main__":
 
     # Train and evaluate
     # In order to produce matrics for the model, we will store confusion matrix necessary values.
-    model_ft, hist, train_preds, train_true, val_preds, val_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
+    model_ft, hist, best_preds, best_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
 
     # Save the model
     torch.save(model_ft.state_dict(), "model.pth")
@@ -237,11 +238,8 @@ if __name__ == "__main__":
     np.savetxt("training_history.csv", hist_np, delimiter=",")
 
     # Convert lists to DataFrames
-    train_df = pd.DataFrame({'True': train_true, 'Predicted': train_preds})
-    val_df = pd.DataFrame({'True': val_true, 'Predicted': val_preds})
+    confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    train_df.to_csv('train_results.csv', index=False)
-    val_df.to_csv('val_results.csv', index=False)
-
+    confusion_df.to_csv('confusion.csv', index=False)
 
