@@ -229,15 +229,16 @@ if __name__ == "__main__":
     model_ft, hist, best_preds, best_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
 
     # Save the model
-    torch.save(model_ft.state_dict(), "model.pth")
+    torch.save(model_ft.state_dict(), "model_last_layer.pth")
 
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
-    np.savetxt("training_history.csv", hist_np, delimiter=",")
+    np.savetxt("training_history_last_layer.csv", hist_np, delimiter=",")
 
     # Convert lists to DataFrames
     confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    confusion_df.to_csv('confusion.csv', index=False)
+    confusion_df.to_csv('confusion_last_layer.csv', index=False)
+    print("#############################################################################################################")
 
