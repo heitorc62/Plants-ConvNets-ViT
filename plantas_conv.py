@@ -12,7 +12,7 @@ import copy
 import pandas as pd
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
-from torchvision.models.vgg import VGG11_BN_Weights
+from torchvision.models.vgg import VGG16_BN_Weights
 
 
 
@@ -122,9 +122,9 @@ def initialize_model(num_classes, feature_extract, use_pretrained=True):
 
     # Defining the model as VGG:
     if use_pretrained:
-        model_ft = models.vgg11_bn(weights=VGG11_BN_Weights.DEFAULT)
+        model_ft = models.vgg16_bn(weights=VGG16_BN_Weights.DEFAULT)
     else:
-        model_ft = models.vgg11_bn()
+        model_ft = models.vgg16_bn()
     
     set_parameter_requires_grad(model_ft, feature_extract)
     num_ftrs = model_ft.classifier[6].in_features
