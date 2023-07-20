@@ -13,7 +13,7 @@ import pandas as pd
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
 from torchvision.models.vgg import VGG16_BN_Weights
-
+import os
 
 
 
@@ -228,17 +228,23 @@ if __name__ == "__main__":
     # In order to produce matrics for the model, we will store confusion matrix necessary values.
     model_ft, hist, best_preds, best_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
 
+    # Get the directory of the current file
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+
     # Save the model
-    torch.save(model_ft.state_dict(), "model_last_layer.pth")
+    model_path = os.path.join(current_dir, "model_last_layer.pth")
+    torch.save(model_ft.state_dict(), model_path)
 
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
-    np.savetxt("training_history_last_layer.csv", hist_np, delimiter=",")
+    hist_path = os.path.join(current_dir, "training_history_last_layer.csv")
+    np.savetxt(hist_path, hist_np, delimiter=",")
 
     # Convert lists to DataFrames
     confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    confusion_df.to_csv('confusion_last_layer.csv', index=False)
+    confusion_path = os.path.join(current_dir, "confusion_last_layer.csv")
+    confusion_df.to_csv(confusion_path, index=False)
     print("#############################################################################################################")
 
