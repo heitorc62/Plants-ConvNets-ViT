@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import time
 import os
 import copy
+import pandas as pd
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
 from torchvision.models.vgg import VGG11_BN_Weights
@@ -23,6 +24,9 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
     since = time.time()
 
     val_acc_history = []
+
+    train_preds, train_true = [], []  # for training phase
+    val_preds, val_true = [], []      # for validation phase
     
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -60,6 +64,15 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
                     _, preds = torch.max(outputs, 1)
 
+                    # store predictions and true labels
+                    if phase == 'train':
+                        train_preds.extend(preds.tolist())
+                        train_true.extend(labels.data.tolist())
+                    else:
+                        val_preds.extend(preds.tolist())
+                        val_true.extend(labels.data.tolist())
+
+
                     # backward + optimize only if in training phase
                     if phase == 'train':
                         loss.backward()
@@ -68,6 +81,8 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
                 # statistics
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
+
+
 
             epoch_loss = running_loss / len(dataloaders[phase].dataset)
             epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
@@ -89,7 +104,8 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
     # load best model weights
     model.load_state_dict(best_model_wts)
-    return model, val_acc_history
+    return model, val_acc_history, train_preds, train_true, val_preds, val_true
+
 
 
 def set_parameter_requires_grad(model, feature_extracting):
@@ -189,7 +205,7 @@ if __name__ == "__main__":
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
-    num_epochs = 15
+    num_epochs = 1
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("The selected device is:", device)
     feature_extract = True  # Flag for feature extracting. When False, we finetune the whole model, 
@@ -210,7 +226,8 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss()
 
     # Train and evaluate
-    model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
+    # In order to produce matrics for the model, we will store confusion matrix necessary values.
+    model_ft, hist, train_preds, train_true, val_preds, val_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
 
     # Save the model
     torch.save(model_ft.state_dict(), "model.pth")
@@ -218,4 +235,13 @@ if __name__ == "__main__":
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
     np.savetxt("training_history.csv", hist_np, delimiter=",")
+
+    # Convert lists to DataFrames
+    train_df = pd.DataFrame({'True': train_true, 'Predicted': train_preds})
+    val_df = pd.DataFrame({'True': val_true, 'Predicted': val_preds})
+
+    # Save to csv
+    train_df.to_csv('train_results.csv', index=False)
+    val_df.to_csv('val_results.csv', index=False)
+
 
