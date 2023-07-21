@@ -229,7 +229,7 @@ if __name__ == "__main__":
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
     print("The selected device is:", device)
 
     # Initialize the model for this run
@@ -262,7 +262,7 @@ if __name__ == "__main__":
     np.savetxt(hist_path, hist_np, delimiter=",")
 
     #Save the loss history
-    loss_hist_np = np.array([h.item() for h in loss_hist])
+    loss_hist_np = np.array([h for h in loss_hist])
     loss_hist_path = os.path.join(current_dir, "loss_history.csv")
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
