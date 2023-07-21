@@ -204,7 +204,7 @@ if __name__ == "__main__":
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
-    num_epochs = 1
+    num_epochs = 100
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("The selected device is:", device)
     feature_extract = False  # Flag for feature extracting. When False, we finetune the whole model, 
