@@ -203,6 +203,9 @@ def define_optimizer(model_ft, device, feature_extract):
 
 if __name__ == "__main__":
 
+    # Get the directory of the current file
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+
     # Create the parser
     parser = argparse.ArgumentParser(description='Train a model with different modes')
 
@@ -222,7 +225,7 @@ if __name__ == "__main__":
     elif not args.feature_extract and not args.use_pretrained:
         working_mode = "from scratch"
 
-    data_dir = "../dataset/Plant_leave_diseases_dataset_without_augmentation" # We assume the data is in ImageFolder format
+    data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation") # We assume the data is in ImageFolder format
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
@@ -247,8 +250,7 @@ if __name__ == "__main__":
     # In order to produce matrics for the model, we will store confusion matrix necessary values.
     model_ft, hist, best_preds, best_true, loss_hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, working_mode, num_epochs=args.epochs)
 
-    # Get the directory of the current file
-    current_dir = os.path.dirname(os.path.realpath(__file__))
+
 
     # Save the model
     model_path = os.path.join(current_dir, "model.pth")
