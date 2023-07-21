@@ -22,6 +22,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
     since = time.time()
 
     val_acc_history = []
+    val_loss_history = []
     
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -94,6 +95,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
             if phase == 'val':
                 val_acc_history.append(epoch_acc)
+                val_loss_history.append(epoch_loss)
 
         print()
 
@@ -103,7 +105,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, num_epochs=25)
 
     # load best model weights
     model.load_state_dict(best_model_wts)
-    return model, val_acc_history, best_preds, best_true
+    return model, val_acc_history, best_preds, best_true, val_loss_history
 
 
 
@@ -205,7 +207,7 @@ if __name__ == "__main__":
     num_classes = 39
     batch_size = 8 
     num_epochs = 100
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
     print("The selected device is:", device)
     feature_extract = False  # Flag for feature extracting. When False, we finetune the whole model, 
                              # when True we only update the reshaped layer params
@@ -226,25 +228,30 @@ if __name__ == "__main__":
 
     # Train and evaluate
     # In order to produce matrics for the model, we will store confusion matrix necessary values.
-    model_ft, hist, best_preds, best_true = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
+    model_ft, hist, best_preds, best_true, loss_hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
 
     # Get the directory of the current file
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
     # Save the model
-    model_path = os.path.join(current_dir, "model_last_layer.pth")
+    model_path = os.path.join(current_dir, "model.pth")
     torch.save(model_ft.state_dict(), model_path)
 
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
-    hist_path = os.path.join(current_dir, "training_history_last_layer.csv")
+    hist_path = os.path.join(current_dir, "training_history.csv")
     np.savetxt(hist_path, hist_np, delimiter=",")
+
+    #Save the loss history
+    loss_hist_np = np.array([h.item() for h in loss_hist])
+    loss_hist_path = os.path.join(current_dir, "loss_history.csv")
+    np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
     # Convert lists to DataFrames
     confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    confusion_path = os.path.join(current_dir, "confusion_last_layer.csv")
+    confusion_path = os.path.join(current_dir, "confusion.csv")
     confusion_df.to_csv(confusion_path, index=False)
     print("#############################################################################################################")
 
