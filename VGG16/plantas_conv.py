@@ -253,24 +253,24 @@ if __name__ == "__main__":
 
 
     # Save the model
-    model_path = os.path.join(current_dir, f"/{working_mode}/model.pth")
+    model_path = os.path.join(current_dir, f"{working_mode}/model.pth")
     torch.save(model_ft.state_dict(), model_path)
 
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
-    hist_path = os.path.join(current_dir, f"/{working_mode}/training_history.csv")
+    hist_path = os.path.join(current_dir, f"{working_mode}/training_history.csv")
     np.savetxt(hist_path, hist_np, delimiter=",")
 
     #Save the loss history
     loss_hist_np = np.array([h for h in loss_hist])
-    loss_hist_path = os.path.join(current_dir, f"/{working_mode}/loss_history.csv")
+    loss_hist_path = os.path.join(current_dir, f"{working_mode}/loss_history.csv")
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
     # Convert lists to DataFrames
     confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    confusion_path = os.path.join(current_dir, f"/{working_mode}/confusion.csv")
+    confusion_path = os.path.join(current_dir, f"{working_mode}/confusion.csv")
     confusion_df.to_csv(confusion_path, index=False)
     print(f"############################################## {working_mode} ###############################################################")
 
