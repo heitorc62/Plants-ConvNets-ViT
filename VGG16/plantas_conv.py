@@ -219,11 +219,11 @@ if __name__ == "__main__":
     
     working_mode = ""
     if args.feature_extract and args.use_pretrained:
-        working_mode = "feature extract"
+        working_mode = "feature_extract"
     elif not args.feature_extract and args.use_pretrained:
-        working_mode = "fine-tunning"
+        working_mode = "fine_tunning"
     elif not args.feature_extract and not args.use_pretrained:
-        working_mode = "from scratch"
+        working_mode = "from_scratch"
 
     data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation") # We assume the data is in ImageFolder format
     model_name = "vgg"
@@ -253,24 +253,24 @@ if __name__ == "__main__":
 
 
     # Save the model
-    model_path = os.path.join(current_dir, "model.pth")
+    model_path = os.path.join(current_dir, f"{working_mode}_model.pth")
     torch.save(model_ft.state_dict(), model_path)
 
     # Save the training history
     hist_np = np.array([h.item() for h in hist])
-    hist_path = os.path.join(current_dir, "training_history.csv")
+    hist_path = os.path.join(current_dir, f"{working_mode}_training_history.csv")
     np.savetxt(hist_path, hist_np, delimiter=",")
 
     #Save the loss history
     loss_hist_np = np.array([h for h in loss_hist])
-    loss_hist_path = os.path.join(current_dir, "loss_history.csv")
+    loss_hist_path = os.path.join(current_dir, f"{working_mode}_loss_history.csv")
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
     # Convert lists to DataFrames
     confusion_df = pd.DataFrame({'True': best_true, 'Predicted': best_preds})
 
     # Save to csv
-    confusion_path = os.path.join(current_dir, "confusion.csv")
+    confusion_path = os.path.join(current_dir, f"{working_mode}_confusion.csv")
     confusion_df.to_csv(confusion_path, index=False)
     print(f"############################################## {working_mode} ###############################################################")
 
