@@ -225,6 +225,8 @@ if __name__ == "__main__":
     elif not args.feature_extract and not args.use_pretrained:
         working_mode = "from_scratch"
 
+    print("The select mode is:", working_mode)
+
     data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation") # We assume the data is in ImageFolder format
     model_name = "vgg"
     num_classes = 39
