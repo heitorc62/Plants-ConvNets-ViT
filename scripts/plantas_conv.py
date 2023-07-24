@@ -244,7 +244,7 @@ if __name__ == "__main__":
     print("The selected device is:", device)
 
     # Initialize the model for this run
-    model_ft, input_size = initialize_model(num_classes, args.feature_extract, use_pretrained=args.use_pretrained)
+    model_ft, input_size = initialize_model(num_classes, feature_extract_bool, use_pretrained=use_pretrained_bool)
     # Print the model we just instantiated
     print(model_ft)
 
@@ -252,7 +252,7 @@ if __name__ == "__main__":
     dataloaders_dict = load_data(data_dir, input_size, batch_size, train_percent=0.8)
 
     # Define the optimizer
-    optimizer_ft = define_optimizer(model_ft, device, args.feature_extract)
+    optimizer_ft = define_optimizer(model_ft, device, feature_extract_bool)
 
     # Define the loss function
     criterion = nn.CrossEntropyLoss()
