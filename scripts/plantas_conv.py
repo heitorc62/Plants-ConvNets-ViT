@@ -217,18 +217,24 @@ if __name__ == "__main__":
     # Parse the arguments
     args = parser.parse_args()
     
-    working_mode = ""
+    feature_extract_bool = False
+    if args.feature_extract == "True": feature_extract_bool = True
+    use_pretrained_bool = False
+    if args.use_pretrained == "True": use_pretrained_bool = True
+
     print("The selected epochs is:", args.epochs)
-    print("The selected feature_extract is:", args.feature_extract)
-    print("The selected use_pretrained is:", args.use_pretrained)
-    if args.feature_extract and args.use_pretrained:
+    print("The selected feature_extract is:", feature_extract_bool)
+    print("The selected use_pretrained is:", use_pretrained_bool)
+    
+    working_mode = ""
+    if feature_extract_bool and use_pretrained_bool:
         working_mode = "last_layer"
-    elif not args.feature_extract and args.use_pretrained:
+    elif not feature_extract_bool and use_pretrained_bool:
         working_mode = "fine_tuning"
-    elif not args.feature_extract and not args.use_pretrained:
+    elif not feature_extract_bool and not use_pretrained_bool:
         working_mode = "from_scratch"
 
-    print("The select mode is:", working_mode)
+    print("The selected mode is:", working_mode)
 
     data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation") # We assume the data is in ImageFolder format
     model_name = "vgg"
