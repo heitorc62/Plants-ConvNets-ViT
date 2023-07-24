@@ -211,8 +211,8 @@ if __name__ == "__main__":
 
     # Add the arguments
     parser.add_argument('--epochs', type=int, help='The number of epochs')
-    parser.add_argument('--feature_extract', type=bool, default=False, help='Flag for feature extracting. When False, we finetune the whole model, when True we only update the reshaped layer params')
-    parser.add_argument('--use_pretrained', type=bool, default=False, help='Use pretrained model or not')
+    parser.add_argument('--feature_extract', type=str, default=False, help='Flag for feature extracting. When False, we finetune the whole model, when True we only update the reshaped layer params')
+    parser.add_argument('--use_pretrained', type=str, default=False, help='Use pretrained model or not')
 
     # Parse the arguments
     args = parser.parse_args()
