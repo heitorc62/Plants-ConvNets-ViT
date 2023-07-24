@@ -218,6 +218,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     working_mode = ""
+    print("The selected epochs is:", args.epochs)
+    print("The selected feature_extract is:", args.feature_extract)
+    print("The selected use_pretrained is:", args.use_pretrained)
     if args.feature_extract and args.use_pretrained:
         working_mode = "last_layer"
     elif not args.feature_extract and args.use_pretrained:
