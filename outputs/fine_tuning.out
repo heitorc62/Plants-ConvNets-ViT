@@ -124,154 +124,154 @@ Params to learn:
 	 classifier.6.bias
 Epoch 0/29
 ----------
-fine_tuning ---> train Loss: 0.5009 Acc: 0.8517
-fine_tuning ---> val Loss: 0.1559 Acc: 0.9512
+fine_tuning ---> train Loss: 0.5437 Acc: 0.8383
+fine_tuning ---> val Loss: 0.1875 Acc: 0.9442
 
 Epoch 1/29
 ----------
-fine_tuning ---> train Loss: 0.2311 Acc: 0.9290
-fine_tuning ---> val Loss: 0.1145 Acc: 0.9642
+fine_tuning ---> train Loss: 0.2544 Acc: 0.9211
+fine_tuning ---> val Loss: 0.1428 Acc: 0.9549
 
 Epoch 2/29
 ----------
-fine_tuning ---> train Loss: 0.1744 Acc: 0.9454
-fine_tuning ---> val Loss: 0.0999 Acc: 0.9674
+fine_tuning ---> train Loss: 0.2003 Acc: 0.9386
+fine_tuning ---> val Loss: 0.0898 Acc: 0.9727
 
 Epoch 3/29
 ----------
-fine_tuning ---> train Loss: 0.1435 Acc: 0.9548
-fine_tuning ---> val Loss: 0.0848 Acc: 0.9726
+fine_tuning ---> train Loss: 0.1644 Acc: 0.9492
+fine_tuning ---> val Loss: 0.0831 Acc: 0.9741
 
 Epoch 4/29
 ----------
-fine_tuning ---> train Loss: 0.1286 Acc: 0.9591
-fine_tuning ---> val Loss: 0.0715 Acc: 0.9763
+fine_tuning ---> train Loss: 0.1456 Acc: 0.9538
+fine_tuning ---> val Loss: 0.1098 Acc: 0.9675
 
 Epoch 5/29
 ----------
-fine_tuning ---> train Loss: 0.1143 Acc: 0.9636
-fine_tuning ---> val Loss: 0.0671 Acc: 0.9778
+fine_tuning ---> train Loss: 0.1278 Acc: 0.9604
+fine_tuning ---> val Loss: 0.0788 Acc: 0.9762
 
 Epoch 6/29
 ----------
-fine_tuning ---> train Loss: 0.1089 Acc: 0.9652
-fine_tuning ---> val Loss: 0.0825 Acc: 0.9731
+fine_tuning ---> train Loss: 0.1224 Acc: 0.9617
+fine_tuning ---> val Loss: 0.0752 Acc: 0.9766
 
 Epoch 7/29
 ----------
-fine_tuning ---> train Loss: 0.0987 Acc: 0.9686
-fine_tuning ---> val Loss: 0.0752 Acc: 0.9766
+fine_tuning ---> train Loss: 0.1122 Acc: 0.9651
+fine_tuning ---> val Loss: 0.0874 Acc: 0.9732
 
 Epoch 8/29
 ----------
-fine_tuning ---> train Loss: 0.0907 Acc: 0.9714
-fine_tuning ---> val Loss: 0.0613 Acc: 0.9803
+fine_tuning ---> train Loss: 0.1025 Acc: 0.9674
+fine_tuning ---> val Loss: 0.0727 Acc: 0.9777
 
 Epoch 9/29
 ----------
-fine_tuning ---> train Loss: 0.0865 Acc: 0.9724
-fine_tuning ---> val Loss: 0.0585 Acc: 0.9802
+fine_tuning ---> train Loss: 0.0933 Acc: 0.9706
+fine_tuning ---> val Loss: 0.0686 Acc: 0.9788
 
 Epoch 10/29
 ----------
-fine_tuning ---> train Loss: 0.0801 Acc: 0.9745
-fine_tuning ---> val Loss: 0.0670 Acc: 0.9788
+fine_tuning ---> train Loss: 0.0934 Acc: 0.9705
+fine_tuning ---> val Loss: 0.0605 Acc: 0.9809
 
 Epoch 11/29
 ----------
-fine_tuning ---> train Loss: 0.0784 Acc: 0.9749
-fine_tuning ---> val Loss: 0.0579 Acc: 0.9810
+fine_tuning ---> train Loss: 0.0888 Acc: 0.9717
+fine_tuning ---> val Loss: 0.0758 Acc: 0.9790
 
 Epoch 12/29
 ----------
-fine_tuning ---> train Loss: 0.0781 Acc: 0.9749
-fine_tuning ---> val Loss: 0.0441 Acc: 0.9852
+fine_tuning ---> train Loss: 0.0892 Acc: 0.9714
+fine_tuning ---> val Loss: 0.0544 Acc: 0.9822
 
 Epoch 13/29
 ----------
-fine_tuning ---> train Loss: 0.0711 Acc: 0.9777
-fine_tuning ---> val Loss: 0.0660 Acc: 0.9792
+fine_tuning ---> train Loss: 0.0796 Acc: 0.9749
+fine_tuning ---> val Loss: 0.0584 Acc: 0.9823
 
 Epoch 14/29
 ----------
-fine_tuning ---> train Loss: 0.0710 Acc: 0.9768
-fine_tuning ---> val Loss: 0.0540 Acc: 0.9823
+fine_tuning ---> train Loss: 0.0791 Acc: 0.9746
+fine_tuning ---> val Loss: 0.0592 Acc: 0.9827
 
 Epoch 15/29
 ----------
-fine_tuning ---> train Loss: 0.0715 Acc: 0.9772
-fine_tuning ---> val Loss: 0.0514 Acc: 0.9843
+fine_tuning ---> train Loss: 0.0757 Acc: 0.9756
+fine_tuning ---> val Loss: 0.0579 Acc: 0.9821
 
 Epoch 16/29
 ----------
-fine_tuning ---> train Loss: 0.0658 Acc: 0.9796
-fine_tuning ---> val Loss: 0.0535 Acc: 0.9851
+fine_tuning ---> train Loss: 0.0726 Acc: 0.9767
+fine_tuning ---> val Loss: 0.0524 Acc: 0.9836
 
 Epoch 17/29
 ----------
-fine_tuning ---> train Loss: 0.0640 Acc: 0.9794
-fine_tuning ---> val Loss: 0.0406 Acc: 0.9867
+fine_tuning ---> train Loss: 0.0671 Acc: 0.9783
+fine_tuning ---> val Loss: 0.0523 Acc: 0.9840
 
 Epoch 18/29
 ----------
-fine_tuning ---> train Loss: 0.0629 Acc: 0.9791
-fine_tuning ---> val Loss: 0.0475 Acc: 0.9849
+fine_tuning ---> train Loss: 0.0686 Acc: 0.9782
+fine_tuning ---> val Loss: 0.0503 Acc: 0.9838
 
 Epoch 19/29
 ----------
-fine_tuning ---> train Loss: 0.0611 Acc: 0.9802
-fine_tuning ---> val Loss: 0.0476 Acc: 0.9850
+fine_tuning ---> train Loss: 0.0679 Acc: 0.9787
+fine_tuning ---> val Loss: 0.0562 Acc: 0.9824
 
 Epoch 20/29
 ----------
-fine_tuning ---> train Loss: 0.0599 Acc: 0.9804
-fine_tuning ---> val Loss: 0.0562 Acc: 0.9808
+fine_tuning ---> train Loss: 0.0650 Acc: 0.9795
+fine_tuning ---> val Loss: 0.0503 Acc: 0.9847
 
 Epoch 21/29
 ----------
-fine_tuning ---> train Loss: 0.0589 Acc: 0.9816
-fine_tuning ---> val Loss: 0.0431 Acc: 0.9855
+fine_tuning ---> train Loss: 0.0658 Acc: 0.9786
+fine_tuning ---> val Loss: 0.0547 Acc: 0.9841
 
 Epoch 22/29
 ----------
-fine_tuning ---> train Loss: 0.0565 Acc: 0.9816
-fine_tuning ---> val Loss: 0.0467 Acc: 0.9855
+fine_tuning ---> train Loss: 0.0654 Acc: 0.9792
+fine_tuning ---> val Loss: 0.0467 Acc: 0.9851
 
 Epoch 23/29
 ----------
-fine_tuning ---> train Loss: 0.0540 Acc: 0.9824
-fine_tuning ---> val Loss: 0.0395 Acc: 0.9877
+fine_tuning ---> train Loss: 0.0593 Acc: 0.9810
+fine_tuning ---> val Loss: 0.0493 Acc: 0.9861
 
 Epoch 24/29
 ----------
-fine_tuning ---> train Loss: 0.0533 Acc: 0.9826
-fine_tuning ---> val Loss: 0.0470 Acc: 0.9850
+fine_tuning ---> train Loss: 0.0591 Acc: 0.9810
+fine_tuning ---> val Loss: 0.0527 Acc: 0.9851
 
 Epoch 25/29
 ----------
-fine_tuning ---> train Loss: 0.0518 Acc: 0.9835
-fine_tuning ---> val Loss: 0.0447 Acc: 0.9849
+fine_tuning ---> train Loss: 0.0601 Acc: 0.9805
+fine_tuning ---> val Loss: 0.0477 Acc: 0.9862
 
 Epoch 26/29
 ----------
-fine_tuning ---> train Loss: 0.0514 Acc: 0.9835
-fine_tuning ---> val Loss: 0.0425 Acc: 0.9867
+fine_tuning ---> train Loss: 0.0590 Acc: 0.9821
+fine_tuning ---> val Loss: 0.0511 Acc: 0.9839
 
 Epoch 27/29
 ----------
-fine_tuning ---> train Loss: 0.0491 Acc: 0.9846
-fine_tuning ---> val Loss: 0.0420 Acc: 0.9872
+fine_tuning ---> train Loss: 0.0527 Acc: 0.9832
+fine_tuning ---> val Loss: 0.0391 Acc: 0.9875
 
 Epoch 28/29
 ----------
-fine_tuning ---> train Loss: 0.0513 Acc: 0.9835
-fine_tuning ---> val Loss: 0.0392 Acc: 0.9881
+fine_tuning ---> train Loss: 0.0553 Acc: 0.9822
+fine_tuning ---> val Loss: 0.0446 Acc: 0.9856
 
 Epoch 29/29
 ----------
-fine_tuning ---> train Loss: 0.0448 Acc: 0.9853
-fine_tuning ---> val Loss: 0.0315 Acc: 0.9904
+fine_tuning ---> train Loss: 0.0556 Acc: 0.9826
+fine_tuning ---> val Loss: 0.0417 Acc: 0.9877
 
-fine_tuning ---> Training complete in 387m 48s
-fine_tuning ---> Best val Acc: 0.990352
+fine_tuning ---> Training complete in 388m 20s
+fine_tuning ---> Best val Acc: 0.987737
 ############################################## fine_tuning ###############################################################

@@ -68,154 +68,154 @@ Params to learn:
 	 classifier.6.bias
 Epoch 0/29
 ----------
-last_layer ---> train Loss: 1.0538 Acc: 0.7038
-last_layer ---> val Loss: 0.5340 Acc: 0.8430
+last_layer ---> train Loss: 1.0559 Acc: 0.7050
+last_layer ---> val Loss: 0.5216 Acc: 0.8433
 
 Epoch 1/29
 ----------
-last_layer ---> train Loss: 0.8043 Acc: 0.7578
-last_layer ---> val Loss: 0.4516 Acc: 0.8599
+last_layer ---> train Loss: 0.8045 Acc: 0.7602
+last_layer ---> val Loss: 0.4768 Acc: 0.8560
 
 Epoch 2/29
 ----------
-last_layer ---> train Loss: 0.7719 Acc: 0.7655
-last_layer ---> val Loss: 0.4430 Acc: 0.8663
+last_layer ---> train Loss: 0.7631 Acc: 0.7692
+last_layer ---> val Loss: 0.4506 Acc: 0.8605
 
 Epoch 3/29
 ----------
-last_layer ---> train Loss: 0.7596 Acc: 0.7702
-last_layer ---> val Loss: 0.4187 Acc: 0.8721
+last_layer ---> train Loss: 0.7573 Acc: 0.7709
+last_layer ---> val Loss: 0.4167 Acc: 0.8723
 
 Epoch 4/29
 ----------
-last_layer ---> train Loss: 0.7415 Acc: 0.7764
-last_layer ---> val Loss: 0.4108 Acc: 0.8747
+last_layer ---> train Loss: 0.7476 Acc: 0.7724
+last_layer ---> val Loss: 0.3964 Acc: 0.8779
 
 Epoch 5/29
 ----------
-last_layer ---> train Loss: 0.7317 Acc: 0.7793
-last_layer ---> val Loss: 0.3826 Acc: 0.8848
+last_layer ---> train Loss: 0.7385 Acc: 0.7760
+last_layer ---> val Loss: 0.3979 Acc: 0.8744
 
 Epoch 6/29
 ----------
-last_layer ---> train Loss: 0.7366 Acc: 0.7756
-last_layer ---> val Loss: 0.4073 Acc: 0.8784
+last_layer ---> train Loss: 0.7324 Acc: 0.7795
+last_layer ---> val Loss: 0.4219 Acc: 0.8735
 
 Epoch 7/29
 ----------
-last_layer ---> train Loss: 0.7302 Acc: 0.7800
-last_layer ---> val Loss: 0.5070 Acc: 0.8686
+last_layer ---> train Loss: 0.7287 Acc: 0.7802
+last_layer ---> val Loss: 0.3825 Acc: 0.8819
 
 Epoch 8/29
 ----------
-last_layer ---> train Loss: 0.7146 Acc: 0.7830
-last_layer ---> val Loss: 0.3989 Acc: 0.8782
+last_layer ---> train Loss: 0.7228 Acc: 0.7816
+last_layer ---> val Loss: 0.3725 Acc: 0.8829
 
 Epoch 9/29
 ----------
-last_layer ---> train Loss: 0.7217 Acc: 0.7825
-last_layer ---> val Loss: 0.4059 Acc: 0.8788
+last_layer ---> train Loss: 0.7235 Acc: 0.7830
+last_layer ---> val Loss: 0.3883 Acc: 0.8800
 
 Epoch 10/29
 ----------
-last_layer ---> train Loss: 0.7241 Acc: 0.7829
-last_layer ---> val Loss: 0.3860 Acc: 0.8831
+last_layer ---> train Loss: 0.7256 Acc: 0.7810
+last_layer ---> val Loss: 0.4019 Acc: 0.8765
 
 Epoch 11/29
 ----------
-last_layer ---> train Loss: 0.7233 Acc: 0.7831
-last_layer ---> val Loss: 0.3752 Acc: 0.8846
+last_layer ---> train Loss: 0.7267 Acc: 0.7825
+last_layer ---> val Loss: 0.4327 Acc: 0.8752
 
 Epoch 12/29
 ----------
-last_layer ---> train Loss: 0.7193 Acc: 0.7840
-last_layer ---> val Loss: 0.4028 Acc: 0.8814
+last_layer ---> train Loss: 0.7247 Acc: 0.7826
+last_layer ---> val Loss: 0.3711 Acc: 0.8883
 
 Epoch 13/29
 ----------
-last_layer ---> train Loss: 0.7063 Acc: 0.7877
-last_layer ---> val Loss: 0.3696 Acc: 0.8840
+last_layer ---> train Loss: 0.7160 Acc: 0.7853
+last_layer ---> val Loss: 0.3710 Acc: 0.8844
 
 Epoch 14/29
 ----------
-last_layer ---> train Loss: 0.7129 Acc: 0.7865
-last_layer ---> val Loss: 0.3684 Acc: 0.8913
+last_layer ---> train Loss: 0.7181 Acc: 0.7850
+last_layer ---> val Loss: 0.3741 Acc: 0.8788
 
 Epoch 15/29
 ----------
-last_layer ---> train Loss: 0.7226 Acc: 0.7836
-last_layer ---> val Loss: 0.3637 Acc: 0.8868
+last_layer ---> train Loss: 0.7130 Acc: 0.7851
+last_layer ---> val Loss: 0.3887 Acc: 0.8815
 
 Epoch 16/29
 ----------
-last_layer ---> train Loss: 0.7155 Acc: 0.7836
-last_layer ---> val Loss: 0.3506 Acc: 0.8913
+last_layer ---> train Loss: 0.7120 Acc: 0.7859
+last_layer ---> val Loss: 0.3398 Acc: 0.8931
 
 Epoch 17/29
 ----------
-last_layer ---> train Loss: 0.7140 Acc: 0.7857
-last_layer ---> val Loss: 0.3506 Acc: 0.8911
+last_layer ---> train Loss: 0.7160 Acc: 0.7850
+last_layer ---> val Loss: 0.3682 Acc: 0.8911
 
 Epoch 18/29
 ----------
-last_layer ---> train Loss: 0.7164 Acc: 0.7840
-last_layer ---> val Loss: 0.3484 Acc: 0.8918
+last_layer ---> train Loss: 0.7168 Acc: 0.7862
+last_layer ---> val Loss: 0.3703 Acc: 0.8835
 
 Epoch 19/29
 ----------
-last_layer ---> train Loss: 0.7245 Acc: 0.7841
-last_layer ---> val Loss: 0.3862 Acc: 0.8837
+last_layer ---> train Loss: 0.7105 Acc: 0.7890
+last_layer ---> val Loss: 0.3954 Acc: 0.8821
 
 Epoch 20/29
 ----------
-last_layer ---> train Loss: 0.7082 Acc: 0.7884
-last_layer ---> val Loss: 0.3710 Acc: 0.8886
+last_layer ---> train Loss: 0.6983 Acc: 0.7908
+last_layer ---> val Loss: 0.3729 Acc: 0.8842
 
 Epoch 21/29
 ----------
-last_layer ---> train Loss: 0.7187 Acc: 0.7868
-last_layer ---> val Loss: 0.3591 Acc: 0.8868
+last_layer ---> train Loss: 0.7224 Acc: 0.7836
+last_layer ---> val Loss: 0.3604 Acc: 0.8887
 
 Epoch 22/29
 ----------
-last_layer ---> train Loss: 0.7065 Acc: 0.7857
-last_layer ---> val Loss: 0.3718 Acc: 0.8877
+last_layer ---> train Loss: 0.7069 Acc: 0.7874
+last_layer ---> val Loss: 0.3636 Acc: 0.8913
 
 Epoch 23/29
 ----------
-last_layer ---> train Loss: 0.7185 Acc: 0.7850
-last_layer ---> val Loss: 0.3682 Acc: 0.8885
+last_layer ---> train Loss: 0.7119 Acc: 0.7890
+last_layer ---> val Loss: 0.3672 Acc: 0.8858
 
 Epoch 24/29
 ----------
-last_layer ---> train Loss: 0.7082 Acc: 0.7887
-last_layer ---> val Loss: 0.3491 Acc: 0.8913
+last_layer ---> train Loss: 0.7050 Acc: 0.7903
+last_layer ---> val Loss: 0.3570 Acc: 0.8892
 
 Epoch 25/29
 ----------
-last_layer ---> train Loss: 0.7027 Acc: 0.7895
-last_layer ---> val Loss: 0.3664 Acc: 0.8874
+last_layer ---> train Loss: 0.7164 Acc: 0.7873
+last_layer ---> val Loss: 0.3985 Acc: 0.8817
 
 Epoch 26/29
 ----------
-last_layer ---> train Loss: 0.7064 Acc: 0.7892
-last_layer ---> val Loss: 0.3522 Acc: 0.8911
+last_layer ---> train Loss: 0.6940 Acc: 0.7922
+last_layer ---> val Loss: 0.3504 Acc: 0.8891
 
 Epoch 27/29
 ----------
-last_layer ---> train Loss: 0.7094 Acc: 0.7888
-last_layer ---> val Loss: 0.3687 Acc: 0.8881
+last_layer ---> train Loss: 0.7043 Acc: 0.7886
+last_layer ---> val Loss: 0.3796 Acc: 0.8867
 
 Epoch 28/29
 ----------
-last_layer ---> train Loss: 0.7126 Acc: 0.7865
-last_layer ---> val Loss: 0.3227 Acc: 0.9001
+last_layer ---> train Loss: 0.7162 Acc: 0.7859
+last_layer ---> val Loss: 0.3675 Acc: 0.8906
 
 Epoch 29/29
 ----------
-last_layer ---> train Loss: 0.7032 Acc: 0.7896
-last_layer ---> val Loss: 0.4080 Acc: 0.8820
+last_layer ---> train Loss: 0.7131 Acc: 0.7863
+last_layer ---> val Loss: 0.3490 Acc: 0.8904
 
-last_layer ---> Training complete in 178m 43s
-last_layer ---> Best val Acc: 0.900090
+last_layer ---> Training complete in 178m 48s
+last_layer ---> Best val Acc: 0.893147
 ############################################## last_layer ###############################################################
