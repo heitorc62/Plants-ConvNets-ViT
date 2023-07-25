@@ -24,6 +24,8 @@ def train_model(model, dataloaders, criterion, optimizer, device, working_mode, 
 
     val_acc_history = []
     val_loss_history = []
+    train_acc_history = []
+    train_loss_history = []
     
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -97,6 +99,9 @@ def train_model(model, dataloaders, criterion, optimizer, device, working_mode, 
             if phase == 'val':
                 val_acc_history.append(epoch_acc)
                 val_loss_history.append(epoch_loss)
+            else:
+                val_acc_history.append(epoch_acc)
+                val_loss_history.append(epoch_loss)
 
         print()
 
@@ -106,7 +111,7 @@ def train_model(model, dataloaders, criterion, optimizer, device, working_mode, 
 
     # load best model weights
     model.load_state_dict(best_model_wts)
-    return model, val_acc_history, best_preds, best_true, val_loss_history
+    return model, best_preds, best_true, val_acc_history, val_loss_history, train_acc_history, train_loss_history
 
 
 
@@ -259,7 +264,7 @@ if __name__ == "__main__":
 
     # Train and evaluate
     # In order to produce matrics for the model, we will store confusion matrix necessary values.
-    model_ft, hist, best_preds, best_true, loss_hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, working_mode, num_epochs=args.epochs)
+    model_ft, best_preds, best_true, val_acc_hist, val_loss_hist, train_acc_hist, train_loss_hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, working_mode, num_epochs=args.epochs)
 
 
 
@@ -267,14 +272,25 @@ if __name__ == "__main__":
     model_path = os.path.join(current_dir, f"{working_mode}/model.pth")
     torch.save(model_ft.state_dict(), model_path)
 
-    # Save the training history
-    hist_np = np.array([h.item() for h in hist])
-    hist_path = os.path.join(current_dir, f"{working_mode}/training_history.csv")
+    # Save the validation accuracy history
+    hist_np = np.array([h.item() for h in val_acc_hist])
+    hist_path = os.path.join(current_dir, f"{working_mode}/val_acc_history.csv")
     np.savetxt(hist_path, hist_np, delimiter=",")
 
-    #Save the loss history
-    loss_hist_np = np.array([h for h in loss_hist])
-    loss_hist_path = os.path.join(current_dir, f"{working_mode}/loss_history.csv")
+    #Save the validation loss history
+    loss_hist_np = np.array([h for h in val_loss_hist])
+    loss_hist_path = os.path.join(current_dir, f"{working_mode}/val_loss_history.csv")
+    np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
+
+
+    # Save the train accuracy history
+    hist_np = np.array([h.item() for h in train_acc_hist])
+    hist_path = os.path.join(current_dir, f"{working_mode}/train_acc_history.csv")
+    np.savetxt(hist_path, hist_np, delimiter=",")
+
+    #Save the train loss history
+    loss_hist_np = np.array([h for h in train_loss_hist])
+    loss_hist_path = os.path.join(current_dir, f"{working_mode}/train_loss_history.csv")
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
     # Convert lists to DataFrames
