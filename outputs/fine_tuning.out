@@ -1,5 +1,9 @@
 PyTorch Version:  1.12.1
 Torchvision Version:  0.13.1
+The selected epochs is: 30
+The selected feature_extract is: False
+The selected use_pretrained is: True
+The selected mode is: fine_tuning
 The selected device is: cuda:1
 VGG(
   (features): Sequential(
@@ -60,158 +64,214 @@ VGG(
   )
 )
 Params to learn:
+	 features.0.weight
+	 features.0.bias
+	 features.1.weight
+	 features.1.bias
+	 features.3.weight
+	 features.3.bias
+	 features.4.weight
+	 features.4.bias
+	 features.7.weight
+	 features.7.bias
+	 features.8.weight
+	 features.8.bias
+	 features.10.weight
+	 features.10.bias
+	 features.11.weight
+	 features.11.bias
+	 features.14.weight
+	 features.14.bias
+	 features.15.weight
+	 features.15.bias
+	 features.17.weight
+	 features.17.bias
+	 features.18.weight
+	 features.18.bias
+	 features.20.weight
+	 features.20.bias
+	 features.21.weight
+	 features.21.bias
+	 features.24.weight
+	 features.24.bias
+	 features.25.weight
+	 features.25.bias
+	 features.27.weight
+	 features.27.bias
+	 features.28.weight
+	 features.28.bias
+	 features.30.weight
+	 features.30.bias
+	 features.31.weight
+	 features.31.bias
+	 features.34.weight
+	 features.34.bias
+	 features.35.weight
+	 features.35.bias
+	 features.37.weight
+	 features.37.bias
+	 features.38.weight
+	 features.38.bias
+	 features.40.weight
+	 features.40.bias
+	 features.41.weight
+	 features.41.bias
+	 classifier.0.weight
+	 classifier.0.bias
+	 classifier.3.weight
+	 classifier.3.bias
 	 classifier.6.weight
 	 classifier.6.bias
 Epoch 0/29
 ----------
-last_layer ---> train Loss: 1.0696 Acc: 0.6998
-last_layer ---> val Loss: 0.5320 Acc: 0.8425
+fine_tuning ---> train Loss: 0.5009 Acc: 0.8517
+fine_tuning ---> val Loss: 0.1559 Acc: 0.9512
 
 Epoch 1/29
 ----------
-last_layer ---> train Loss: 0.8149 Acc: 0.7576
-last_layer ---> val Loss: 0.4795 Acc: 0.8564
+fine_tuning ---> train Loss: 0.2311 Acc: 0.9290
+fine_tuning ---> val Loss: 0.1145 Acc: 0.9642
 
 Epoch 2/29
 ----------
-last_layer ---> train Loss: 0.7662 Acc: 0.7676
-last_layer ---> val Loss: 0.4333 Acc: 0.8712
+fine_tuning ---> train Loss: 0.1744 Acc: 0.9454
+fine_tuning ---> val Loss: 0.0999 Acc: 0.9674
 
 Epoch 3/29
 ----------
-last_layer ---> train Loss: 0.7521 Acc: 0.7713
-last_layer ---> val Loss: 0.4312 Acc: 0.8720
+fine_tuning ---> train Loss: 0.1435 Acc: 0.9548
+fine_tuning ---> val Loss: 0.0848 Acc: 0.9726
 
 Epoch 4/29
 ----------
-last_layer ---> train Loss: 0.7530 Acc: 0.7732
-last_layer ---> val Loss: 0.4213 Acc: 0.8730
+fine_tuning ---> train Loss: 0.1286 Acc: 0.9591
+fine_tuning ---> val Loss: 0.0715 Acc: 0.9763
 
 Epoch 5/29
 ----------
-last_layer ---> train Loss: 0.7397 Acc: 0.7776
-last_layer ---> val Loss: 0.4090 Acc: 0.8768
+fine_tuning ---> train Loss: 0.1143 Acc: 0.9636
+fine_tuning ---> val Loss: 0.0671 Acc: 0.9778
 
 Epoch 6/29
 ----------
-last_layer ---> train Loss: 0.7320 Acc: 0.7791
-last_layer ---> val Loss: 0.3858 Acc: 0.8815
+fine_tuning ---> train Loss: 0.1089 Acc: 0.9652
+fine_tuning ---> val Loss: 0.0825 Acc: 0.9731
 
 Epoch 7/29
 ----------
-last_layer ---> train Loss: 0.7354 Acc: 0.7786
-last_layer ---> val Loss: 0.3871 Acc: 0.8808
+fine_tuning ---> train Loss: 0.0987 Acc: 0.9686
+fine_tuning ---> val Loss: 0.0752 Acc: 0.9766
 
 Epoch 8/29
 ----------
-last_layer ---> train Loss: 0.7292 Acc: 0.7807
-last_layer ---> val Loss: 0.3825 Acc: 0.8822
+fine_tuning ---> train Loss: 0.0907 Acc: 0.9714
+fine_tuning ---> val Loss: 0.0613 Acc: 0.9803
 
 Epoch 9/29
 ----------
-last_layer ---> train Loss: 0.7292 Acc: 0.7788
-last_layer ---> val Loss: 0.3950 Acc: 0.8785
+fine_tuning ---> train Loss: 0.0865 Acc: 0.9724
+fine_tuning ---> val Loss: 0.0585 Acc: 0.9802
 
 Epoch 10/29
 ----------
-last_layer ---> train Loss: 0.7206 Acc: 0.7822
-last_layer ---> val Loss: 0.3739 Acc: 0.8868
+fine_tuning ---> train Loss: 0.0801 Acc: 0.9745
+fine_tuning ---> val Loss: 0.0670 Acc: 0.9788
 
 Epoch 11/29
 ----------
-last_layer ---> train Loss: 0.7229 Acc: 0.7843
-last_layer ---> val Loss: 0.3632 Acc: 0.8889
+fine_tuning ---> train Loss: 0.0784 Acc: 0.9749
+fine_tuning ---> val Loss: 0.0579 Acc: 0.9810
 
 Epoch 12/29
 ----------
-last_layer ---> train Loss: 0.7156 Acc: 0.7857
-last_layer ---> val Loss: 0.3604 Acc: 0.8869
+fine_tuning ---> train Loss: 0.0781 Acc: 0.9749
+fine_tuning ---> val Loss: 0.0441 Acc: 0.9852
 
 Epoch 13/29
 ----------
-last_layer ---> train Loss: 0.7171 Acc: 0.7851
-last_layer ---> val Loss: 0.3923 Acc: 0.8795
+fine_tuning ---> train Loss: 0.0711 Acc: 0.9777
+fine_tuning ---> val Loss: 0.0660 Acc: 0.9792
 
 Epoch 14/29
 ----------
-last_layer ---> train Loss: 0.7182 Acc: 0.7857
-last_layer ---> val Loss: 0.3745 Acc: 0.8841
+fine_tuning ---> train Loss: 0.0710 Acc: 0.9768
+fine_tuning ---> val Loss: 0.0540 Acc: 0.9823
 
 Epoch 15/29
 ----------
-last_layer ---> train Loss: 0.7212 Acc: 0.7845
-last_layer ---> val Loss: 0.3523 Acc: 0.8928
+fine_tuning ---> train Loss: 0.0715 Acc: 0.9772
+fine_tuning ---> val Loss: 0.0514 Acc: 0.9843
 
 Epoch 16/29
 ----------
-last_layer ---> train Loss: 0.7188 Acc: 0.7843
-last_layer ---> val Loss: 0.4214 Acc: 0.8836
+fine_tuning ---> train Loss: 0.0658 Acc: 0.9796
+fine_tuning ---> val Loss: 0.0535 Acc: 0.9851
 
 Epoch 17/29
 ----------
-last_layer ---> train Loss: 0.7137 Acc: 0.7856
-last_layer ---> val Loss: 0.3768 Acc: 0.8854
+fine_tuning ---> train Loss: 0.0640 Acc: 0.9794
+fine_tuning ---> val Loss: 0.0406 Acc: 0.9867
 
 Epoch 18/29
 ----------
-last_layer ---> train Loss: 0.7144 Acc: 0.7865
-last_layer ---> val Loss: 0.3713 Acc: 0.8876
+fine_tuning ---> train Loss: 0.0629 Acc: 0.9791
+fine_tuning ---> val Loss: 0.0475 Acc: 0.9849
 
 Epoch 19/29
 ----------
-last_layer ---> train Loss: 0.7080 Acc: 0.7889
-last_layer ---> val Loss: 0.3805 Acc: 0.8889
+fine_tuning ---> train Loss: 0.0611 Acc: 0.9802
+fine_tuning ---> val Loss: 0.0476 Acc: 0.9850
 
 Epoch 20/29
 ----------
-last_layer ---> train Loss: 0.7200 Acc: 0.7863
-last_layer ---> val Loss: 0.3276 Acc: 0.9012
+fine_tuning ---> train Loss: 0.0599 Acc: 0.9804
+fine_tuning ---> val Loss: 0.0562 Acc: 0.9808
 
 Epoch 21/29
 ----------
-last_layer ---> train Loss: 0.7080 Acc: 0.7877
-last_layer ---> val Loss: 0.3378 Acc: 0.8965
+fine_tuning ---> train Loss: 0.0589 Acc: 0.9816
+fine_tuning ---> val Loss: 0.0431 Acc: 0.9855
 
 Epoch 22/29
 ----------
-last_layer ---> train Loss: 0.7077 Acc: 0.7877
-last_layer ---> val Loss: 0.3926 Acc: 0.8886
+fine_tuning ---> train Loss: 0.0565 Acc: 0.9816
+fine_tuning ---> val Loss: 0.0467 Acc: 0.9855
 
 Epoch 23/29
 ----------
-last_layer ---> train Loss: 0.7160 Acc: 0.7852
-last_layer ---> val Loss: 0.3457 Acc: 0.8950
+fine_tuning ---> train Loss: 0.0540 Acc: 0.9824
+fine_tuning ---> val Loss: 0.0395 Acc: 0.9877
 
 Epoch 24/29
 ----------
-last_layer ---> train Loss: 0.7244 Acc: 0.7859
-last_layer ---> val Loss: 0.3959 Acc: 0.8866
+fine_tuning ---> train Loss: 0.0533 Acc: 0.9826
+fine_tuning ---> val Loss: 0.0470 Acc: 0.9850
 
 Epoch 25/29
 ----------
-last_layer ---> train Loss: 0.7237 Acc: 0.7842
-last_layer ---> val Loss: 0.3419 Acc: 0.8940
+fine_tuning ---> train Loss: 0.0518 Acc: 0.9835
+fine_tuning ---> val Loss: 0.0447 Acc: 0.9849
 
 Epoch 26/29
 ----------
-last_layer ---> train Loss: 0.7152 Acc: 0.7855
-last_layer ---> val Loss: 0.3941 Acc: 0.8860
+fine_tuning ---> train Loss: 0.0514 Acc: 0.9835
+fine_tuning ---> val Loss: 0.0425 Acc: 0.9867
 
 Epoch 27/29
 ----------
-last_layer ---> train Loss: 0.6995 Acc: 0.7893
-last_layer ---> val Loss: 0.3718 Acc: 0.8823
+fine_tuning ---> train Loss: 0.0491 Acc: 0.9846
+fine_tuning ---> val Loss: 0.0420 Acc: 0.9872
 
 Epoch 28/29
 ----------
-last_layer ---> train Loss: 0.7083 Acc: 0.7871
-last_layer ---> val Loss: 0.3695 Acc: 0.8925
+fine_tuning ---> train Loss: 0.0513 Acc: 0.9835
+fine_tuning ---> val Loss: 0.0392 Acc: 0.9881
 
 Epoch 29/29
 ----------
-last_layer ---> train Loss: 0.7073 Acc: 0.7867
-last_layer ---> val Loss: 0.3329 Acc: 0.8948
+fine_tuning ---> train Loss: 0.0448 Acc: 0.9853
+fine_tuning ---> val Loss: 0.0315 Acc: 0.9904
 
-last_layer ---> Training complete in 160m 38s
-last_layer ---> Best val Acc: 0.901172
-############################################## last_layer ###############################################################
+fine_tuning ---> Training complete in 387m 48s
+fine_tuning ---> Best val Acc: 0.990352
+############################################## fine_tuning ###############################################################
