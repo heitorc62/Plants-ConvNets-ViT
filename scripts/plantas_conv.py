@@ -100,8 +100,8 @@ def train_model(model, dataloaders, criterion, optimizer, device, working_mode, 
                 val_acc_history.append(epoch_acc)
                 val_loss_history.append(epoch_loss)
             else:
-                val_acc_history.append(epoch_acc)
-                val_loss_history.append(epoch_loss)
+                train_acc_history.append(epoch_acc)
+                train_loss_history.append(epoch_loss)
 
         print()
 
