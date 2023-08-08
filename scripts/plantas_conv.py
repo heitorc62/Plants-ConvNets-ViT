@@ -172,8 +172,8 @@ def load_data(data_dir, input_size, batch_size, train_percent=0.8):
     train_sampler = torch.utils.data.SubsetRandomSampler(train_idx)
     valid_sampler = torch.utils.data.SubsetRandomSampler(valid_idx)
 
-    train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4, sampler=train_sampler)
-    valid_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4, sampler=valid_sampler)
+    train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=train_sampler)
+    valid_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=valid_sampler)
 
     dataloaders_dict = {'train': train_loader, 'val': valid_loader}
 
