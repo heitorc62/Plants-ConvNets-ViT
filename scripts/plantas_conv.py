@@ -12,7 +12,7 @@ import copy
 import pandas as pd
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
-# from torchvision.models.vgg import VGG16_BN_Weights
+from torchvision.models.vgg import VGG16_BN_Weights
 import os
 import argparse
 from sklearn.model_selection import train_test_split
@@ -131,7 +131,8 @@ def initialize_model(num_classes, feature_extract, use_pretrained):
 
     # Defining the model as VGG:
     if use_pretrained:
-        model_ft = models.vgg16_bn(pretrained=use_pretrained)
+        print("Using pretrained model!!")
+        model_ft = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
     else:
         model_ft = models.vgg16_bn()
     
