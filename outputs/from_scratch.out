@@ -1,6 +1,6 @@
 PyTorch Version:  1.12.1
 Torchvision Version:  0.13.1
-The selected epochs is: 100
+The selected epochs is: 30
 The selected feature_extract is: False
 The selected use_pretrained is: False
 The selected mode is: from_scratch
@@ -122,506 +122,156 @@ Params to learn:
 	 classifier.3.bias
 	 classifier.6.weight
 	 classifier.6.bias
-Epoch 0/99
+Epoch 0/29
 ----------
-from_scratch ---> train Loss: 2.0794 Acc: 0.4355
-from_scratch ---> val Loss: 1.2124 Acc: 0.6448
+from_scratch ---> train Loss: 1.7399 Acc: 0.3303
+from_scratch ---> val Loss: 0.2786 Acc: 0.1191
 
-Epoch 1/99
+Epoch 1/29
 ----------
-from_scratch ---> train Loss: 1.3540 Acc: 0.6069
-from_scratch ---> val Loss: 0.8515 Acc: 0.7585
+from_scratch ---> train Loss: 1.1312 Acc: 0.4753
+from_scratch ---> val Loss: 0.1744 Acc: 0.1479
 
-Epoch 2/99
+Epoch 2/29
 ----------
-from_scratch ---> train Loss: 1.0309 Acc: 0.6955
-from_scratch ---> val Loss: 0.6029 Acc: 0.8247
+from_scratch ---> train Loss: 0.8530 Acc: 0.5492
+from_scratch ---> val Loss: 0.1496 Acc: 0.1583
 
-Epoch 3/99
+Epoch 3/29
 ----------
-from_scratch ---> train Loss: 0.8504 Acc: 0.7486
-from_scratch ---> val Loss: 0.6266 Acc: 0.8128
+from_scratch ---> train Loss: 0.6961 Acc: 0.5957
+from_scratch ---> val Loss: 0.1297 Acc: 0.1647
 
-Epoch 4/99
+Epoch 4/29
 ----------
-from_scratch ---> train Loss: 0.7340 Acc: 0.7834
-from_scratch ---> val Loss: 0.4643 Acc: 0.8621
+from_scratch ---> train Loss: 0.5797 Acc: 0.6285
+from_scratch ---> val Loss: 0.0966 Acc: 0.1725
 
-Epoch 5/99
+Epoch 5/29
 ----------
-from_scratch ---> train Loss: 0.6289 Acc: 0.8128
-from_scratch ---> val Loss: 0.3698 Acc: 0.8877
+from_scratch ---> train Loss: 0.5055 Acc: 0.6495
+from_scratch ---> val Loss: 0.0747 Acc: 0.1779
 
-Epoch 6/99
+Epoch 6/29
 ----------
-from_scratch ---> train Loss: 0.5545 Acc: 0.8346
-from_scratch ---> val Loss: 0.3309 Acc: 0.9012
+from_scratch ---> train Loss: 0.4419 Acc: 0.6680
+from_scratch ---> val Loss: 0.0718 Acc: 0.1784
 
-Epoch 7/99
+Epoch 7/29
 ----------
-from_scratch ---> train Loss: 0.4971 Acc: 0.8501
-from_scratch ---> val Loss: 0.2840 Acc: 0.9171
+from_scratch ---> train Loss: 0.3949 Acc: 0.6818
+from_scratch ---> val Loss: 0.0729 Acc: 0.1782
 
-Epoch 8/99
+Epoch 8/29
 ----------
-from_scratch ---> train Loss: 0.4580 Acc: 0.8621
-from_scratch ---> val Loss: 0.2595 Acc: 0.9192
+from_scratch ---> train Loss: 0.3587 Acc: 0.6920
+from_scratch ---> val Loss: 0.0587 Acc: 0.1822
 
-Epoch 9/99
+Epoch 9/29
 ----------
-from_scratch ---> train Loss: 0.4160 Acc: 0.8757
-from_scratch ---> val Loss: 0.2195 Acc: 0.9344
+from_scratch ---> train Loss: 0.3276 Acc: 0.7010
+from_scratch ---> val Loss: 0.0565 Acc: 0.1835
 
-Epoch 10/99
+Epoch 10/29
 ----------
-from_scratch ---> train Loss: 0.3832 Acc: 0.8857
-from_scratch ---> val Loss: 0.2407 Acc: 0.9276
+from_scratch ---> train Loss: 0.3007 Acc: 0.7100
+from_scratch ---> val Loss: 0.0476 Acc: 0.1863
 
-Epoch 11/99
+Epoch 11/29
 ----------
-from_scratch ---> train Loss: 0.3617 Acc: 0.8918
-from_scratch ---> val Loss: 0.2293 Acc: 0.9298
+from_scratch ---> train Loss: 0.2858 Acc: 0.7145
+from_scratch ---> val Loss: 0.0402 Acc: 0.1878
 
-Epoch 12/99
+Epoch 12/29
 ----------
-from_scratch ---> train Loss: 0.3342 Acc: 0.8997
-from_scratch ---> val Loss: 0.2416 Acc: 0.9296
+from_scratch ---> train Loss: 0.2700 Acc: 0.7190
+from_scratch ---> val Loss: 0.0392 Acc: 0.1884
 
-Epoch 13/99
+Epoch 13/29
 ----------
-from_scratch ---> train Loss: 0.3056 Acc: 0.9082
-from_scratch ---> val Loss: 0.1889 Acc: 0.9433
+from_scratch ---> train Loss: 0.2468 Acc: 0.7243
+from_scratch ---> val Loss: 0.0384 Acc: 0.1885
 
-Epoch 14/99
+Epoch 14/29
 ----------
-from_scratch ---> train Loss: 0.2883 Acc: 0.9117
-from_scratch ---> val Loss: 0.1690 Acc: 0.9487
+from_scratch ---> train Loss: 0.2338 Acc: 0.7284
+from_scratch ---> val Loss: 0.0364 Acc: 0.1884
 
-Epoch 15/99
+Epoch 15/29
 ----------
-from_scratch ---> train Loss: 0.2773 Acc: 0.9163
-from_scratch ---> val Loss: 0.1573 Acc: 0.9538
+from_scratch ---> train Loss: 0.2247 Acc: 0.7316
+from_scratch ---> val Loss: 0.0271 Acc: 0.1919
 
-Epoch 16/99
+Epoch 16/29
 ----------
-from_scratch ---> train Loss: 0.2716 Acc: 0.9177
-from_scratch ---> val Loss: 0.1905 Acc: 0.9417
+from_scratch ---> train Loss: 0.2100 Acc: 0.7363
+from_scratch ---> val Loss: 0.0305 Acc: 0.1909
 
-Epoch 17/99
+Epoch 17/29
 ----------
-from_scratch ---> train Loss: 0.2519 Acc: 0.9229
-from_scratch ---> val Loss: 0.1593 Acc: 0.9517
+from_scratch ---> train Loss: 0.1972 Acc: 0.7399
+from_scratch ---> val Loss: 0.0273 Acc: 0.1914
 
-Epoch 18/99
+Epoch 18/29
 ----------
-from_scratch ---> train Loss: 0.2429 Acc: 0.9260
-from_scratch ---> val Loss: 0.1633 Acc: 0.9496
+from_scratch ---> train Loss: 0.1861 Acc: 0.7430
+from_scratch ---> val Loss: 0.0300 Acc: 0.1908
 
-Epoch 19/99
+Epoch 19/29
 ----------
-from_scratch ---> train Loss: 0.2268 Acc: 0.9310
-from_scratch ---> val Loss: 0.1514 Acc: 0.9555
+from_scratch ---> train Loss: 0.1783 Acc: 0.7455
+from_scratch ---> val Loss: 0.0310 Acc: 0.1909
 
-Epoch 20/99
+Epoch 20/29
 ----------
-from_scratch ---> train Loss: 0.2173 Acc: 0.9341
-from_scratch ---> val Loss: 0.1293 Acc: 0.9600
+from_scratch ---> train Loss: 0.1746 Acc: 0.7464
+from_scratch ---> val Loss: 0.0268 Acc: 0.1915
 
-Epoch 21/99
+Epoch 21/29
 ----------
-from_scratch ---> train Loss: 0.2083 Acc: 0.9359
-from_scratch ---> val Loss: 0.1435 Acc: 0.9579
+from_scratch ---> train Loss: 0.1719 Acc: 0.7478
+from_scratch ---> val Loss: 0.0253 Acc: 0.1922
 
-Epoch 22/99
+Epoch 22/29
 ----------
-from_scratch ---> train Loss: 0.2007 Acc: 0.9380
-from_scratch ---> val Loss: 0.1393 Acc: 0.9556
+from_scratch ---> train Loss: 0.1616 Acc: 0.7511
+from_scratch ---> val Loss: 0.0273 Acc: 0.1916
 
-Epoch 23/99
+Epoch 23/29
 ----------
-from_scratch ---> train Loss: 0.1925 Acc: 0.9404
-from_scratch ---> val Loss: 0.1117 Acc: 0.9642
+from_scratch ---> train Loss: 0.1564 Acc: 0.7518
+from_scratch ---> val Loss: 0.0248 Acc: 0.1919
 
-Epoch 24/99
+Epoch 24/29
 ----------
-from_scratch ---> train Loss: 0.1922 Acc: 0.9421
-from_scratch ---> val Loss: 0.1400 Acc: 0.9570
+from_scratch ---> train Loss: 0.1498 Acc: 0.7537
+from_scratch ---> val Loss: 0.0268 Acc: 0.1919
 
-Epoch 25/99
+Epoch 25/29
 ----------
-from_scratch ---> train Loss: 0.1764 Acc: 0.9444
-from_scratch ---> val Loss: 0.1085 Acc: 0.9675
+from_scratch ---> train Loss: 0.1479 Acc: 0.7544
+from_scratch ---> val Loss: 0.0259 Acc: 0.1921
 
-Epoch 26/99
+Epoch 26/29
 ----------
-from_scratch ---> train Loss: 0.1775 Acc: 0.9453
-from_scratch ---> val Loss: 0.1121 Acc: 0.9656
+from_scratch ---> train Loss: 0.1439 Acc: 0.7567
+from_scratch ---> val Loss: 0.0254 Acc: 0.1919
 
-Epoch 27/99
+Epoch 27/29
 ----------
-from_scratch ---> train Loss: 0.1736 Acc: 0.9465
-from_scratch ---> val Loss: 0.1180 Acc: 0.9655
+from_scratch ---> train Loss: 0.1362 Acc: 0.7590
+from_scratch ---> val Loss: 0.0198 Acc: 0.1939
 
-Epoch 28/99
+Epoch 28/29
 ----------
-from_scratch ---> train Loss: 0.1699 Acc: 0.9469
-from_scratch ---> val Loss: 0.0977 Acc: 0.9682
+from_scratch ---> train Loss: 0.1323 Acc: 0.7590
+from_scratch ---> val Loss: 0.0231 Acc: 0.1927
 
-Epoch 29/99
+Epoch 29/29
 ----------
-from_scratch ---> train Loss: 0.1596 Acc: 0.9494
-from_scratch ---> val Loss: 0.1036 Acc: 0.9674
+from_scratch ---> train Loss: 0.1307 Acc: 0.7598
+from_scratch ---> val Loss: 0.0198 Acc: 0.1940
 
-Epoch 30/99
-----------
-from_scratch ---> train Loss: 0.1553 Acc: 0.9519
-from_scratch ---> val Loss: 0.0973 Acc: 0.9702
-
-Epoch 31/99
-----------
-from_scratch ---> train Loss: 0.1493 Acc: 0.9534
-from_scratch ---> val Loss: 0.1148 Acc: 0.9638
-
-Epoch 32/99
-----------
-from_scratch ---> train Loss: 0.1476 Acc: 0.9543
-from_scratch ---> val Loss: 0.0997 Acc: 0.9688
-
-Epoch 33/99
-----------
-from_scratch ---> train Loss: 0.1451 Acc: 0.9549
-from_scratch ---> val Loss: 0.0918 Acc: 0.9698
-
-Epoch 34/99
-----------
-from_scratch ---> train Loss: 0.1450 Acc: 0.9549
-from_scratch ---> val Loss: 0.1138 Acc: 0.9631
-
-Epoch 35/99
-----------
-from_scratch ---> train Loss: 0.1353 Acc: 0.9577
-from_scratch ---> val Loss: 0.0829 Acc: 0.9746
-
-Epoch 36/99
-----------
-from_scratch ---> train Loss: 0.1389 Acc: 0.9571
-from_scratch ---> val Loss: 0.0847 Acc: 0.9749
-
-Epoch 37/99
-----------
-from_scratch ---> train Loss: 0.1294 Acc: 0.9601
-from_scratch ---> val Loss: 0.1068 Acc: 0.9676
-
-Epoch 38/99
-----------
-from_scratch ---> train Loss: 0.1282 Acc: 0.9610
-from_scratch ---> val Loss: 0.0770 Acc: 0.9766
-
-Epoch 39/99
-----------
-from_scratch ---> train Loss: 0.1235 Acc: 0.9604
-from_scratch ---> val Loss: 0.0930 Acc: 0.9718
-
-Epoch 40/99
-----------
-from_scratch ---> train Loss: 0.1260 Acc: 0.9610
-from_scratch ---> val Loss: 0.0813 Acc: 0.9747
-
-Epoch 41/99
-----------
-from_scratch ---> train Loss: 0.1245 Acc: 0.9605
-from_scratch ---> val Loss: 0.0944 Acc: 0.9693
-
-Epoch 42/99
-----------
-from_scratch ---> train Loss: 0.1137 Acc: 0.9639
-from_scratch ---> val Loss: 0.0908 Acc: 0.9729
-
-Epoch 43/99
-----------
-from_scratch ---> train Loss: 0.1194 Acc: 0.9627
-from_scratch ---> val Loss: 0.0798 Acc: 0.9754
-
-Epoch 44/99
-----------
-from_scratch ---> train Loss: 0.1076 Acc: 0.9659
-from_scratch ---> val Loss: 0.0854 Acc: 0.9734
-
-Epoch 45/99
-----------
-from_scratch ---> train Loss: 0.1115 Acc: 0.9660
-from_scratch ---> val Loss: 0.0736 Acc: 0.9766
-
-Epoch 46/99
-----------
-from_scratch ---> train Loss: 0.1118 Acc: 0.9647
-from_scratch ---> val Loss: 0.0703 Acc: 0.9773
-
-Epoch 47/99
-----------
-from_scratch ---> train Loss: 0.1066 Acc: 0.9678
-from_scratch ---> val Loss: 0.0809 Acc: 0.9750
-
-Epoch 48/99
-----------
-from_scratch ---> train Loss: 0.1025 Acc: 0.9678
-from_scratch ---> val Loss: 0.0768 Acc: 0.9761
-
-Epoch 49/99
-----------
-from_scratch ---> train Loss: 0.1031 Acc: 0.9681
-from_scratch ---> val Loss: 0.0809 Acc: 0.9758
-
-Epoch 50/99
-----------
-from_scratch ---> train Loss: 0.0993 Acc: 0.9689
-from_scratch ---> val Loss: 0.0613 Acc: 0.9810
-
-Epoch 51/99
-----------
-from_scratch ---> train Loss: 0.1021 Acc: 0.9674
-from_scratch ---> val Loss: 0.0694 Acc: 0.9785
-
-Epoch 52/99
-----------
-from_scratch ---> train Loss: 0.1025 Acc: 0.9684
-from_scratch ---> val Loss: 0.0682 Acc: 0.9801
-
-Epoch 53/99
-----------
-from_scratch ---> train Loss: 0.1030 Acc: 0.9677
-from_scratch ---> val Loss: 0.0847 Acc: 0.9741
-
-Epoch 54/99
-----------
-from_scratch ---> train Loss: 0.0937 Acc: 0.9706
-from_scratch ---> val Loss: 0.0619 Acc: 0.9805
-
-Epoch 55/99
-----------
-from_scratch ---> train Loss: 0.0965 Acc: 0.9688
-from_scratch ---> val Loss: 0.0739 Acc: 0.9780
-
-Epoch 56/99
-----------
-from_scratch ---> train Loss: 0.0919 Acc: 0.9699
-from_scratch ---> val Loss: 0.0762 Acc: 0.9751
-
-Epoch 57/99
-----------
-from_scratch ---> train Loss: 0.0915 Acc: 0.9705
-from_scratch ---> val Loss: 0.0672 Acc: 0.9789
-
-Epoch 58/99
-----------
-from_scratch ---> train Loss: 0.0862 Acc: 0.9723
-from_scratch ---> val Loss: 0.0719 Acc: 0.9790
-
-Epoch 59/99
-----------
-from_scratch ---> train Loss: 0.0897 Acc: 0.9718
-from_scratch ---> val Loss: 0.0592 Acc: 0.9811
-
-Epoch 60/99
-----------
-from_scratch ---> train Loss: 0.0839 Acc: 0.9730
-from_scratch ---> val Loss: 0.0656 Acc: 0.9790
-
-Epoch 61/99
-----------
-from_scratch ---> train Loss: 0.0873 Acc: 0.9723
-from_scratch ---> val Loss: 0.0683 Acc: 0.9790
-
-Epoch 62/99
-----------
-from_scratch ---> train Loss: 0.0857 Acc: 0.9731
-from_scratch ---> val Loss: 0.0615 Acc: 0.9810
-
-Epoch 63/99
-----------
-from_scratch ---> train Loss: 0.0861 Acc: 0.9730
-from_scratch ---> val Loss: 0.0666 Acc: 0.9795
-
-Epoch 64/99
-----------
-from_scratch ---> train Loss: 0.0876 Acc: 0.9718
-from_scratch ---> val Loss: 0.0675 Acc: 0.9791
-
-Epoch 65/99
-----------
-from_scratch ---> train Loss: 0.0809 Acc: 0.9747
-from_scratch ---> val Loss: 0.0658 Acc: 0.9803
-
-Epoch 66/99
-----------
-from_scratch ---> train Loss: 0.0871 Acc: 0.9736
-from_scratch ---> val Loss: 0.0663 Acc: 0.9807
-
-Epoch 67/99
-----------
-from_scratch ---> train Loss: 0.0801 Acc: 0.9752
-from_scratch ---> val Loss: 0.0599 Acc: 0.9794
-
-Epoch 68/99
-----------
-from_scratch ---> train Loss: 0.0770 Acc: 0.9752
-from_scratch ---> val Loss: 0.0538 Acc: 0.9825
-
-Epoch 69/99
-----------
-from_scratch ---> train Loss: 0.0837 Acc: 0.9738
-from_scratch ---> val Loss: 0.0616 Acc: 0.9800
-
-Epoch 70/99
-----------
-from_scratch ---> train Loss: 0.0820 Acc: 0.9742
-from_scratch ---> val Loss: 0.0659 Acc: 0.9782
-
-Epoch 71/99
-----------
-from_scratch ---> train Loss: 0.0782 Acc: 0.9757
-from_scratch ---> val Loss: 0.0614 Acc: 0.9809
-
-Epoch 72/99
-----------
-from_scratch ---> train Loss: 0.0778 Acc: 0.9754
-from_scratch ---> val Loss: 0.0537 Acc: 0.9824
-
-Epoch 73/99
-----------
-from_scratch ---> train Loss: 0.0753 Acc: 0.9757
-from_scratch ---> val Loss: 0.0551 Acc: 0.9817
-
-Epoch 74/99
-----------
-from_scratch ---> train Loss: 0.0772 Acc: 0.9758
-from_scratch ---> val Loss: 0.0540 Acc: 0.9817
-
-Epoch 75/99
-----------
-from_scratch ---> train Loss: 0.0740 Acc: 0.9759
-from_scratch ---> val Loss: 0.0524 Acc: 0.9825
-
-Epoch 76/99
-----------
-from_scratch ---> train Loss: 0.0766 Acc: 0.9758
-from_scratch ---> val Loss: 0.0537 Acc: 0.9846
-
-Epoch 77/99
-----------
-from_scratch ---> train Loss: 0.0760 Acc: 0.9755
-from_scratch ---> val Loss: 0.0527 Acc: 0.9840
-
-Epoch 78/99
-----------
-from_scratch ---> train Loss: 0.0706 Acc: 0.9772
-from_scratch ---> val Loss: 0.0546 Acc: 0.9837
-
-Epoch 79/99
-----------
-from_scratch ---> train Loss: 0.0709 Acc: 0.9779
-from_scratch ---> val Loss: 0.0710 Acc: 0.9795
-
-Epoch 80/99
-----------
-from_scratch ---> train Loss: 0.0739 Acc: 0.9768
-from_scratch ---> val Loss: 0.0488 Acc: 0.9850
-
-Epoch 81/99
-----------
-from_scratch ---> train Loss: 0.0711 Acc: 0.9775
-from_scratch ---> val Loss: 0.0494 Acc: 0.9854
-
-Epoch 82/99
-----------
-from_scratch ---> train Loss: 0.0685 Acc: 0.9785
-from_scratch ---> val Loss: 0.0554 Acc: 0.9833
-
-Epoch 83/99
-----------
-from_scratch ---> train Loss: 0.0694 Acc: 0.9782
-from_scratch ---> val Loss: 0.0498 Acc: 0.9852
-
-Epoch 84/99
-----------
-from_scratch ---> train Loss: 0.0733 Acc: 0.9766
-from_scratch ---> val Loss: 0.0483 Acc: 0.9849
-
-Epoch 85/99
-----------
-from_scratch ---> train Loss: 0.0675 Acc: 0.9788
-from_scratch ---> val Loss: 0.0543 Acc: 0.9814
-
-Epoch 86/99
-----------
-from_scratch ---> train Loss: 0.0660 Acc: 0.9790
-from_scratch ---> val Loss: 0.0467 Acc: 0.9847
-
-Epoch 87/99
-----------
-from_scratch ---> train Loss: 0.0651 Acc: 0.9792
-from_scratch ---> val Loss: 0.0484 Acc: 0.9859
-
-Epoch 88/99
-----------
-from_scratch ---> train Loss: 0.0666 Acc: 0.9783
-from_scratch ---> val Loss: 0.0480 Acc: 0.9849
-
-Epoch 89/99
-----------
-from_scratch ---> train Loss: 0.0649 Acc: 0.9792
-from_scratch ---> val Loss: 0.0579 Acc: 0.9828
-
-Epoch 90/99
-----------
-from_scratch ---> train Loss: 0.0642 Acc: 0.9796
-from_scratch ---> val Loss: 0.0506 Acc: 0.9849
-
-Epoch 91/99
-----------
-from_scratch ---> train Loss: 0.0693 Acc: 0.9778
-from_scratch ---> val Loss: 0.0514 Acc: 0.9849
-
-Epoch 92/99
-----------
-from_scratch ---> train Loss: 0.0622 Acc: 0.9795
-from_scratch ---> val Loss: 0.0562 Acc: 0.9822
-
-Epoch 93/99
-----------
-from_scratch ---> train Loss: 0.0634 Acc: 0.9796
-from_scratch ---> val Loss: 0.0506 Acc: 0.9844
-
-Epoch 94/99
-----------
-from_scratch ---> train Loss: 0.0639 Acc: 0.9794
-from_scratch ---> val Loss: 0.0444 Acc: 0.9852
-
-Epoch 95/99
-----------
-from_scratch ---> train Loss: 0.0632 Acc: 0.9803
-from_scratch ---> val Loss: 0.0507 Acc: 0.9839
-
-Epoch 96/99
-----------
-from_scratch ---> train Loss: 0.0663 Acc: 0.9796
-from_scratch ---> val Loss: 0.0529 Acc: 0.9839
-
-Epoch 97/99
-----------
-from_scratch ---> train Loss: 0.0599 Acc: 0.9808
-from_scratch ---> val Loss: 0.0573 Acc: 0.9838
-
-Epoch 98/99
-----------
-from_scratch ---> train Loss: 0.0591 Acc: 0.9818
-from_scratch ---> val Loss: 0.0445 Acc: 0.9867
-
-Epoch 99/99
-----------
-from_scratch ---> train Loss: 0.0630 Acc: 0.9801
-from_scratch ---> val Loss: 0.0509 Acc: 0.9828
-
-from_scratch ---> Training complete in 790m 39s
-from_scratch ---> Best val Acc: 0.986745
+from_scratch ---> Training complete in 394m 31s
+from_scratch ---> Best val Acc: 0.193984
 ############################################## from_scratch ###############################################################
