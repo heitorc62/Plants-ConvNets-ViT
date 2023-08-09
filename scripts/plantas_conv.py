@@ -12,7 +12,7 @@ import copy
 import pandas as pd
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
-from torchvision.models.vgg import VGG16_BN_Weights
+# from torchvision.models.vgg import VGG16_BN_Weights
 import os
 import argparse
 from sklearn.model_selection import train_test_split
@@ -123,7 +123,7 @@ def set_parameter_requires_grad(model, feature_extracting):
 
 
     
-def initialize_model(num_classes, feature_extract, use_pretrained=True):
+def initialize_model(num_classes, feature_extract, use_pretrained):
     # Initialize these variables which will be set in this if statement. Each of these
     # variables is model specific.
     model_ft = None
@@ -131,7 +131,7 @@ def initialize_model(num_classes, feature_extract, use_pretrained=True):
 
     # Defining the model as VGG:
     if use_pretrained:
-        model_ft = models.vgg16_bn(weights=VGG16_BN_Weights.DEFAULT)
+        model_ft = models.vgg16_bn(pretrained=use_pretrained)
     else:
         model_ft = models.vgg16_bn()
     
@@ -273,7 +273,7 @@ if __name__ == "__main__":
     print("The selected device is:", device)
 
     # Initialize the model for this run
-    model_ft, input_size = initialize_model(num_classes, feature_extract_bool, use_pretrained=use_pretrained_bool)
+    model_ft, input_size = initialize_model(num_classes, feature_extract_bool, use_pretrained_bool)
     # Print the model we just instantiated
     print(model_ft)
 
