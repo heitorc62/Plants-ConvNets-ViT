@@ -162,34 +162,34 @@ def load_data(data_dir, input_size, batch_size, train_percent=0.8):
 
     #plot_labels_histogram(total_dataloader)
 
-    train_idx, valid_idx= train_test_split(np.arange(len(dataset.targets)),
-                                        test_size=0.2,
-                                        shuffle=True,
-                                        stratify=dataset.targets
-                                        )
+    #train_idx, valid_idx= train_test_split(np.arange(len(dataset.targets)),
+    #                                    test_size=0.2,
+    #                                    shuffle=True,
+    #                                    stratify=dataset.targets
+    #                                    )
     
 
 
-    train_sampler = torch.utils.data.SubsetRandomSampler(train_idx)
-    valid_sampler = torch.utils.data.SubsetRandomSampler(valid_idx)
+    #train_sampler = torch.utils.data.SubsetRandomSampler(train_idx)
+    #valid_sampler = torch.utils.data.SubsetRandomSampler(valid_idx)
 
-    train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=train_sampler)
-    valid_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=valid_sampler)
+    #train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=train_sampler)
+    #valid_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, num_workers=4, sampler=valid_sampler)
 
-    dataloaders_dict = {'train': train_loader, 'val': valid_loader}
+    #dataloaders_dict = {'train': train_loader, 'val': valid_loader}
 
     # Determine the lengths of training and validation sets
-    #train_len = int(train_percent * len(dataset))  # 80% for training
-    #val_len = len(dataset) - train_len   # 20% for validation
+    train_len = int(train_percent * len(dataset))  # 80% for training
+    val_len = len(dataset) - train_len   # 20% for validation
 
     # Split the dataset
-    #train_set, val_set = random_split(dataset, [train_len, val_len])
+    train_set, val_set = random_split(dataset, [train_len, val_len])
 
     # Create a dictionary of the datasets
-    #image_datasets = {'train': train_set, 'val': val_set}
+    image_datasets = {'train': train_set, 'val': val_set}
 
     # Create the dataloaders
-    #dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=False, num_workers=4) for x in ['train', 'val']}
+    dataloaders_dict = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=False, num_workers=4) for x in ['train', 'val']}
     #plot_labels_histogram(dataloaders_dict['train'])
 
     #plot_labels_histogram(dataloaders_dict['val'])
