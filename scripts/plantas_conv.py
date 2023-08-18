@@ -16,6 +16,27 @@ from torchvision.models.vgg import VGG16_BN_Weights
 import os
 import argparse
 from sklearn.model_selection import train_test_split
+from pytorch_grad_cam import GradCAM, HiResCAM, ScoreCAM, GradCAMPlusPlus, AblationCAM, XGradCAM, EigenCAM, FullGrad
+from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
+from pytorch_grad_cam.utils.image import show_cam_on_image
+import cv2
+
+
+def preprocess_image(img):
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+    preprocessing = transforms.Compose([
+        transforms.ToTensor(),
+        normalize,
+    ])
+    return preprocessing(img.copy()).unsqueeze(0)
+
+def show_cam_on_image(img, mask):
+    heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
+    heatmap = np.float32(heatmap) / 255
+    cam = heatmap + np.float32(img)
+    cam = cam / np.max(cam)
+    return np.uint8(255 * cam)
 
 
 
@@ -326,3 +347,23 @@ if __name__ == "__main__":
     confusion_df.to_csv(confusion_path, index=False)
     print(f"############################################## {working_mode} ###############################################################")
 
+    IMAGE_PATH = "../../dataset/Plant_leave_diseases_dataset_without_augmentation/Apple___Black_rot/image (35).JPG"
+
+    target_layers = [model_ft.features[-1]]
+
+    img = cv2.imread(IMAGE_PATH, 1)
+    img = np.float32(img) / 255
+    # Opencv loads as BGR:
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    input_img = preprocess_image(img)
+
+    grad_cam = GradCAM(model=model_ft, target_layers=target_layers, use_cuda=True)
+
+    target_category = None
+
+    grayscale_cam = grad_cam(input_img, target_category)
+
+    grayscale_cam = cv2.resize(grayscale_cam, (img.shape[1], img.shape[0]))
+    cam = show_cam_on_image(img, grayscale_cam)
+
+    cv2.imwrite("cam.jpg", cam)
