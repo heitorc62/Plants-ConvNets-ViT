@@ -36,9 +36,9 @@ def create_networks(ngpu, nz, ngf, nc, ndf, device):
     netD = Discriminator(ngpu, nc, ndf).to(device)
 
     # Handle multi-GPU if desired
-    if (device.type == 'cuda') and (ngpu > 1):
-        netG = nn.DataParallel(netG, list(range(ngpu)))
-        netD = nn.DataParallel(netD, list(range(ngpu)))
+    # if (device.type == 'cuda') and (ngpu > 1):
+    #    netG = nn.DataParallel(netG, list(range(ngpu)))
+    #    netD = nn.DataParallel(netD, list(range(ngpu)))
 
     # Apply the ``weights_init`` function to randomly initialize all weights
     #  to ``mean=0``, ``stdev=0.02``.
