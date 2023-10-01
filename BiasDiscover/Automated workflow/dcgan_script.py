@@ -107,7 +107,7 @@ if __name__ == "__main__":
     num_epochs = 5         # Number of training epochs
     lr = 0.0002            # Learning rate for optimizers
     beta1 = 0.5            # Beta1 hyperparameter for Adam optimizers
-    ngpu = 0               # Number of GPUs available. Use 0 for CPU mode.
+    ngpu = 2               # Number of GPUs available. Use 0 for CPU mode.
     real_label = 1.
     fake_label = 0.
     device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
