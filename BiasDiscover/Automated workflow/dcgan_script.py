@@ -58,12 +58,12 @@ def save_models(netG, netD, current_dir):
 
 def save_stats(G_losses, D_losses, current_dir):
     # Save the Generator loss history
-    G_losses_np = np.array([loss.item() for loss in G_losses])
+    G_losses_np = np.array([loss for loss in G_losses])
     G_losses_path = os.path.join(current_dir, "statistics/G_losses.csv")
     np.savetxt(G_losses_path, G_losses_np, delimiter=",")
 
     #Save the Discriminator loss history
-    D_losses_np = np.array([loss.item() for loss in D_losses])
+    D_losses_np = np.array([loss for loss in D_losses])
     D_losses_path = os.path.join(current_dir, "statistics/D_losses.csv")
     np.savetxt(D_losses_path, D_losses_np, delimiter=",")
 
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     nz = 100               # Size of z latent vector (i.e. size of generator input)
     ngf = 64               # Size of feature maps in generator
     ndf = 64               # Size of feature maps in discriminator
-    num_epochs = 5         # Number of training epochs
+    num_epochs = 1         # Number of training epochs
     lr = 0.0002            # Learning rate for optimizers
     beta1 = 0.5            # Beta1 hyperparameter for Adam optimizers
     ngpu = 2               # Number of GPUs available. Use 0 for CPU mode.
