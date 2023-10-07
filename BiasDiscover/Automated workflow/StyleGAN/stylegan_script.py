@@ -91,7 +91,7 @@ def main():
 
     DATASET                 = "../../../../dataset/Plant_leave_diseases_dataset_without_augmentation/"
     DEVICE                  = "cuda0" if torch.cuda.is_available() else "cpu"
-    EPOCHS                  = 300
+    EPOCHS                  = 1
     LEARNING_RATE           = 1e-3
     BATCH_SIZE              = 32
     LOG_RESOLUTION          = 7 #for 128*128
