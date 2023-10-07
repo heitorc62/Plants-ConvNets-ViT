@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.animation import PillowWriter
-import random
+import argparse
 
 
 
@@ -80,24 +80,18 @@ def save_graphics(G_losses, D_losses, img_list, current_dir):
 
 
 
-def main():
-    # Set random seed for reproducibility
-    manualSeed = 999
-    random.seed(manualSeed)
-    torch.manual_seed(manualSeed)
-    torch.use_deterministic_algorithms(True) # Needed for reproducible results
-
+def main(args):
     current_dir = os.path.dirname(os.path.realpath(__file__))
-
-    DATASET                 = "../../../../dataset/Plant_leave_diseases_dataset_without_augmentation/"
-    DEVICE                  = "cuda0" if torch.cuda.is_available() else "cpu"
-    EPOCHS                  = 1
-    LEARNING_RATE           = 1e-3
-    BATCH_SIZE              = 32
-    LOG_RESOLUTION          = 7 #for 128*128
-    Z_DIM                   = 256
-    W_DIM                   = 256
-    LAMBDA_GP               = 10
+    # Assigning values from args to variables
+    DATASET = args.DATASET
+    DEVICE = args.DEVICE
+    EPOCHS = args.EPOCHS
+    LEARNING_RATE = args.LEARNING_RATE
+    BATCH_SIZE = args.BATCH_SIZE
+    LOG_RESOLUTION = args.LOG_RESOLUTION
+    Z_DIM = args.Z_DIM
+    W_DIM = args.W_DIM
+    LAMBDA_GP = args.LAMBDA_GP
 
     loader              = get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE)
     gen                 = Generator(LOG_RESOLUTION, W_DIM).to(DEVICE)
@@ -129,5 +123,28 @@ def main():
 
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Train a model on some data.")
+    
+    # Add arguments
+ # Add arguments
+    parser.add_argument("--DATASET", type=str, default="../../../../dataset/Plant_leave_diseases_dataset_without_augmentation/", help="Path to the dataset")
+
+    parser.add_argument("--DEVICE", type=str, 
+                        default="cuda:0" if torch.cuda.is_available() else "cpu", 
+                        help="Device to run")
+    
+    parser.add_argument("--EPOCHS", type=int, default=300, help="Total number of training epochs")
+    parser.add_argument("--LEARNING_RATE", type=float, default=1e-3, help="Learning rate for the optimizer")
+    parser.add_argument("--BATCH_SIZE", type=int, default=32, help="Batch size for training")
+    parser.add_argument("--LOG_RESOLUTION", type=int, default=8, help="Log resolution for the model")
+    parser.add_argument("--Z_DIM", type=int, default=256, help="Dimension of Z")
+    parser.add_argument("--W_DIM", type=int, default=256, help="Dimension of W")
+    parser.add_argument("--LAMBDA_GP", type=float, default=10.0, help="Gradient penalty coefficient")
+    
+    # Parse arguments
+    args = parser.parse_args()
+    
+    # Call main function with parsed arguments
+    main(args)
+
