@@ -7,7 +7,8 @@ from matplotlib.animation import PillowWriter
 
 def make_path(path):
     if not os.path.exists(path):
-        os.makedirs(path)
+        dir = os.path.dirname(path)
+        if dir: os.makedirs(dir)
 
 
 

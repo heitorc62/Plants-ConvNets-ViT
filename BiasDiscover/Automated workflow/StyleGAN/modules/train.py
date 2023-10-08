@@ -19,7 +19,7 @@ def train_model(
 
     for epoch in range(EPOCHS):
 
-        if epoch % 25 == 0:
+        if epoch % 100 == 0:
             generate_examples(gen, epoch, mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
 
         for batch_idx, (real, _) in enumerate(loader):
