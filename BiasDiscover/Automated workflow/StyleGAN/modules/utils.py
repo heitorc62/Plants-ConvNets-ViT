@@ -51,7 +51,7 @@ def get_noise(batch_size, LOG_RESOLUTION, DEVICE):
         return noise
 
 
-def generate_examples(gen, epoch, mapping_network, W_DIM, DEVICE, LOG_RESOLUTION, n=100):
+def generate_examples(gen, epoch, mapping_network, W_DIM, DEVICE, LOG_RESOLUTION, n=10):
     
     gen.eval()
     alpha = 1.0
