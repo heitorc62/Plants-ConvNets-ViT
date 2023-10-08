@@ -76,7 +76,7 @@ def train_model(
                 gen.eval()
                 with torch.no_grad():
                     w     = get_w(fixed_noise[0][1].shape[0], mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
-                    fake = gen(w, fixed_noise)
+                    fake = gen(w, fixed_noise).detach().cpu()
                 img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
 
             iters += 1
