@@ -11,7 +11,7 @@ from modules.save import save_graphics, save_models, save_stats
 
 
 
-def get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE):
+def get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE, WORKERS):
     transform = transforms.Compose(
         [
             transforms.Resize((2 ** LOG_RESOLUTION, 2 ** LOG_RESOLUTION)),
@@ -24,11 +24,7 @@ def get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE):
         ]
     )
     dataset = datasets.ImageFolder(root=DATASET, transform=transform)
-    loader = DataLoader(
-        dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=True,
-    )
+    loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True,num_workers=WORKERS)
     return loader
 
 
@@ -45,8 +41,9 @@ def main(args):
     Z_DIM = args.Z_DIM
     W_DIM = args.W_DIM
     LAMBDA_GP = args.LAMBDA_GP
+    WORKERS = args.WORKERS
 
-    loader              = get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE)
+    loader              = get_loader(LOG_RESOLUTION, DATASET, BATCH_SIZE, WORKERS)
     gen                 = Generator(LOG_RESOLUTION, W_DIM).to(DEVICE)
     critic              = Discriminator(LOG_RESOLUTION).to(DEVICE)
     mapping_network     = MappingNetwork(Z_DIM, W_DIM).to(DEVICE)
@@ -94,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument("--Z_DIM", type=int, default=256, help="Dimension of Z")
     parser.add_argument("--W_DIM", type=int, default=256, help="Dimension of W")
     parser.add_argument("--LAMBDA_GP", type=float, default=10.0, help="Gradient penalty coefficient")
+    parser.add_argument("--WORKERS", type=int, default=4, help="Number of workers to dataloader")
     
     # Parse arguments
     args = parser.parse_args()
