@@ -17,6 +17,8 @@ def train_model(
     D_losses = []
     iters = 0
 
+    print("Starting Training Loop...")
+
     for epoch in range(EPOCHS):
 
         if epoch % 100 == 0:
@@ -71,11 +73,15 @@ def train_model(
 
             # Check how the generator is doing by saving G's output on fixed_noise
             if (iters % 500 == 0) or ((epoch == EPOCHS-1) and (batch_idx == len(loader)-1)):
+                gen.eval()
                 with torch.no_grad():
-                    fake = gen(w, fixed_noise).detach().cpu()
+                    w     = get_w(len(fixed_noise), mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
+                    fake = gen(w, fixed_noise)
                 img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
 
             iters += 1
+
+    print("Finished training!")
 
     return gen, critic, G_losses, D_losses, img_list
 

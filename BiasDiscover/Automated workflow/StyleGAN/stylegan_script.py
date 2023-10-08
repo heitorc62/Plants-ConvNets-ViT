@@ -1,13 +1,14 @@
 from modules.train import train_model
 from modules.stylegan import MappingNetwork, Generator, Discriminator
 from modules.stylegan_modules import PathLengthPenalty
+from modules.utils import get_noise
+from modules.save import save_graphics, save_models, save_stats
 import torch
 from torch import optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import os
 import argparse
-from modules.save import save_graphics, save_models, save_stats
 
 
 
@@ -58,7 +59,7 @@ def main(args):
     mapping_network.train()
 
     # Create batch of latent vectors to visualize the progression of the generator
-    fixed_noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1, device=DEVICE)
+    fixed_noise = get_noise(BATCH_SIZE, LOG_RESOLUTION, DEVICE)
 
     netG, netD, G_losses, D_losses, img_list = train_model(
         critic, gen, path_length_penalty, loader, fixed_noise,
