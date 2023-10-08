@@ -6,10 +6,10 @@ import matplotlib.animation as animation
 from matplotlib.animation import PillowWriter
 
 def make_path(path):
-    if not os.path.exists(path):
-        dir = os.path.dirname(path)
-        if dir: os.makedirs(dir)
-
+    dir = os.path.dirname(path)
+    if dir: 
+        if not os.path.exists(dir):
+            os.makedirs(dir)
 
 
 def save_models(netG, netD, current_dir):
