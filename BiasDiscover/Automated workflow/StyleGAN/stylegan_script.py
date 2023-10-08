@@ -58,7 +58,7 @@ def main(args):
     mapping_network.train()
 
     # Create batch of latent vectors to visualize the progression of the generator
-    fixed_noise = torch.randn(BATCH_SIZE//2, Z_DIM, 1, 1, device=DEVICE)
+    fixed_noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1, device=DEVICE)
 
     netG, netD, G_losses, D_losses, img_list = train_model(
         critic, gen, path_length_penalty, loader, fixed_noise,
