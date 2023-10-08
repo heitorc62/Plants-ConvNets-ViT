@@ -75,7 +75,7 @@ def train_model(
             if (iters % 500 == 0) or ((epoch == EPOCHS-1) and (batch_idx == len(loader)-1)):
                 gen.eval()
                 with torch.no_grad():
-                    w     = get_w(len(fixed_noise), mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
+                    w     = get_w(fixed_noise[0][1].shape[0], mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
                     fake = gen(w, fixed_noise)
                 img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
 
