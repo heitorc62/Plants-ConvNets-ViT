@@ -224,6 +224,14 @@ def define_optimizer(model_ft, device, feature_extract):
 
 
 
+def make_path(path):
+    dir = os.path.dirname(path)
+    if dir: 
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+
+
+
     
 
 
@@ -265,7 +273,7 @@ if __name__ == "__main__":
 
     print("The selected mode is:", working_mode)
 
-    data_dir = os.path.join(current_dir, "../../dataset/Borders_dataset") # We assume the data is in ImageFolder format
+    data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation/") # We assume the data is in ImageFolder format
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
@@ -294,27 +302,32 @@ if __name__ == "__main__":
 
     # Save the model
     model_path = os.path.join(current_dir, f"{working_mode}/model.pth")
+    make_path(model_path)
     torch.save(model_ft.state_dict(), model_path)
 
     # Save the validation accuracy history
     hist_np = np.array([h.item() for h in val_acc_hist])
     hist_path = os.path.join(current_dir, f"{working_mode}/val_acc_history.csv")
+    make_path(hist_path)
     np.savetxt(hist_path, hist_np, delimiter=",")
 
     #Save the validation loss history
     loss_hist_np = np.array([h for h in val_loss_hist])
     loss_hist_path = os.path.join(current_dir, f"{working_mode}/val_loss_history.csv")
+    make_path(loss_hist_path)
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
 
     # Save the train accuracy history
     hist_np = np.array([h.item() for h in train_acc_hist])
     hist_path = os.path.join(current_dir, f"{working_mode}/train_acc_history.csv")
+    make_path(hist_path)
     np.savetxt(hist_path, hist_np, delimiter=",")
 
     #Save the train loss history
     loss_hist_np = np.array([h for h in train_loss_hist])
     loss_hist_path = os.path.join(current_dir, f"{working_mode}/train_loss_history.csv")
+    make_path(loss_hist_path)
     np.savetxt(loss_hist_path, loss_hist_np, delimiter=",")
 
     # Convert lists to DataFrames
@@ -322,5 +335,6 @@ if __name__ == "__main__":
 
     # Save to csv
     confusion_path = os.path.join(current_dir, f"{working_mode}/confusion.csv")
+    make_path(confusion_path)
     confusion_df.to_csv(confusion_path, index=False)
     print(f"############################################## {working_mode} ###############################################################")
