@@ -12,7 +12,7 @@ def make_path(path):
             os.makedirs(dir)
 
 
-def save_models(netG, netD, current_dir):
+def save_models(netG, netD, netMappingNetwork, current_dir):
     # Save the Generator
     netG_path = os.path.join(current_dir, "models/netG.pth")
     make_path(netG_path)
@@ -22,6 +22,11 @@ def save_models(netG, netD, current_dir):
     netD_path = os.path.join(current_dir, "models/netD.pth")
     make_path(netD_path)
     torch.save(netD.state_dict(), netD_path)
+
+    # Save the Mapping Network
+    mappingNetwork_path = os.path.join(current_dir, "models/netMappingNetwork.pth")
+    make_path(mappingNetwork_path)
+    torch.save(netMappingNetwork.state_dict(), mappingNetwork_path)
 
 def save_stats(G_losses, D_losses, current_dir):
     # Save the Generator loss history

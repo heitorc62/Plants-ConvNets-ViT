@@ -61,13 +61,13 @@ def main(args):
     # Create batch of latent vectors to visualize the progression of the generator
     fixed_noise = get_noise(BATCH_SIZE, LOG_RESOLUTION, DEVICE)
 
-    netG, netD, G_losses, D_losses, img_list = train_model(
+    netG, netD, netMappingNetwork, G_losses, D_losses, img_list = train_model(
         critic, gen, path_length_penalty, loader, fixed_noise,
         opt_critic, opt_gen, opt_mapping_network, mapping_network,
         DEVICE, LAMBDA_GP, W_DIM, LOG_RESOLUTION, EPOCHS
     )
 
-    save_models(netG, netD, current_dir)
+    save_models(netG, netD, netMappingNetwork, current_dir)
     save_stats(G_losses, D_losses, current_dir)
     save_graphics(G_losses, D_losses, img_list, current_dir)
 

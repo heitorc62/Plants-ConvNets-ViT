@@ -84,7 +84,7 @@ def train_model(
 
     print("Finished training!")
 
-    return gen, critic, G_losses, D_losses, img_list
+    return gen, critic, mapping_network, G_losses, D_losses, img_list
 
 
 
