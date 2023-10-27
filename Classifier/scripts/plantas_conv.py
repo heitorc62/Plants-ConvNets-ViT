@@ -273,7 +273,7 @@ if __name__ == "__main__":
 
     print("The selected mode is:", working_mode)
 
-    data_dir = os.path.join(current_dir, "../../dataset/Plant_leave_diseases_dataset_without_augmentation/") # We assume the data is in ImageFolder format
+    data_dir = "/home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation"
     model_name = "vgg"
     num_classes = 39
     batch_size = 8 
