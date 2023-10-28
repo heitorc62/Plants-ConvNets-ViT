@@ -2,6 +2,13 @@ import torch
 from torch import nn
 from torch import linalg as LA
 
+def one_vs_all_inference(model, images, TARGET_CLASS):
+    with torch.no_grad():
+        probs = model(images)
+        probs = nn.functional.softmax(probs, dim=1)
+        probs = probs[:, TARGET_CLASS]
+        return probs
+
 
 class GenerativeModel():
     def __init__(self, generator, mapping_network):
@@ -10,7 +17,7 @@ class GenerativeModel():
 
 
 class BiasDiscoverer(nn.Module):
-    def __init__(self, z_dim, generative_model, classifier, num_latent_codes=6, starting_alpha=-3, terminating_alpha=3):
+    def __init__(self, z_dim, num_latent_codes=6, starting_alpha=-3, terminating_alpha=3):
         super(BiasDiscoverer, self).__init__()
         self.w = nn.Parameter(torch.randn(1, z_dim))
         self.b = nn.Parameter(torch.randn(1, 1))

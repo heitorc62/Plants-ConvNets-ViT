@@ -1,35 +1,12 @@
 from modules.discoverer import GenerativeModel, BiasDiscoverer
-from StyleGAN.modules.stylegan import Generator, MappingNetwork
+from modules.model_loader import load_gen_model, load_classifier
 from modules.train import optimize_hyperplane
-from modules.save import save_statistics, save_graphics
-from torchvision import models
+from modules.save import save_statistics, save_graphics, save_discoverer
 import torch
-from torch import nn
 from torch import optim
 import os
 import argparse
 
-def load_gen_model(GENERATOR_PATH, MAPPING_NETWORK_PATH, DEVICE, LOG_RESOLUTION=8, Z_DIM=256, W_DIM=256):
-    gen = Generator(LOG_RESOLUTION, W_DIM)
-    gen.load_state_dict(torch.load(GENERATOR_PATH, map_location=torch.device('cpu')))
-    gen.to(DEVICE)
-    gen.eval()
-
-    mapping_network = MappingNetwork(Z_DIM, W_DIM)
-    mapping_network.load_state_dict(torch.load(MAPPING_NETWORK_PATH, map_location=torch.device('cpu')))
-    mapping_network.to(DEVICE)
-    mapping_network.eval()
-    return GenerativeModel(gen, mapping_network)
-
-
-def load_classifier(PATH, DEVICE, NUM_CLASSES=39):
-    classifier = models.vgg16_bn()
-    num_ftrs = classifier.classifier[6].in_features
-    classifier.classifier[6] = nn.Linear(num_ftrs, NUM_CLASSES)
-    classifier.load_state_dict(torch.load(PATH, map_location=torch.device('cpu')))
-    classifier.to(DEVICE)
-    classifier.eval()
-    return classifier
 
 def main():
     # Z_DIM = args.Z_DIM
@@ -48,21 +25,21 @@ def main():
     GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
     MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/mappingNetwork.pth"
     CLASSIFIER_PATH = "../../../Classifier/models/model.pth"
+    TARGET_CLASS = 1
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
+    gen_model = load_gen_model(GENERATOR_PATH, MAPPING_NETWORK_PATH, DEVICE)
 
-    mapping_network = 1
+    biased_classifier = load_classifier(CLASSIFIER_PATH, TARGET_CLASS, DEVICE)
 
-    gen_model = GenerativeModel(load_gen_model(GENERATOR_PATH, MAPPING_NETWORK_PATH, DEVICE), mapping_network)
-
-    biased_classifier = load_classifier(CLASSIFIER_PATH, DEVICE)
-
-    bias_discoverer = BiasDiscoverer(Z_DIM, gen_model, biased_classifier)
+    bias_discoverer = BiasDiscoverer(Z_DIM)
 
     optimizer = optim.Adam(bias_discoverer.parameters(), lr=LEARNING_RATE)
     
-    losses = optimize_hyperplane(bias_discoverer, optimizer, EPOCHS, BATCH_SIZE, Z_DIM, DEVICE)
+    losses, biased_discoverer = optimize_hyperplane(bias_discoverer, biased_classifier, gen_model, optimizer, EPOCHS, BATCH_SIZE, Z_DIM, TARGET_CLASS ,DEVICE)
+
+    save_discoverer(biased_discoverer, current_dir)
 
     save_statistics(losses, current_dir)
 

@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import torch
 
 def make_path(path):
     dir = os.path.dirname(path)
@@ -24,3 +25,8 @@ def save_graphics(losses, current_dir):
     make_path(plot_path)
     plt.savefig(plot_path)
     plt.close()  
+
+def save_discoverer(biased_discoverer, current_dir):
+    hyperplane_path = os.path.join(current_dir, "hyperplane/hyperplane.pth")
+    make_path(hyperplane_path)
+    torch.save(biased_discoverer.state_dict(), hyperplane_path)
