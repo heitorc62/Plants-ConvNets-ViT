@@ -69,3 +69,27 @@ Params to learn:
 	 classifier.6.bias
 Epoch 0/29
 ----------
+last_layer ---> train Loss: 1.0617 Acc: 0.7035
+last_layer ---> val Loss: 0.5316 Acc: 0.8393
+Traceback (most recent call last):
+  File "plantas_conv.py", line 299, in <module>
+    model_ft, best_preds, best_true, val_acc_hist, val_loss_hist, train_acc_hist, train_loss_hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, working_mode, num_epochs=args.epochs)
+  File "plantas_conv.py", line 96, in train_model
+    best_model_wts = copy.deepcopy(model.state_dict())
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/copy.py", line 180, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/copy.py", line 307, in _reconstruct
+    value = deepcopy(value, memo)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/copy.py", line 161, in deepcopy
+    y = copier(memo)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/_tensor.py", line 110, in __deepcopy__
+    new_storage = self.storage().__deepcopy__(memo)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/storage.py", line 569, in __deepcopy__
+    return self._new_wrapped_storage(copy.deepcopy(self._storage, memo))
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/copy.py", line 161, in deepcopy
+    y = copier(memo)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/storage.py", line 89, in __deepcopy__
+    new_storage = self.clone()
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/storage.py", line 103, in clone
+    return type(self)(self.nbytes(), device=self.device).copy_(self)
+RuntimeError: CUDA out of memory. Tried to allocate 64.00 MiB (GPU 1; 11.93 GiB total capacity; 1.45 GiB already allocated; 6.62 MiB free; 1.51 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
