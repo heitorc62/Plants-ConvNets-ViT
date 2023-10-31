@@ -22,7 +22,7 @@ def main(args):
     LEARNING_RATE = args.LEARNING_RATE
     EPOCHS = args.EPOCHS
     BATCH_SIZE = args.BATCH_SIZE
-    DEVICE = "cpu"
+    DEVICE = args.DEVICE
     GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
     MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/netMappingNetwork.pth"
     CLASSIFIER_PATH = "../../../Classifier/scripts/fine_tuning/model.pth"
