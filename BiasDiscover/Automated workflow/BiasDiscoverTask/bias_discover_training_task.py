@@ -37,6 +37,7 @@ def main(args):
 
     bias_discoverer = BiasDiscoverer(Z_DIM)
 
+    bias_discoverer.to(DEVICE)
 
     optimizer = optim.Adam(bias_discoverer.parameters(), lr=LEARNING_RATE)
     
