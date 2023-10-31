@@ -23,8 +23,8 @@ def main(args):
     EPOCHS = 1
     BATCH_SIZE = 32
     DEVICE = "cpu"
-    GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
-    MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/netMappingNetwork.pth"
+    GENERATOR_PATH = "../StyleGAN/models/netG.pth"
+    MAPPING_NETWORK_PATH = "../StyleGAN/models/netMappingNetwork.pth"
     CLASSIFIER_PATH = "../../../Classifier/scripts/fine_tuning/model.pth"
     TARGET_CLASS = 1
     LOG_RESOLUTION = 8

@@ -3,8 +3,12 @@ from StyleGAN.modules.utils import get_w, get_noise
 from .discoverer import one_vs_all_inference
 
 
-def TotalVARLoss(probs):
-    return torch.log(1e-10 + torch.abs(probs[:, 1:] - probs[:, :-1]).mean())
+def TotalVARLoss(probs_list):
+    total_loss = 0
+    for probs in probs_list:
+        total_loss += torch.log(1e-10 + torch.abs(probs[1:] - probs[:-1]).mean())
+    return total_loss / len(probs_list)
+
 
 def generate_traversal_images(gen_model, batch_size, latent_codes, DEVICE, W_DIM=256, LOG_RESOLUTION=8):
     traversal_images = []

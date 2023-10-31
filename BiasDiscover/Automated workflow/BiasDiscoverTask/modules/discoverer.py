@@ -3,12 +3,15 @@ from torch import nn
 import numpy as np
 from torch import linalg as LA
 
-def one_vs_all_inference(model, images, TARGET_CLASS):
+def one_vs_all_inference(model, images_list, TARGET_CLASS):
+    results = []
     with torch.no_grad():
-        probs = model(images)
-        probs = nn.functional.softmax(probs, dim=1)
-        probs = probs[:, TARGET_CLASS]
-        return probs
+        for images in images_list:
+            probs = model(images)
+            probs = nn.functional.softmax(probs, dim=1)
+            probs = probs[:, TARGET_CLASS]
+            results.append(probs)
+    return results
 
 
 class GenerativeModel():
