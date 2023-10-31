@@ -1,20 +1,4 @@
 Starting Training Loop...
-Epoch:  0 z_data_points grad:  True
-latent_codes[0]grad :  True
-traversal_images[0] grad:  True
-prob_predictions[0] grad:  True
-loss grad:  True
-Loss:  tensor(-13.1832, grad_fn=<DivBackward0>)
-Traceback (most recent call last):
-  File "bias_discover_training_task.py", line 72, in <module>
-    main(args)
-  File "bias_discover_training_task.py", line 48, in main
-    save_statistics(losses, current_dir)
-  File "/home/heitorc62/PlantsConv/Plants-ConvNets-ViT/BiasDiscover/Automated workflow/BiasDiscoverTask/modules/save.py", line 13, in save_statistics
-    losses_np = np.array([loss for loss in losses])
-  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/_tensor.py", line 757, in __array__
-    return self.numpy()
-RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.
+Epoch:  0 Loss:  -10.89815902709961
 Starting Training Loop...
-Epoch:  0 z_data_points grad:  True
-latent_codes[0]grad :  True
+Epoch:  0 

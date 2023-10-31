@@ -10,7 +10,7 @@ def make_path(path):
             os.makedirs(dir)
 
 def save_statistics(losses, current_dir):
-    losses_np = np.array([loss.detach().numpy() for loss in losses])
+    losses_np = np.array([loss for loss in losses])
     losses_path = os.path.join(current_dir, "statistics/losses.csv")
     make_path(losses_path)
     np.savetxt(losses_path, losses_np, delimiter=",")
