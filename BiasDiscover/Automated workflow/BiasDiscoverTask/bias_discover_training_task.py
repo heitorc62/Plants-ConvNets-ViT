@@ -19,14 +19,14 @@ def main(args):
 
     Z_DIM = 256
     W_DIM = 256
-    LEARNING_RATE = 0.001
-    EPOCHS = 1
-    BATCH_SIZE = 32
+    LEARNING_RATE = args.LEARNING_RATE
+    EPOCHS = args.EPOCHS
+    BATCH_SIZE = args.BATCH_SIZE
     DEVICE = "cpu"
-    GENERATOR_PATH = "../StyleGAN/models/netG.pth"
-    MAPPING_NETWORK_PATH = "../StyleGAN/models/netMappingNetwork.pth"
+    GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
+    MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/netMappingNetwork.pth"
     CLASSIFIER_PATH = "../../../Classifier/scripts/fine_tuning/model.pth"
-    TARGET_CLASS = 1
+    TARGET_CLASS = args.TARGET_CLASS
     LOG_RESOLUTION = 8
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -37,7 +37,6 @@ def main(args):
 
     bias_discoverer = BiasDiscoverer(Z_DIM)
 
-    bias_discoverer.train()
 
     optimizer = optim.Adam(bias_discoverer.parameters(), lr=LEARNING_RATE)
     
@@ -60,10 +59,10 @@ if __name__=='__main__':
                         default="cuda:0" if torch.cuda.is_available() else "cpu", 
                         help="Device to run")
     
-    parser.add_argument("--EPOCHS", type=int, default=300, help="Total number of training epochs")
+    parser.add_argument("--EPOCHS", type=int, default=30, help="Total number of training epochs")
     parser.add_argument("--LEARNING_RATE", type=float, default=1e-3, help="Learning rate for the optimizer")
     parser.add_argument("--BATCH_SIZE", type=int, default=32, help="Batch size for training")
-    parser.add_argument("--Z_DIM", type=int, default=256, help="Dimension of Z")
+    parser.add_argument("--TARGET_CLASS", type=int, default=1, help="Target class to discover biases.")
     
     # Parse arguments
     args = parser.parse_args()
