@@ -37,6 +37,8 @@ def main(args):
 
     bias_discoverer = BiasDiscoverer(Z_DIM)
 
+    bias_discoverer.train()
+
     optimizer = optim.Adam(bias_discoverer.parameters(), lr=LEARNING_RATE)
     
     losses, biased_discoverer = optimize_hyperplane(bias_discoverer, biased_classifier, gen_model, optimizer, EPOCHS, BATCH_SIZE, LOG_RESOLUTION, W_DIM, TARGET_CLASS ,DEVICE)

@@ -1,13 +1,20 @@
 Starting Training Loop...
-Epoch:  0 Traceback (most recent call last):
-  File "bias_discover_training_task.py", line 70, in <module>
+Epoch:  0 z_data_points grad:  True
+latent_codes[0]grad :  True
+traversal_images[0] grad:  True
+prob_predictions[0] grad:  True
+loss grad:  True
+Loss:  tensor(-13.1832, grad_fn=<DivBackward0>)
+Traceback (most recent call last):
+  File "bias_discover_training_task.py", line 72, in <module>
     main(args)
-  File "bias_discover_training_task.py", line 42, in main
-    losses, biased_discoverer = optimize_hyperplane(bias_discoverer, biased_classifier, gen_model, optimizer, EPOCHS, BATCH_SIZE, LOG_RESOLUTION, W_DIM, TARGET_CLASS ,DEVICE)
-  File "/home/heitorc62/PlantsConv/Plants-ConvNets-ViT/BiasDiscover/Automated workflow/BiasDiscoverTask/modules/train.py", line 32, in optimize_hyperplane
-    loss.backward()
-  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/_tensor.py", line 396, in backward
-    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
-  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/autograd/__init__.py", line 175, in backward
-    allow_unreachable=True, accumulate_grad=True)  # Calls into the C++ engine to run the backward pass
-RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+  File "bias_discover_training_task.py", line 48, in main
+    save_statistics(losses, current_dir)
+  File "/home/heitorc62/PlantsConv/Plants-ConvNets-ViT/BiasDiscover/Automated workflow/BiasDiscoverTask/modules/save.py", line 13, in save_statistics
+    losses_np = np.array([loss for loss in losses])
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/torch/_tensor.py", line 757, in __array__
+    return self.numpy()
+RuntimeError: Can't call numpy() on Tensor that requires grad. Use tensor.detach().numpy() instead.
+Starting Training Loop...
+Epoch:  0 z_data_points grad:  True
+latent_codes[0]grad :  True
