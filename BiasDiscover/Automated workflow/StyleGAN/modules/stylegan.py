@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 import torch.utils.data
 from torch import nn
-from modules.stylegan_modules import (
+from .stylegan_modules import (
     EqualizedConv2d, EqualizedLinear,
     GeneratorBlock, DiscriminatorBlock, 
     ToRGB, StyleBlock

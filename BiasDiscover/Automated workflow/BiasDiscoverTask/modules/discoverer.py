@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import numpy as np
 from torch import linalg as LA
 
 def one_vs_all_inference(model, images, TARGET_CLASS):
@@ -25,7 +26,7 @@ class BiasDiscoverer(nn.Module):
     
     def get_alphas(self, num_alphas, starting_alpha, terminating_alpha):
         step = (terminating_alpha - starting_alpha)/num_alphas
-        alphas = torch.arange(starting_alpha, terminating_alpha, step).unsqueeze(1).unsqueeze(2)
+        alphas = np.arange(starting_alpha, terminating_alpha, step)
         return alphas
     
     def project_points(self, points, normal_vec, offset):
@@ -33,7 +34,17 @@ class BiasDiscoverer(nn.Module):
         return projected_points
 
     def generate_latent_codes(self, z_points):
+        latent_codes = []
+        #print("z_points shape: ", z_points.shape)
         #z_proj = z_points - ( ( (w.T @ z_points) + b ) / ( LA.vector_norm(w)**2 ) ) @ w
         z_proj = self.project_points(z_points, self.w, self.b)
-        latent_codes = z_proj + ( self.alphas * ( self.w / LA.vector_norm(self.w) ) )
+        #print("z_proj shape: ", z_proj.shape)
+
+        #print("self.alphas shape: ", self.alphas.shape)
+
+        for alpha in self.alphas:
+            latent_codes.append(z_proj + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))
+
+        #print("latent_codes shape: ", latent_codes[0].shape)
+
         return latent_codes

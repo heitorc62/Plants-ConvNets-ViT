@@ -8,7 +8,7 @@ import os
 import argparse
 
 
-def main():
+def main(args):
     # Z_DIM = args.Z_DIM
     # LEARNING_RATE = args.LEARNING_RATE
     # EPOCHS = args.EPOCHS
@@ -18,26 +18,28 @@ def main():
     # CLASSIFIER_PATH = args.CLASSIFIER_PATH
 
     Z_DIM = 256
+    W_DIM = 256
     LEARNING_RATE = 0.001
     EPOCHS = 1
     BATCH_SIZE = 32
     DEVICE = "cpu"
     GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
-    MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/mappingNetwork.pth"
-    CLASSIFIER_PATH = "../../../Classifier/models/model.pth"
+    MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/netMappingNetwork.pth"
+    CLASSIFIER_PATH = "../../../Classifier/scripts/fine_tuning/model.pth"
     TARGET_CLASS = 1
+    LOG_RESOLUTION = 8
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
     gen_model = load_gen_model(GENERATOR_PATH, MAPPING_NETWORK_PATH, DEVICE)
 
-    biased_classifier = load_classifier(CLASSIFIER_PATH, TARGET_CLASS, DEVICE)
+    biased_classifier = load_classifier(CLASSIFIER_PATH, DEVICE)
 
     bias_discoverer = BiasDiscoverer(Z_DIM)
 
     optimizer = optim.Adam(bias_discoverer.parameters(), lr=LEARNING_RATE)
     
-    losses, biased_discoverer = optimize_hyperplane(bias_discoverer, biased_classifier, gen_model, optimizer, EPOCHS, BATCH_SIZE, Z_DIM, TARGET_CLASS ,DEVICE)
+    losses, biased_discoverer = optimize_hyperplane(bias_discoverer, biased_classifier, gen_model, optimizer, EPOCHS, BATCH_SIZE, LOG_RESOLUTION, W_DIM, TARGET_CLASS ,DEVICE)
 
     save_discoverer(biased_discoverer, current_dir)
 
