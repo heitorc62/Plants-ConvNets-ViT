@@ -83,7 +83,7 @@ def save_images_with_scores(list_of_images, inverted_scores, current_dir):
 
 
             # Annotate the score. Adjust (x,y) values as per your needs.
-            ax[i].annotate(f"{score_value:.2f}", (img.shape[0]//2, img.shape[0]+10), color="black", weight="bold", fontsize=12, ha='center')
+            ax[i].annotate(f"{score_value:.2f}", (img.shape[0]//2, img.shape[0]), color="black", weight="bold", fontsize=12, ha='center', va="top")
         
         plt.tight_layout()
         image_path = os.path.join(current_dir, f"traversal_images/traversal_images_{batch_index}.png")
