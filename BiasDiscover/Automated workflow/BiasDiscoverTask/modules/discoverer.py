@@ -43,9 +43,17 @@ class BiasDiscoverer(nn.Module):
         #print("z_proj shape: ", z_proj.shape)
 
         #print("self.alphas shape: ", self.alphas.shape)
+        for i in range(z_proj.shape[0]):
+            traveral_codes = []
+            for alpha in self.alphas:
+                traveral_codes.append(z_proj[i] + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))
+            latent_codes.append(traveral_codes)
 
-        for alpha in self.alphas:
-            latent_codes.append(z_proj + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))
+        print("len(latent_codes): ", len(latent_codes))
+        print("len(latent_codes[0]): ", len(latent_codes[0]))
+
+        #for alpha in self.alphas:
+        #    latent_codes.append(z_proj + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))
 
         #print("latent_codes shape: ", latent_codes[0].shape)
 
