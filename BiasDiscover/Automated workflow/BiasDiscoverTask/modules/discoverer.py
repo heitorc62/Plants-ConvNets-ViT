@@ -47,8 +47,8 @@ class BiasDiscoverer(nn.Module):
         for alpha in self.alphas:
             latent_codes.append(z_proj + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))
 
-        print("len(latent_codes): ", len(latent_codes))
-        print("len(latent_codes[0]): ", len(latent_codes[0]))
+        #print("len(latent_codes): ", len(latent_codes))
+        #print("len(latent_codes[0]): ", len(latent_codes[0]))
 
         #for alpha in self.alphas:
         #    latent_codes.append(z_proj + ( alpha * ( self.w / LA.vector_norm(self.w) ) ))

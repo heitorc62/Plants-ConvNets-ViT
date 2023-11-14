@@ -32,10 +32,10 @@ def save_discoverer(biased_discoverer, current_dir):
     torch.save(biased_discoverer.state_dict(), hyperplane_path)
 
 def adjust_lists(images, probs):
-    print("len(images) = ", len(images))
-    print("len(probs) = ", len(probs))
-    print("images[0].shape", images[0].shape)
-    print("probs[0].shape", probs[0].shape)
+    #print("len(images) = ", len(images))
+    #print("len(probs) = ", len(probs))
+    #print("images[0].shape", images[0].shape)
+    #print("probs[0].shape", probs[0].shape)
     new_images = []
     new_probs = []
 
@@ -49,10 +49,10 @@ def adjust_lists(images, probs):
         new_batch_probs = torch.stack([batch[i] for batch in probs])
         new_probs.append(new_batch_probs)
     
-    print(f"len(new_images) = {len(new_images)}")
-    print(f"len(new_probs) = {len(new_probs)}")
-    print(f"new_images[0].shape = {new_images[0].shape}")
-    print(f"new_probs[0].shape = {new_probs[0].shape}")
+    #print(f"len(new_images) = {len(new_images)}")
+    #print(f"len(new_probs) = {len(new_probs)}")
+    #print(f"new_images[0].shape = {new_images[0].shape}")
+    #print(f"new_probs[0].shape = {new_probs[0].shape}")
     return new_images, new_probs
 
 
@@ -83,7 +83,7 @@ def save_images_with_scores(list_of_images, inverted_scores, current_dir):
 
 
             # Annotate the score. Adjust (x,y) values as per your needs.
-            ax[i].annotate(f"{score_value:.2f}", (img.shape[0]//2, img.shape[0]), color="black", weight="bold", fontsize=12, ha='center')
+            ax[i].annotate(f"{score_value:.2f}", (img.shape[0]//2, img.shape[0]+10), color="black", weight="bold", fontsize=12, ha='center')
         
         plt.tight_layout()
         image_path = os.path.join(current_dir, f"traversal_images/traversal_images_{batch_index}.png")
