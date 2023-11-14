@@ -23,6 +23,8 @@ def main(args):
     GENERATOR_PATH = "../StyleGAN/trained_models/netG.pth"
     MAPPING_NETWORK_PATH = "../StyleGAN/trained_models/netMappingNetwork.pth"
     CLASSIFIER_PATH = "../../../Classifier/scripts/fine_tuning/model.pth"
+    HYPERPLANE_PATH = "hyperplane/hyperplane.pth"
+
     TARGET_CLASS = args.TARGET_CLASS
     LOG_RESOLUTION = 8
 
@@ -32,14 +34,13 @@ def main(args):
 
     biased_classifier = load_classifier(CLASSIFIER_PATH, DEVICE)
 
-    bias_discoverer = load_discoverer(Z_DIM, DEVICE)
+    bias_discoverer = load_discoverer(HYPERPLANE_PATH, Z_DIM, DEVICE)
 
     bias_discoverer.to(DEVICE)
 
     traversal_images, probs_predictions = get_images_and_probs(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, W_DIM, DEVICE, LOG_RESOLUTION)
-
-    for i in range(BATCH_SIZE):
-        save_images_with_scores(traversal_images[i], probs_predictions[i], current_dir)
+    
+    save_images_with_scores(traversal_images, probs_predictions, current_dir)
 
     
 
