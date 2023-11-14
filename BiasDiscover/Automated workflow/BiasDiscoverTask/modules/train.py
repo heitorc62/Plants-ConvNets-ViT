@@ -17,9 +17,11 @@ def TotalVARLoss(probs_list):
 
 def generate_traversal_images(gen_model, batch_size, latent_codes, DEVICE, W_DIM=256, LOG_RESOLUTION=8):
     traversal_images = []
-    for latent_code in latent_codes:
+    for alpha_batch in latent_codes:
+        w = gen_model.mapping_network(alpha_batch)
+        w = w[None, :, :].expand(LOG_RESOLUTION, -1, -1)
         noise = get_noise(batch_size, LOG_RESOLUTION, DEVICE)
-        traversal_images.append(gen_model.generator(latent_code, noise))
+        traversal_images.append(gen_model.generator(w, noise))
     return traversal_images
 
 

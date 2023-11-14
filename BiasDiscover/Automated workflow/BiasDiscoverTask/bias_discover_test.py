@@ -5,9 +5,19 @@ from modules.save import save_images_with_scores
 from StyleGAN.modules.utils import get_w
 import os
 import argparse
+import torch
+
+
+""" 
+def get_w(batch_size, mapping_network, W_DIM, DEVICE, LOG_RESOLUTION):
+
+    z = torch.randn(batch_size, W_DIM).to(DEVICE)
+    w = mapping_network(z)
+    return w[None, :, :].expand(LOG_RESOLUTION, -1, -1)
+ """
 
 def get_images_and_probs(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, W_DIM, DEVICE, LOG_RESOLUTION=8):
-    z_data_points = get_w(BATCH_SIZE, gen_model.mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
+    z_data_points = torch.randn(BATCH_SIZE, W_DIM).to(DEVICE)
     latent_codes = bias_discoverer.generate_latent_codes(z_data_points)
     traversal_images = generate_traversal_images(gen_model, BATCH_SIZE, latent_codes, DEVICE)
     probs_predictions = one_vs_all_inference(biased_classifier, traversal_images, TARGET_CLASS)
