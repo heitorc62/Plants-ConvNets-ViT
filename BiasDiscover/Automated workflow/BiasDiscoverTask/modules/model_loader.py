@@ -30,8 +30,9 @@ def load_classifier(PATH, DEVICE, NUM_CLASSES=39):
     return classifier
 
 
-def load_discoverer(PATH, Z_DIM, gen_model, biased_classifier, DEVICE):
-    discoverer = BiasDiscoverer(Z_DIM, gen_model, biased_classifier)
+def load_discoverer(PATH, Z_DIM, DEVICE):
+    discoverer = BiasDiscoverer(Z_DIM)
     discoverer.load_state_dict(torch.load(PATH, map_location=torch.device(DEVICE)))
     discoverer.to(DEVICE)
     discoverer.eval()
+    return discoverer

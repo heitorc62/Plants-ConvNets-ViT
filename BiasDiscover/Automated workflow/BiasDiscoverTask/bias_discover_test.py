@@ -1,21 +1,22 @@
-from modules.discoverer import GenerativeModel, BiasDiscoverer
-from modules.model_loader import load_gen_model, load_classifier
-from modules.train import one_vs_all_inference
+from modules.discoverer import BiasDiscoverer
+from modules.model_loader import load_gen_model, load_classifier, load_discoverer
+from modules.train import one_vs_all_inference, generate_traversal_images
 from modules.save import save_images_with_scores
-import torch
+from StyleGAN.modules.utils import get_w
 import os
 import argparse
 
-def generate_traversal_images(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, Z_DIM, LOG_RESOLUTION=8):
-    z_data_points = torch.rand(BATCH_SIZE, Z_DIM)
+def get_images_and_probs(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, W_DIM, DEVICE, LOG_RESOLUTION=8):
+    z_data_points = get_w(BATCH_SIZE, gen_model.mapping_network, W_DIM, DEVICE, LOG_RESOLUTION)
     latent_codes = bias_discoverer.generate_latent_codes(z_data_points)
-    traversal_images = generate_traversal_images(gen_model, latent_codes)
+    traversal_images = generate_traversal_images(gen_model, BATCH_SIZE, latent_codes, DEVICE)
     probs_predictions = one_vs_all_inference(biased_classifier, traversal_images, TARGET_CLASS)
 
     return traversal_images, probs_predictions
 
 
 def main(args):
+    W_DIM = 256
     Z_DIM = 256
     BATCH_SIZE = args.BATCH_SIZE
     DEVICE = args.DEVICE
@@ -31,11 +32,11 @@ def main(args):
 
     biased_classifier = load_classifier(CLASSIFIER_PATH, DEVICE)
 
-    bias_discoverer = BiasDiscoverer(Z_DIM)
+    bias_discoverer = load_discoverer(Z_DIM, DEVICE)
 
     bias_discoverer.to(DEVICE)
 
-    traversal_images, probs_predictions = generate_traversal_images(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, Z_DIM, LOG_RESOLUTION)
+    traversal_images, probs_predictions = get_images_and_probs(gen_model, biased_classifier, bias_discoverer, TARGET_CLASS, BATCH_SIZE, W_DIM, DEVICE, LOG_RESOLUTION)
 
     for i in range(BATCH_SIZE):
         save_images_with_scores(traversal_images[i], probs_predictions[i], current_dir)
