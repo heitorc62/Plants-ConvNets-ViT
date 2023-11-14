@@ -30,3 +30,21 @@ def save_discoverer(biased_discoverer, current_dir):
     hyperplane_path = os.path.join(current_dir, "hyperplane/hyperplane.pth")
     make_path(hyperplane_path)
     torch.save(biased_discoverer.state_dict(), hyperplane_path)
+
+def save_images_with_scores(images, scores, current_dir):
+    fig, ax = plt.subplots(1, len(images), figsize=(15, 5))
+    
+    for i, (img, score) in enumerate(zip(images, scores)):
+        # Display image
+        ax[i].imshow(img)
+        ax[i].axis('off')  # hide axes
+        
+        # Annotate the score. Adjust (x,y) values as per your needs.
+        ax[i].annotate(f"{score:.2f}", (0, img.shape[0] + 15), color="black", weight="bold", fontsize=12, ha='left')
+    
+    plt.tight_layout()
+    image_path = os.path.join(current_dir, "traversal_images/traversal_images.png")
+    make_path(image_path)
+    plt.savefig(image_path)
+    plt.close()    
+
