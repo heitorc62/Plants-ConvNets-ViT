@@ -69,7 +69,7 @@ def save_images_with_scores(list_of_images, inverted_scores, current_dir):
                 # Permute the tensor from (C, H, W) to (H, W, C) for imshow
                 img = img.permute(1, 2, 0)
                 img = img.cpu().numpy()  # Also make sure it's a numpy array
-
+                img = (img*0.5)+0.5
             # Display image
             ax[i].imshow(img)
             ax[i].axis('off')  # hide axes
