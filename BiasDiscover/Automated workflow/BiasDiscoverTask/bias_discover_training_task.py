@@ -56,10 +56,7 @@ if __name__=='__main__':
     # Add arguments
     # Add arguments
 
-    parser.add_argument("--DEVICE", type=str, 
-                        default="cuda:0" if torch.cuda.is_available() else "cpu", 
-                        help="Device to run")
-    
+    parser.add_argument("--DEVICE", type=str, default="cpu", help="Device to run")
     parser.add_argument("--EPOCHS", type=int, default=30, help="Total number of training epochs")
     parser.add_argument("--LEARNING_RATE", type=float, default=1e-3, help="Learning rate for the optimizer")
     parser.add_argument("--BATCH_SIZE", type=int, default=32, help="Batch size for training")
