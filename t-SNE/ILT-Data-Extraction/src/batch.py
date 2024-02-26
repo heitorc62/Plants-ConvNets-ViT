@@ -26,7 +26,7 @@ def create_batches(input_path, output_path):
     print('Creating batches...')
     imgs = []
     for pwd, children, files in os.walk(input_path):
-        imgs += [ (file, os.path.basename(pwd)) for file in files if (file.endswith('.png') or file.endswith('.jpg')) ]
+        imgs += [ (file, os.path.basename(pwd)) for file in files if (file.endswith('.JPG') or file.endswith('.png') or file.endswith('.jpg')) ]
 
     num_batches = math.ceil(len(imgs) / defaults['BATCH_MAX_SIZE'])
     images_per_batch = math.ceil(len(imgs) / num_batches)
