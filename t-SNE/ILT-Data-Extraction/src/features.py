@@ -8,8 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Dataset
-from torchvision import models
-from torchvision.models.vgg import VGG16_BN_Weights
+from torchvision.models import vgg16
 
 from aux import defaults
 
@@ -64,7 +63,7 @@ def get_activation(name):
     return hook
 
 def get_model(load=False, num_classes=1000):
-    model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
+    model = vgg16(pretrained=True)  # Load a pretrained VGG16 model
     if load:
         # Replace the classifier's final layer to match the desired number of classes
         model.classifier[6] = nn.Linear(4096, num_classes)
@@ -110,7 +109,7 @@ def compute_features(images_folder, batch_id, model, weights_path):
     activation = {}  # Reset activation storage
 
     # Prepare dataset and loader
-    inner_folder = os.path.join(images_folder, batch_id, defaults['inner_folder'])  # Adjust according to actual inner folder name
+    inner_folder = os.path.join(images_folder, batch_id, 'inner_folder')  # Adjust according to actual inner folder name
     file_list = [os.path.join(inner_folder, file) for file in os.listdir(inner_folder)]
     test_data = ILTDataset(file_list, transform=test_transform)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=1)
@@ -126,7 +125,8 @@ def compute_features(images_folder, batch_id, model, weights_path):
             output = model(data)
             
             # Assuming 'layer_42' as the layer of interest based on VGG structure
-            layer_features = activation['layer_42'].flatten(start_dim=1)  # Flatten all dimensions except batch
+            layer_features = torch.amax(activation['layer_42'], (2, 3))
+            print(f"layer_features: {layer_features}")
             features.append(layer_features)
 
             # Process predictions
@@ -135,6 +135,7 @@ def compute_features(images_folder, batch_id, model, weights_path):
             path_images.extend([os.path.basename(path) for path in paths])
 
     # Concatenate all features from batches
+    print(f"Number of features: {len(features)}")
     features = torch.cat(features, dim=0).cpu().numpy()
 
     end = timeit.default_timer()  # End timer
