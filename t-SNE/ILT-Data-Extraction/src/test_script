@@ -1,0 +1,7 @@
+#!/bin/bash
+export PYTHONHASHSEED=42
+python main.py /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/t-SNE/results /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/Classifier/scripts/from_scratch/model.pth /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/t-SNE/labels_mapping.json
+
+rm -r /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation
+cp -rv /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation_copy /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation
+rm -r ../../results/
