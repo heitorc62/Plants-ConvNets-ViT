@@ -115,6 +115,10 @@ def compute_features(images_folder, batch_id, model, weights_path):
     test_data = ILTDataset(file_list, transform=test_transform)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=1)
 
+    print(f"Batch ID: {batch_id}")
+    print(f"files: {file_list}")
+    print(f"Number of images: {len(test_data)}")
+    
     path_images, predictions = [], []
     features = []
 
