@@ -110,7 +110,7 @@ def compute_features(images_folder, batch_id, model, weights_path):
     activation = {}  # Reset activation storage
 
     # Prepare dataset and loader
-    inner_folder = os.path.join(images_folder, batch_id, 'inner_folder')  # Adjust according to actual inner folder name
+    inner_folder = os.path.join(images_folder, batch_id, defaults['inner_folder'])  # Adjust according to actual inner folder name
     file_list = [os.path.join(inner_folder, file) for file in os.listdir(inner_folder)]
     test_data = ILTDataset(file_list, transform=test_transform)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=1)
