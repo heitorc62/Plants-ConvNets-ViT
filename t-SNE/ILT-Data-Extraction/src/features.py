@@ -8,7 +8,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, Dataset
-from torchvision.models import vgg16
+from torchvision import models
+from torchvision.models.vgg import VGG16_BN_Weights
 
 from aux import defaults
 
@@ -63,7 +64,7 @@ def get_activation(name):
     return hook
 
 def get_model(load=False, num_classes=1000):
-    model = vgg16(pretrained=True)  # Load a pretrained VGG16 model
+    model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
     if load:
         # Replace the classifier's final layer to match the desired number of classes
         model.classifier[6] = nn.Linear(4096, num_classes)
