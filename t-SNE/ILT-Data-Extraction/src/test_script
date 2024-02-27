@@ -4,4 +4,3 @@ python main.py /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_w
 
 rm -r /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation
 cp -rv /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation_copy/* /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation/
-rm -r ../../results/
