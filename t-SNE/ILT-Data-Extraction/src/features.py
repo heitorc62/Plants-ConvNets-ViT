@@ -87,7 +87,7 @@ def register_hooks(model):
 def compute_features(images_folder, batch_id, model, weights_path):
     global activation
 
-    batch_size = 32
+    batch_size = 8
     device = 'cuda'
 
     seed = 0
@@ -114,11 +114,6 @@ def compute_features(images_folder, batch_id, model, weights_path):
     file_list = [os.path.join(inner_folder, file) for file in os.listdir(inner_folder)]
     test_data = ILTDataset(file_list, transform=test_transform)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=1)
-
-    print(f"Images folder: {images_folder}")
-    print(f"Batch ID: {batch_id}")
-    print(f"files: {file_list}")
-    print(f"Number of images: {len(test_data)}")
     
     path_images, predictions = [], []
     features = []
@@ -132,7 +127,6 @@ def compute_features(images_folder, batch_id, model, weights_path):
             
             # Assuming 'layer_42' as the layer of interest based on VGG structure
             layer_features = torch.amax(activation['layer_42'], (2, 3))
-            print(f"layer_features: {layer_features}")
             features.append(layer_features)
 
             # Process predictions
@@ -141,7 +135,6 @@ def compute_features(images_folder, batch_id, model, weights_path):
             path_images.extend([os.path.basename(path) for path in paths])
 
     # Concatenate all features from batches
-    print(f"Number of features: {len(features)}")
     features = torch.cat(features, dim=0).cpu().numpy()
 
     end = timeit.default_timer()  # End timer

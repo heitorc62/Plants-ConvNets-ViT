@@ -1,0 +1,40 @@
+
+INSTALAÇÃO
+
+OBS ambiente conda com nome iat
+
+fazer download da ferramenta IAT
+
+===========================================
+
+EXPLICAÇÃO SOBRE O DATASET
+
+todas as imagens a serem anotadas devem estar presentes num único diretório com o nome "unlabeled"
+
+copiar o diretório do dataset no diretório da ferramenta IAT
+
+===========================================
+
+UTILIZAÇÃO
+
+1) abrir um terminal no diretório do IAT
+
+1*) com o explorador no diretório main, e com o mouse sobre o explorador,
+   clicar no botão direito do mouse e selecionar a opção "Abrir Terminal Aqui"
+
+2) ativar o ambiente conda com o comando:
+
+   conda activate iat
+
+3) executar o código para preparação da sessão e seguir as instruções:
+
+   python data_preparation.py
+
+4) executar o código para abrir a ferramenta de labeling e seguir as instruções:
+
+   python launch_iat.py
+
+
+please put the raw dataset in a folder
+
+
