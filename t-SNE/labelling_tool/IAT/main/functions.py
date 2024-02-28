@@ -116,7 +116,9 @@ def f_figure_scatter_plot(_df, _columns, _selected_custom_data, prev_fig = None,
 
         sub_df = _df[column_name] == name
         _custom_points = _df['custom_data'][(sub_df)]
-        _label = name + ' (' + str(val.shape[0]) + ')'
+        print(f"name = {name}")
+        print(f"type(name) = {type(name)}")
+        _label = str(name) + ' (' + str(val.shape[0]) + ')'
 
 #        _temp = []
 #        for i in range(len(_selectedpoints)):
