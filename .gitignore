@@ -2,3 +2,4 @@ __pycache__/
 **.pth
 t-SNE/labelling_tool/results
 t-SNE/labelling_tool/IAT/main/assets/results
+t-SNE/results/images/

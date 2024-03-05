@@ -119,7 +119,11 @@ def compute_features(images_folder, batch_id, model, weights_path, batch_df):
     
     label_list = []
     for file in file_list:
-        label_list.append(batch_df[batch_df['names'] == os.path.basename(file) and batch_df['batch'] == batch_id].labels.values[0])
+        # Extract the basename of the file
+        file_basename = os.path.basename(file)
+        # Query the DataFrame for matching entries
+        matching_labels = batch_df[(batch_df['names'] == file_basename) & (batch_df['batch'] == batch_id)]['labels'].values
+        label_list.append(matching_labels[0])
     
     
     test_data = ILTDataset(file_list, label_list, transform=test_transform)
