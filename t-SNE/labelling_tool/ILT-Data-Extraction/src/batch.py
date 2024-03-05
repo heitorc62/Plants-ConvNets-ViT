@@ -48,7 +48,7 @@ def create_batches(input_path, output_path, labels_dict):
     df['batch'] = batches
     df.to_csv(os.path.join(output_path, 'batches.csv'), index=None)
     print("Done creating batches!\n")
-    return df
+    return df, len(labels_dict)
 
 
 def move_batch_images(input_path, images_folder, df):
