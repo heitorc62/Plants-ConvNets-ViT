@@ -88,7 +88,7 @@ def main():
     for i in tqdm.trange(num_batches, ascii=True, ncols=79, unit='batch'):
         batch_id = 'batch_{:04d}'.format(i + 1)
         features, path_images, predictions = compute_features(images_folder, batch_id, model, weights_path)
-        data = {'features': features, 'path_images': path_images, 'predictions': predictions}
+        data = {'path_images': path_images, 'predictions': predictions}
         aux_df = pd.DataFrame(data)
         aux_df.to_csv(os.path.join(df_folder, 'testing' + batch_id + '_' + '.csv'), index=None)
         compute_projections(output_path, project_name, batch_id, features, path_images, df_batches, predictions, base_tsne=base_tsne)
