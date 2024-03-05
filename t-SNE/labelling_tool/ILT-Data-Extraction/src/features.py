@@ -124,6 +124,8 @@ def compute_features(images_folder, batch_id, model, weights_path, batch_df):
         # Query the DataFrame for matching entries
         matching_labels = batch_df[(batch_df['names'] == file_basename) & (batch_df['batch'] == batch_id)]['labels'].values
         label_list.append(matching_labels[0])
+        
+    print(f"Label list: {label_list}")
     
     
     test_data = ILTDataset(file_list, label_list, transform=test_transform)
@@ -157,6 +159,8 @@ def compute_features(images_folder, batch_id, model, weights_path, batch_df):
     end = timeit.default_timer()  # End timer
     
     # Calculate accuracy
+    print(f"true_labels:{true_labels}")
+    print(f"predictions:{predictions}")
     correct_predictions = sum(p == t for p, t in zip(predictions, true_labels))
     accuracy = correct_predictions / len(true_labels)
 
@@ -165,4 +169,4 @@ def compute_features(images_folder, batch_id, model, weights_path, batch_df):
 
 
 
-    return features, path_images, predictions, labels
+    return features, path_images, predictions, true_labels
