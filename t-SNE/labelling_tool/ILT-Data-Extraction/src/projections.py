@@ -44,7 +44,7 @@ def compute_projections(output_path, project_name, batch_id, features, path_imag
     predictions_arr = np.reshape(np.array(predictions), (-1, 1))
     tsne_arr = np.hstack((path_images, projection, predictions_arr))
     df_preds = pd.DataFrame(tsne_arr, columns =['names', 'x', 'y', 'pred'])
-    df.to_csv(os.path.join(output_path, f'projections_{uuid.uuid1}.csv'), index=None)
+    df_preds.to_csv(os.path.join(output_path, f'projections_{uuid.uuid1}.csv'), index=None)
     df_filtered = df_batches[df_batches['batch'] == batch_id]
     df = pd.merge(df_preds, df_filtered, on='names')
 
