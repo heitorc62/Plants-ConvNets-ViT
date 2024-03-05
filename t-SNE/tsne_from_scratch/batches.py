@@ -5,10 +5,12 @@ from defaults import defaults
 from collections import defaultdict
 
 def create_batches_helper(output_path, num_batches, class_proportions, images_by_class, batch_size):
+    batches = {}
     # Create batches
     batches_path = os.path.join(output_path, defaults['images'])
     for batch_num in range(1, num_batches + 1):
         batch_dir = os.path.join(batches_path, f'batch_{batch_num:04d}')
+        batches[f'batch_{batch_num:04d}'] = batch_dir
         os.makedirs(batch_dir, exist_ok=True)
         
         for class_name, proportion in class_proportions.items():
@@ -25,6 +27,8 @@ def create_batches_helper(output_path, num_batches, class_proportions, images_by
             for img_path in images_to_copy:
                 shutil.copy(img_path, class_dir)
             images_by_class[class_name] = images_by_class[class_name][num_images_for_class:]  # Update remaining images
+            
+    return batches
             
 
 def create_batches(dataset_path, output_path, num_batches=8):
@@ -78,7 +82,7 @@ def create_batches(dataset_path, output_path, num_batches=8):
     batch_size = math.ceil(total_images / num_batches)
     class_proportions = {class_name: len(images)/total_images for class_name, images in images_by_class.items()}
     
-    create_batches_helper(output_path, num_batches, class_proportions, images_by_class, batch_size)
+    batches = create_batches_helper(output_path, num_batches, class_proportions, images_by_class, batch_size)
     
-    return len(classes), num_batches  # Return the number of classes in the dataset as well as the number of batches created
+    return len(classes), batches  # Return the number of classes in the dataset as well as the number of batches created
     

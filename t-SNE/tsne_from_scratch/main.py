@@ -33,9 +33,9 @@ def extract_features(output_path, batches, model):
 
 
 def main(dataset_path, model_path, output_path):
-    num_classes, batches_df = create_batches(dataset_path, output_path)
+    num_classes, batches = create_batches(dataset_path, output_path)
     model = get_model(weights_path=model_path, num_classes=num_classes)
-    extract_features(output_path, batches_df, model)
+    extract_features(output_path, batches, model)
     print('Done!')
 
 if __name__ == "__main__":
