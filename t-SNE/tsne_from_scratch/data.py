@@ -40,7 +40,7 @@ def get_batch_dataset(batches, batch_id, transform=None, batch_size=32, shuffle=
         ])
 
     # Load the dataset using ImageFolder
-    dataset = datasets.CustomImageFolder(root=dataset_path, transform=transform)
+    dataset = CustomImageFolder(root=dataset_path, transform=transform)
 
     # Create and return a DataLoader
     data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
