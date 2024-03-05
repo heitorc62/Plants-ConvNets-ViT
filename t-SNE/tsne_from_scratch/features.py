@@ -1,7 +1,7 @@
 import os
 import torch
 import timeit
-from time import timedelta
+from datetime import timedelta
 import torch.nn as nn
 from torchvision import models
 from torchvision.models.vgg import VGG16_BN_Weights
