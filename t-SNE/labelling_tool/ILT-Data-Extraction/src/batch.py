@@ -63,7 +63,7 @@ def move_batch_images(input_path, images_folder, df):
 
         original_path = os.path.join(input_path, row.klass, row.names)
         try:
-            shutil.move(original_path, os.path.join(batch_folder, row.names))
+            shutil.copy(original_path, os.path.join(batch_folder, row.names))
         except:
             df.drop(row.Index, inplace=True)
             dropped_imgs += 1
