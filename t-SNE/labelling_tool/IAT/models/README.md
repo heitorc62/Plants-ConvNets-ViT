@@ -1,2 +1,0 @@
-# IAT
-Image Annotation Tool

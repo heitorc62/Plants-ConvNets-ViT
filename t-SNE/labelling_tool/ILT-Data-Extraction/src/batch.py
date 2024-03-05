@@ -22,7 +22,7 @@ def update(progress_bar):
 # Output:
 # (1) a Pandas DataFrame mapping each image to its original class
 #     and its assigned batch number
-def create_batches(input_path, output_path):
+def create_batches(input_path, output_path, labels_dict):
     print('Creating batches...')
     imgs = []
     for pwd, children, files in os.walk(input_path):
@@ -32,6 +32,7 @@ def create_batches(input_path, output_path):
     images_per_batch = math.ceil(len(imgs) / num_batches)
 
     df = pd.DataFrame(imgs, columns=['names', 'klass'])
+    df['labels'] = df['klass'].map(labels_dict)
     df = df.sample(frac=1).reset_index(drop=True)
 
     batches = []

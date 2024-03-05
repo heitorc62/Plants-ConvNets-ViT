@@ -43,9 +43,12 @@ def freeze_bn(model):
             module.eval()
 
 class ILTDataset(Dataset):
-    def __init__(self, file_list, transform=None):
+    def __init__(self, file_list, label_list, transform=None):
         self.file_list = file_list
         self.transform = transform
+        self.label_list = label_list
+            
+            
 
     def __len__(self):
         self.filelength = len(self.file_list)
@@ -53,10 +56,11 @@ class ILTDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path = self.file_list[idx]
+        label = self.label_list[idx]
         img = PIL.Image.open(img_path).convert('RGB')
         img_transformed = self.transform(img)
 
-        return img_transformed, img_path
+        return img_transformed, img_path, label
 
 def get_activation(name):
     def hook(model, input, output):
@@ -84,7 +88,7 @@ def register_hooks(model):
   # (3) weights_path: a string with the path to the weights to load (optional,
   #                   if not provided, loads weights from the ImageNet)
 # Output:
-def compute_features(images_folder, batch_id, model, weights_path):
+def compute_features(images_folder, batch_id, model, weights_path, batch_df):
     global activation
 
     batch_size = 8
@@ -112,16 +116,24 @@ def compute_features(images_folder, batch_id, model, weights_path):
     # Prepare dataset and loader
     inner_folder = os.path.join(images_folder, batch_id, defaults['inner_folder'])  # Adjust according to actual inner folder name
     file_list = [os.path.join(inner_folder, file) for file in os.listdir(inner_folder)]
-    test_data = ILTDataset(file_list, transform=test_transform)
+    
+    label_list = []
+    for file in file_list:
+        label_list.append(batch_df[batch_df['names'] == os.path.basename(file) and batch_df['batch'] == batch_id].labels.values[0])
+    
+    
+    test_data = ILTDataset(file_list, label_list, transform=test_transform)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=1)
     
-    path_images, predictions = [], []
+    path_images = []
+    predictions = []
     features = []
+    true_labels = []
 
     start = timeit.default_timer()  # Start timer
 
     with torch.no_grad():
-        for data, paths in test_loader:
+        for data, paths, labels in test_loader:
             data = data.to(device)
             output = model(data)
             
@@ -132,13 +144,21 @@ def compute_features(images_folder, batch_id, model, weights_path):
             # Process predictions
             preds = output.argmax(dim=1).cpu().tolist()
             predictions.extend(preds)
+            true_labels.extend(labels)
             path_images.extend([os.path.basename(path) for path in paths])
 
     # Concatenate all features from batches
     features = torch.cat(features, dim=0).cpu().numpy()
 
     end = timeit.default_timer()  # End timer
+    
+    # Calculate accuracy
+    correct_predictions = sum(p == t for p, t in zip(predictions, true_labels))
+    accuracy = correct_predictions / len(true_labels)
 
-    print(f"Feature extraction completed in: {timedelta(seconds=end-start)}")
+    print(f"Feature extraction and prediction completed in: {timedelta(seconds=end-start)}")
+    print(f"Accuracy: {accuracy:.4f}")
 
-    return features, path_images, predictions
+
+
+    return features, path_images, predictions, labels

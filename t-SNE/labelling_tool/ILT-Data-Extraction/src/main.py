@@ -54,29 +54,23 @@ def main():
         exit()
 
     # Step 1: Create batches and remove scales
-    df_batches = create_batches(input_path, output_path)
+    labels_dict = read_labels(labels_path)
+    df_batches, num_classes = create_batches(input_path, output_path, labels_dict)
     move_images(input_path, df_batches, output_path)
     remove_scale(os.path.join(output_path, defaults['images']))
-    
-    num_classes = defaults['num_classes']
-    if not labels_path == '':
-        labels_dict = read_labels(labels_path)
-        num_classes = len(labels_dict)
-
     model = get_model(load=True, num_classes=num_classes)
     images_folder = os.path.join(output_path, defaults['images'])
-    df_batches = pd.read_csv(os.path.join(output_path, 'batches.csv'), index_col=None)
 
     base_id = defaults['base_tsne_id']
     print('Computing base features...')
     start = timeit.default_timer()
-    features, path_images, predictions = compute_features(images_folder, base_id, model, weights_path)
+    features, path_images, predictions, labels = compute_features(images_folder, base_id, model, weights_path, df_batches)
     end = timeit.default_timer()
     print('Total time:', timedelta(seconds=(end - start)), "\n")
 
     print('Computing base projections...')
     start = timeit.default_timer()
-    base_tsne = compute_projections(output_path, project_name, base_id, features, path_images, df_batches, predictions, compute_base=True, save=False)
+    base_tsne = compute_projections(output_path, project_name, base_id, features, path_images, df_batches, predictions, labels, compute_base=True, save=False)
     end = timeit.default_timer()
     print('Total time:', timedelta(seconds=(end - start)), "\n")
 
@@ -87,11 +81,8 @@ def main():
     print('Computing all features/projections...')
     for i in tqdm.trange(num_batches, ascii=True, ncols=79, unit='batch'):
         batch_id = 'batch_{:04d}'.format(i + 1)
-        features, path_images, predictions = compute_features(images_folder, batch_id, model, weights_path)
-        compute_projections(output_path, project_name, batch_id, features, path_images, df_batches, predictions, base_tsne=base_tsne)
-        data = {'path_images': path_images, 'predictions': predictions}
-        aux_df = pd.DataFrame(data)
-        aux_df.to_csv(os.path.join(df_folder, 'testing' + batch_id + '_' + '.csv'), index=None)
+        features, path_images, predictions, labels = compute_features(images_folder, batch_id, model, weights_path, df_batches)
+        compute_projections(output_path, project_name, batch_id, features, path_images, df_batches, predictions, labels, base_tsne=base_tsne)
     print()
 
     # Step 3: Generate CSVs + backgrounds
@@ -110,45 +101,7 @@ def main():
     end = timeit.default_timer()
     print('Total time:', timedelta(seconds=(end - start)), "\n")
 
-    # Step 4: Generate thumbnails
-    print('Generating thumbnails...')
-    start = timeit.default_timer()
-    thumbnails_folder = os.path.join(output_path, defaults['thumbnails'])
-    if not os.path.isdir(thumbnails_folder):
-        os.mkdir(thumbnails_folder, mode=0o755)
 
-    with tqdm.trange(num_batches, ascii=True, ncols=79, unit='batch') as pbar:
-        with mp.Pool(mp.cpu_count()) as pool:
-            for i in range(num_batches):
-                batch_id = 'batch_{:04d}'.format(i + 1)
-                input_path = os.path.join(images_folder, batch_id, defaults['inner_folder'])
-                pool.apply_async(generate_thumbnails, callback=update(pbar), args=(input_path, thumbnails_folder, i + 1, defaults['thumbnails_size']))
-            pool.close()
-            pool.join()
-    end = timeit.default_timer()
-    print('Total time:', timedelta(seconds=(end - start)), "\n")
-
-    # Step 5: Add scale
-    print('Adding scales to images...')
-    start = timeit.default_timer()
-    with tqdm.trange(num_batches, ascii=True, ncols=79, unit='batch') as pbar:
-        with mp.Pool(mp.cpu_count()) as pool:
-            for i in range(num_batches):
-                pool.apply_async(add_scale, callback=update(pbar), args=(images_folder, i + 1))
-            pool.close()
-            pool.join()
-    end = timeit.default_timer()
-    print('Total time:', timedelta(seconds=(end - start)), "\n")
-
-    # Step 6: Label predictions
-    if not labels_path == '':
-        print('Labeling predictions...')
-        start = timeit.default_timer()
-        for i in tqdm.trange(num_batches, ascii=True, ncols=79, unit='batch'):
-            batch_id = 'batch_{:04d}'.format(i + 1)
-            label_predictions(df_folder, labels_path, project_name, batch_id)
-        end = timeit.default_timer()
-        print('Total time:', timedelta(seconds=(end - start)))
 
 
 if __name__ == '__main__':
