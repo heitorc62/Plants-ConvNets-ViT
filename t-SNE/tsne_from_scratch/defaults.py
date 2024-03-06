@@ -4,5 +4,6 @@ defaults = {
     'dataframes': 'dataframes',
     'backgrounds': 'backgrounds',
     'base_tsne_id': 'batch_0001',
-    'map_factor': 2
+    'map_factor': 2,
+    'tsne_path': 'tsne_projections'
 }

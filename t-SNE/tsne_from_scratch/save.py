@@ -11,7 +11,9 @@ def save_csv(output_path, batch_id, result_df):
     dataframes_folder = os.path.join(output_path, defaults['dataframes'])
     if not os.path.isdir(dataframes_folder):
         os.mkdir(dataframes_folder, mode=0o755)
-    result_df.to_csv(os.path.join(dataframes_folder, batch_id + '_' + '.csv'), index=None)
+    csv_path = os.path.join(dataframes_folder, batch_id + '_' + '.csv')
+    result_df.to_csv(csv_path, index=None)
+    return csv_path
     
     
 def get_image(path, paint=False, color=(1, 1, 1), zoom=0.2, dim=255):
@@ -53,7 +55,7 @@ def map_of_images(df, xrange, yrange, output_path, zoom, fig_size=40):
     plt.close(f)
 
         
-def save_backgrounds(output_path, batch_id, results_df, range=100):
+def save_backgrounds(output_path, batch_id, csv_path, range=100):
     backgrounds_dir = os.path.join(output_path, defaults['backgrounds'])
     #Ensure output directory exists
     os.makedirs(backgrounds_dir, exist_ok=True)
@@ -64,27 +66,30 @@ def save_backgrounds(output_path, batch_id, results_df, range=100):
     zoom = fig_size / (factor * (xrange[1] - xrange[0]))
 
     backgrounds_path = os.path.join(backgrounds_dir, batch_id + '_' + '.png')
+    
+    # Read df
+    df = pd.read_csv(csv_path)
 
-    map_of_images(results_df, xrange, yrange, backgrounds_path, zoom, fig_size)
+    map_of_images(df, xrange, yrange, backgrounds_path, zoom, fig_size)
 
 
-def save_scatter_plots(output_path, batch_id, df):
-    # Create a color map based on unique labels
-    unique_labels = df['label'].unique()
-    colors = plt.cm.rainbow(np.linspace(0, 1, len(unique_labels)))
-    color_map = dict(zip(unique_labels, colors))
+def save_scatter_plots(output_path, batch_id, csv_path, fig_size=40):
+    # Read df
+    df = pd.read_csv(csv_path)
+    plt.figure(figsize=(fig_size, fig_size))
+    colors = plt.cm.rainbow(np.linspace(0, 1, len(df['pred'].unique())))
 
-    # Plotting
-    plt.scatter(df['x'], df['y'], c=df['label'].map(color_map), label=df['label'].unique())
-
-    plt.legend(title='Label')
-
+    for i, label in enumerate(sorted(df['pred'].unique())):
+        subset = df[df['pred'] == label]
+        plt.scatter(subset['x'], subset['y'], color=colors[i], label=f'Label {label}')
+    
+    plt.legend()
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.title('Scatter Plot by Label')
-    
+    plt.title('Scatter plot of predicted labels')
     tsne_dir = os.path.join(output_path, defaults['tsne_path'])
     #Ensure output directory exists
     os.makedirs(tsne_dir, exist_ok=True)
     tsne_path = os.path.join(tsne_dir, batch_id + '_' + '.png')
     plt.savefig(tsne_path)
+    plt.close()

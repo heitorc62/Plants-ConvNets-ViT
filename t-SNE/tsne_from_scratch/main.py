@@ -25,9 +25,9 @@ def extract_features(output_path, batches, model):
         batch_dataset = get_batch_dataset(batches, batch_id)
         features, path_images, predictions, labels = compute_features(model, batch_dataset)
         _, result_df = compute_projections(features, path_images, predictions, labels, base_tsne=base_tsne)
-        save_csv(output_path, batch_id, result_df)
-        save_backgrounds(output_path, batch_id, result_df)
-        save_scatter_plots(output_path, batch_id, result_df)
+        csv_path = save_csv(output_path, batch_id, result_df)
+        save_backgrounds(output_path, batch_id, csv_path)
+        save_scatter_plots(output_path, batch_id, csv_path)
     print()
 
 
