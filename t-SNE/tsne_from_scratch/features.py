@@ -13,15 +13,6 @@ def get_activation(name):
         activation[name] = output.detach()
     return hook
 
-def freeze_bn(model):
-    for module in model.modules():
-        if isinstance(module, nn.BatchNorm2d):
-            if hasattr(module, 'weight'):
-                module.weight.requires_grad_(False)
-            if hasattr(module, 'bias'):
-                module.bias.requires_grad_(False)
-            module.eval()
-
 def register_hooks(model):
     layers_of_interest = ['5', '12', '22', '32', '42']  # Convolutional layers before MaxPool
     for layer in layers_of_interest:
@@ -29,14 +20,12 @@ def register_hooks(model):
 
 
 def get_model(weights_path, num_classes, device='cuda'):
-    model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
+    model = models.vgg16_bn()
     print(f"num_classes = {num_classes}")
     num_ftrs = model.classifier[6].in_features
     print(f"num_ftrs = {num_ftrs}")
     model.classifier[6] = nn.Linear(num_ftrs,num_classes)
         
-    freeze_bn(model)
-    
     # Load model weights if a path is provided
     checkpoint = torch.load(weights_path, map_location=lambda storage, loc: storage.cuda(device))
     model.load_state_dict(checkpoint)
@@ -72,9 +61,9 @@ def compute_features(model, data_loader, device='cuda', interest_layer='layer_42
 
             # Process predictions
             _, preds = torch.max(outputs, 1)
-            predictions.extend(preds)
-            true_labels.extend(labels)
-            path_images.extend([os.path.basename(path) for path in paths])
+            predictions.extend(preds.cpu().numpy())
+            true_labels.extend(labels.cpu().numpy())
+            path_images.extend(paths)
 
     # Concatenate all features from batches
     features = torch.cat(features, dim=0).cpu().numpy()

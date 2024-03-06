@@ -15,7 +15,7 @@ class CustomImageFolder(datasets.ImageFolder):
         return image, label, path  # Return image, label, and filepath
 
 
-def get_batch_dataset(batches, batch_id, transform=None, batch_size=32, shuffle=False, num_workers=0):
+def get_batch_dataset(batches, batch_id, input_size=224, transform=None, batch_size=32, shuffle=False, num_workers=3):
     """
     Returns a DataLoader for the dataset in a specific batch.
 
@@ -35,9 +35,11 @@ def get_batch_dataset(batches, batch_id, transform=None, batch_size=32, shuffle=
     # Define your transformations here. This is just an example.
     if transform is None:
         transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-        ])
+        transforms.RandomResizedCrop(input_size),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
 
     # Load the dataset using ImageFolder
     dataset = CustomImageFolder(root=dataset_path, transform=transform)
