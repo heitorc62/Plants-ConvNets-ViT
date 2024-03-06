@@ -30,7 +30,10 @@ def register_hooks(model):
 
 def get_model(weights_path, num_classes, device='cuda'):
     model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
-    model.classifier[6] = nn.Linear(4096, num_classes)
+    print(f"num_classes = {num_classes}")
+    num_ftrs = model.classifier[6].in_features
+    print(f"num_ftrs = {num_ftrs}")
+    model.classifier[6] = nn.Linear(num_ftrs,num_classes)
         
     freeze_bn(model)
     
@@ -61,14 +64,14 @@ def compute_features(model, data_loader, device='cuda', interest_layer='layer_42
     with torch.no_grad():
         for data, labels, paths in data_loader:
             data = data.to(device)
-            output = model(data)
+            outputs = model(data)
             
             # Assuming 'layer_42' as the layer of interest based on VGG structure
             layer_features = torch.amax(activation[interest_layer], (2, 3))
             features.append(layer_features)
 
             # Process predictions
-            preds = output.argmax(dim=1).cpu().tolist()
+            _, preds = torch.max(outputs, 1)
             predictions.extend(preds)
             true_labels.extend(labels)
             path_images.extend([os.path.basename(path) for path in paths])
