@@ -1,10 +1,10 @@
 import argparse
-from features import get_model, compute_features
-from projections import compute_projections
-from batches import create_batches
-from defaults import defaults
-from data import get_batch_dataset
-from save import save_csv, save_backgrounds, save_scatter_plots
+from src.features import get_model, compute_features
+from src.projections import compute_projections
+from src.batches import create_batches
+from src.defaults import defaults
+from src.data import get_batch_dataset
+from src.save import save_csv, save_backgrounds, save_scatter_plots
 
 def compute_base(output_path, batches, base_id, model):
     print('Computing base features...')
