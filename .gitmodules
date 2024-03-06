@@ -1,0 +1,3 @@
+[submodule "utils/leaf-segmentation"]
+	path = utils/leaf-segmentation
+	url = https://github.com/YaredTaddese/leaf-image-segmentation.git
