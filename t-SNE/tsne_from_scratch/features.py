@@ -82,8 +82,11 @@ def compute_features(model, data_loader, device='cuda', interest_layer='layer_42
     end = timeit.default_timer()  # End timer
     
     # Calculate accuracy
+    print("\n\n\n###########################################################\n\n\n")
     print(f"true_labels:{true_labels}")
+    print("\n\n\n###########################################################\n\n\n")
     print(f"predictions:{predictions}")
+    print("\n\n\n###########################################################\n\n\n")
     correct_predictions = sum(p == t for p, t in zip(predictions, true_labels))
     accuracy = correct_predictions / len(true_labels)
 

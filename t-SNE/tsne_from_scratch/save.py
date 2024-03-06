@@ -35,7 +35,7 @@ def map_of_images(df, xrange, yrange, output_path, zoom, fig_size=40):
 
     x = df_filtered['x']
     y = df_filtered['y']
-    images_paths = df_filtered['image_paths']
+    images_paths = df_filtered['image_path']
 
     f = plt.figure(figsize=(fig_size, fig_size), frameon=False)
     ax = plt.Axes(f, [0., 0., 1., 1.])
