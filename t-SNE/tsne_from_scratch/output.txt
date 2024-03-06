@@ -1,0 +1,26 @@
+Running!
+num_classes = 39
+num_ftrs = 4096
+Computing base features...
+Feature extraction and prediction completed in: 0:00:14.999998
+Accuracy: 0.9732
+Computing base projections...
+Computing all features/projections...
+Feature extraction and prediction completed in: 0:00:12.330496
+Accuracy: 0.9684
+Feature extraction and prediction completed in: 0:00:12.429040
+Accuracy: 0.9729
+Feature extraction and prediction completed in: 0:00:12.468887
+Accuracy: 0.9699
+Feature extraction and prediction completed in: 0:00:12.453916
+Accuracy: 0.9722
+Feature extraction and prediction completed in: 0:00:13.945068
+Accuracy: 0.9713
+Feature extraction and prediction completed in: 0:00:18.789072
+Accuracy: 0.9703
+Feature extraction and prediction completed in: 0:00:12.481517
+Accuracy: 0.9710
+Feature extraction and prediction completed in: 0:00:12.365878
+Accuracy: 0.9705
+
+Done!
