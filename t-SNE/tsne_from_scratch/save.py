@@ -28,6 +28,8 @@ def get_image(path, paint=False, color=(1, 1, 1), zoom=0.2, dim=255):
     
     
 def map_of_images(df, xrange, yrange, output_path, zoom, fig_size=40):
+    #Ensure output directory exists
+    os.makedirs(output_path, exist_ok=True)
     df_x = pd.to_numeric(df['x'])
     df_y = pd.to_numeric(df['y'])
 
@@ -62,6 +64,7 @@ def save_backgrounds(output_path, batch_id, results_df, range=100):
     zoom = fig_size / (factor * (xrange[1] - xrange[0]))
 
     backgrounds_path = os.path.join(backgrounds_dir, batch_id + '_' + '.png')
+
     map_of_images(results_df, xrange, yrange, backgrounds_path, zoom, fig_size)
 
 
@@ -79,4 +82,7 @@ def save_scatter_plots(output_path, batch_id, df):
     plt.xlabel('x')
     plt.ylabel('y')
     plt.title('Scatter Plot by Label')
-    plt.savefig('scatter_plot_by_label.png')
+    
+    tsne_dir = os.path.join(output_path, defaults['tsne_path'])
+    tsne_path = os.path.join(tsne_dir, batch_id + '_' + '.png')
+    plt.savefig(tsne_path)
