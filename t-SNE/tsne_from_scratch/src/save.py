@@ -73,7 +73,7 @@ def save_backgrounds(output_path, batch_id, csv_path, range=100):
     map_of_images(df, xrange, yrange, backgrounds_path, zoom, fig_size)
 
 
-def save_scatter_plots(output_path, batch_id, csv_path, fig_size=40):
+def save_scatter_plots(output_path, batch_id, csv_path, label_mappings, fig_size=40):
     # Read df
     df = pd.read_csv(csv_path)
     plt.figure(figsize=(fig_size, fig_size))
@@ -81,7 +81,8 @@ def save_scatter_plots(output_path, batch_id, csv_path, fig_size=40):
 
     for i, label in enumerate(sorted(df['pred'].unique())):
         subset = df[df['pred'] == label]
-        plt.scatter(subset['x'], subset['y'], color=colors[i], label=f'Label {label}')
+        class_name = label_mappings[int(label)]
+        plt.scatter(subset['x'], subset['y'], color=colors[i], label=class_name)
     
     plt.legend()
     plt.xlabel('x')

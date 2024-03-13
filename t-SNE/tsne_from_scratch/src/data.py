@@ -3,6 +3,18 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
 
+def get_label_mappings(data_dir):
+    # Use a dummy transform since we just need the class names and indices
+    transform = transforms.Compose([transforms.ToTensor()])
+    
+    # Load the dataset to access the class_to_idx attribute
+    dataset = datasets.ImageFolder(data_dir, transform=transform)
+    
+    # Return the mapping
+    # Return the reversed mapping
+    return {v: k for k, v in dataset.class_to_idx.items()}
+
+
 class CustomImageFolder(datasets.ImageFolder):
     def __getitem__(self, index):
         # This method is called by DataLoader to fetch an item
