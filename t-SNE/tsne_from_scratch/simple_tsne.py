@@ -38,7 +38,7 @@ def save_plot(tsne_results, labels, label_mappings, output_path, fig_size=40):
     
 
 def main(dataset_path, output_path):
-    dataset = datasets.ImageFolder(root=dataset_path, transforms=transforms.ToTensor())
+    dataset = datasets.ImageFolder(root=dataset_path, transform=transforms.ToTensor())
     
     label_mappings = {i: label for i, label in enumerate(dataset.classes)}
     
