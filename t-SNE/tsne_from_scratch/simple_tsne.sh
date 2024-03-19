@@ -1,0 +1,1 @@
+nohup python simple_tsne.py --dataset_path /home/heitorc62/PlantsConv/dataset/Plant_leave_8px --output_path /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/t-SNE/simple_results.png &> simple_tsne_results.out &
