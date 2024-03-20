@@ -1,0 +1,1 @@
+nohup python random_forest_8px.py --dataset_path /home/heitorc62/PlantsConv/dataset/Plant_leave_8px --output_path /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/Classifier2/results_8px &> 8px_results.out &
