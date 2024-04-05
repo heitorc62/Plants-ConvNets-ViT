@@ -49,14 +49,14 @@ class TransitionedImagesDataset(Dataset):
     def __getitem__(self, idx):
         img_info = self.image_data[idx]
         identifier = self.extract_identifier(img_info["regular"]["regular_img_path"])
-        regular_image = Image.open(img_info["regular_img_path"]).convert('RGB')
-        seg_wb_image = Image.open(img_info["seg_wb_img_path"]).convert('RGB')
+        regular_image = Image.open(img_info["regular"]["regular_img_path"]).convert('RGB')
+        seg_wb_image = Image.open(img_info["seg_wb"]["seg_wb_img_path"]).convert('RGB')
         
         if self.transform:
             regular_image = self.transform(regular_image)
             seg_wb_image = self.transform(seg_wb_image)
 
-        return regular_image, img_info["regular"]["pred"], seg_wb_image, img_info["seg_wb"]["pred"], identifier
+        return regular_image, img_info["regular"]["regular_pred"], seg_wb_image, img_info["seg_wb"]["seg_wb_pred"], identifier
     
 
 
@@ -69,11 +69,11 @@ def get_transitioned_images(path, directories):
     for index, row in df.iterrows():
         tmp_dict = {}
         if index % 2 == 0: # regular images
-            tmp_dict["regular_img_path"] = directories["regular_dir"] + row["image_path"]
+            tmp_dict["regular_img_path"] = directories["regular_dir"] + "/" + row["image_path"]
             tmp_dict["regular_pred"] = row["pred"]
             transitioned_img["regular"] = tmp_dict
         else: # seg_wb images
-            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + row["image_path"].replace(".JPG", "_marked.JPG")
+            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + "/" + row["image_path"]
             tmp_dict["seg_wb_pred"] = row["pred"]
             transitioned_img["seg_wb"] = tmp_dict
             

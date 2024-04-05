@@ -1,0 +1,18 @@
+Producing dataset's DF...
+Creating dataset...
+Dataset created successfully.
+num_classes = 39
+num_ftrs = 4096
+num_classes = 39
+num_ftrs = 4096
+Models loaded successfully.
+Cams loaded successfully.
+Traceback (most recent call last):
+  File "transitioned_heat_map.py", line 160, in <module>
+    main({"regular_dir": args.regular_dir, "seg_wb_dir": args.seg_wb_dir}, args.transitioned_imgs, args.regular_model, args.seg_wb_model, args.output_dir)
+  File "transitioned_heat_map.py", line 130, in main
+    regular_visualization = show_cam_on_image(regular_images, regular_grayscale_cam, use_rgb=True)
+  File "/home/heitorc62/miniconda3/envs/heitor_env/lib/python3.7/site-packages/pytorch_grad_cam/utils/image.py", line 48, in show_cam_on_image
+    heatmap = cv2.applyColorMap(np.uint8(255 * mask), colormap)
+cv2.error: OpenCV(4.9.0) /io/opencv/modules/imgproc/src/colormap.cpp:736: error: (-5:Bad argument) cv::ColorMap only supports source images of type CV_8UC1 or CV_8UC3 in function 'operator()'
+
