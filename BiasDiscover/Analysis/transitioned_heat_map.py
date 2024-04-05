@@ -21,7 +21,7 @@ def get_label_mappings(data_dir):
     return {v: k for k, v in dataset.class_to_idx.items()}
 
 
-def get_model(weights_path, num_classes=39, device='cuda'):
+def get_model(weights_path, num_classes=39, device='cuda:1'):
     model = models.vgg16_bn()
     print(f"num_classes = {num_classes}")
     num_ftrs = model.classifier[6].in_features
@@ -60,7 +60,7 @@ class TransitionedImagesDataset(Dataset):
     
 
 
-def get_transitioned_images(path, img_identifier):
+def get_transitioned_images(path, directories):
     df = pd.read_csv(path)
     
     transtioned_imgs = []
@@ -69,11 +69,11 @@ def get_transitioned_images(path, img_identifier):
     for index, row in df.iterrows():
         tmp_dict = {}
         if index % 2 == 0: # regular images
-            tmp_dict["regular_img_path"] = row["image_path"]
+            tmp_dict["regular_img_path"] = directories["regular_dir"] + row["image_path"]
             tmp_dict["regular_pred"] = row["pred"]
             transitioned_img["regular"] = tmp_dict
         else: # seg_wb images
-            tmp_dict["seg_wb_img_path"] = row["image_path"]
+            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + row["image_path"]
             tmp_dict["seg_wb_pred"] = row["pred"]
             transitioned_img["seg_wb"] = tmp_dict
             
@@ -88,12 +88,12 @@ def create_dir(id, output_dir):
     return label_dir
 
 def main(
-         transitioned_imgs, regular_model_path, seg_wb_model_path, output_dir, batch_size=8, 
+         directories, transitioned_imgs, regular_model_path, seg_wb_model_path, output_dir, batch_size=8, 
          dataset_path="/home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation"
         ):
     
     label_mappings = get_label_mappings(dataset_path)
-    transitioned_imgs = get_transitioned_images(transitioned_imgs)
+    transitioned_imgs = get_transitioned_images(transitioned_imgs, directories)
     
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
@@ -101,12 +101,15 @@ def main(
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
+    print("Creating dataset...")
     dataset = TransitionedImagesDataset(transitioned_imgs, transform=transform)
+    print("Dataset created successfully.")
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
     
     # Carregar modelos
     regular_model = get_model(regular_model_path)
     seg_wb_model = get_model(seg_wb_model_path)
+    print("Models loaded successfully.")
     
     regular_target_layer = [regular_model.features[42]]
     seg_wb_target_layer = [seg_wb_model.features[42]]
@@ -115,6 +118,8 @@ def main(
     # Instanciar CAM (GradCam)
     regular_cam = GradCAM(model=regular_model, target_layers=regular_target_layer, use_cuda=True)
     seg_wb_cam = GradCAM(model=seg_wb_model, target_layers=seg_wb_target_layer, use_cuda=True)
+    
+    print("Cams loaded successfully.")
         
     for batch in dataloader:
         regular_images, regular_preds, seg_wb_images, seg_wb_preds, identifier = batch
@@ -141,6 +146,8 @@ def main(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parses argument for VGG explainability program.")
+    parser.add_argument("--regular_dir", type=str, help='')
+    parser.add_argument("--seg_wb_dir", type=str, help='')
     parser.add_argument("--transitioned_imgs", type=str, help='')
     parser.add_argument("--regular_model", type=str, help='')
     parser.add_argument("--seg_wb_model", type=str, help='')
@@ -148,5 +155,5 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    main(args.transitioned_imgs, args.regular_model, args.seg_wb_model, args.output_dir)
+    main({"regular_dir": args.regular_dir, "seg_wb_dir": args.seg_wb_dir}, args.transitioned_imgs, args.regular_model, args.seg_wb_model, args.output_dir)
     
