@@ -48,7 +48,7 @@ class TransitionedImagesDataset(Dataset):
 
     def __getitem__(self, idx):
         img_info = self.image_data[idx]
-        identifier = self.extract_identifier(img_info["regular_img_path"])
+        identifier = self.extract_identifier(img_info["regular"]["regular_img_path"])
         regular_image = Image.open(img_info["regular_img_path"]).convert('RGB')
         seg_wb_image = Image.open(img_info["seg_wb_img_path"]).convert('RGB')
         
@@ -73,11 +73,11 @@ def get_transitioned_images(path, directories):
             tmp_dict["regular_pred"] = row["pred"]
             transitioned_img["regular"] = tmp_dict
         else: # seg_wb images
-            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + row["image_path"]
+            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + row["image_path"].replace(".JPG", "_marked.JPG")
             tmp_dict["seg_wb_pred"] = row["pred"]
             transitioned_img["seg_wb"] = tmp_dict
             
-        transitioned_img["true_label"] = row["true"]
+        transitioned_img["true_label"] = row["label"]
         transtioned_imgs.append(transitioned_img)
     
     return transtioned_imgs
@@ -93,6 +93,8 @@ def main(
         ):
     
     label_mappings = get_label_mappings(dataset_path)
+    
+    print("Producing dataset's DF...")
     transitioned_imgs = get_transitioned_images(transitioned_imgs, directories)
     
     transform = transforms.Compose([
