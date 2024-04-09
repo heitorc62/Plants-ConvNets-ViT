@@ -9,6 +9,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, datasets
 from PIL import Image
 import os
+import numpy as np
 
 
 def get_label_mappings(data_dir):
@@ -36,9 +37,13 @@ def get_model(weights_path, num_classes=39, device='cuda:1'):
 
 
 class TransitionedImagesDataset(Dataset):
-    def __init__(self, image_data, transform=None):
+    def __init__(self, image_data):
         self.image_data = image_data
-        self.transform = transform
+        self.transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
 
     def __len__(self):
         return len(self.image_data)
@@ -52,11 +57,12 @@ class TransitionedImagesDataset(Dataset):
         regular_image = Image.open(img_info["regular"]["regular_img_path"]).convert('RGB')
         seg_wb_image = Image.open(img_info["seg_wb"]["seg_wb_img_path"]).convert('RGB')
         
-        if self.transform:
-            regular_image = self.transform(regular_image)
-            seg_wb_image = self.transform(seg_wb_image)
+        regular_image_tensor = self.transform(regular_image)
+        seg_wb_image_tensor = self.transform(seg_wb_image)
 
-        return regular_image, img_info["regular"]["regular_pred"], seg_wb_image, img_info["seg_wb"]["seg_wb_pred"], identifier
+        return  regular_image_tensor, img_info["regular"]["regular_pred"], \
+                seg_wb_image_tensor, img_info["seg_wb"]["seg_wb_pred"], \
+                identifier
     
 
 
@@ -87,6 +93,21 @@ def create_dir(id, output_dir):
     os.makedirs(label_dir, exist_ok=True)
     return label_dir
 
+def get_visuals(img_tensors, cams):
+    convert_to_image = transforms.ToPILImage()
+    visuals = []
+    for i in range(cams.shape[0]):
+        cam = cams[i, :]
+        img = np.array(convert_to_image(img_tensors[i]))
+        
+        # Normalize the image to be in the range [0, 1]
+        img = img.astype(np.float32) / 255.0
+        
+        visual = show_cam_on_image(img, cam, use_rgb=True)
+        visuals.append(visual)
+        
+    return visuals
+
 def main(
          directories, transitioned_imgs, regular_model_path, seg_wb_model_path, output_dir, batch_size=8, 
          dataset_path="/home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation"
@@ -97,14 +118,9 @@ def main(
     print("Producing dataset's DF...")
     transitioned_imgs = get_transitioned_images(transitioned_imgs, directories)
     
-    transform = transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
 
     print("Creating dataset...")
-    dataset = TransitionedImagesDataset(transitioned_imgs, transform=transform)
+    dataset = TransitionedImagesDataset(transitioned_imgs)
     print("Dataset created successfully.")
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
     
@@ -122,15 +138,16 @@ def main(
     seg_wb_cam = GradCAM(model=seg_wb_model, target_layers=seg_wb_target_layer, use_cuda=True)
     
     print("Cams loaded successfully.")
+    
         
     for batch in dataloader:
-        regular_images, regular_preds, seg_wb_images, seg_wb_preds, identifier = batch
+        regular_tensors, regular_preds, seg_wb_tensors, seg_wb_preds, identifier = batch
 
-        regular_grayscale_cam = regular_cam(input_tensor=regular_images)
-        regular_visualization = show_cam_on_image(regular_images, regular_grayscale_cam, use_rgb=True)
+        regular_grayscale_cam = regular_cam(input_tensor=regular_tensors)
+        regular_visualization = get_visuals(regular_tensors, regular_grayscale_cam)
         
-        seg_wb_grayscale_cam = seg_wb_cam(input_tensor=regular_images)
-        seg_wb_visualization = show_cam_on_image(seg_wb_images, seg_wb_grayscale_cam, use_rgb=True)
+        seg_wb_grayscale_cam = seg_wb_cam(input_tensor=seg_wb_tensors)
+        seg_wb_visualization = get_visuals(seg_wb_tensors, seg_wb_grayscale_cam)
         
         # Iterate through the batch and save each result
         for (id, regular_vis, seg_wb_vis, regular_pred, seg_wb_pred) in zip(identifier, regular_visualization, seg_wb_visualization, regular_preds, seg_wb_preds):
@@ -139,11 +156,11 @@ def main(
             label_dir = create_dir(output_dir, id)
 
             # Process and save regular visualization
-            regular_image_path = os.path.join(label_dir, f"regular_pred_{regular_pred.map(label_mappings)}.jpg")
+            regular_image_path = os.path.join(label_dir, f"regular_pred_{label_mappings[regular_pred.item()]}.jpg")
             Image.fromarray(regular_vis).save(regular_image_path)
 
             # Process and save seg_wb visualization
-            seg_wb_image_path = os.path.join(label_dir, f"seg_wb_pred_{seg_wb_pred.map(label_mappings)}.jpg")
+            seg_wb_image_path = os.path.join(label_dir, f"seg_wb_pred_{label_mappings[seg_wb_pred.item()]}.jpg")
             Image.fromarray(seg_wb_vis).save(seg_wb_image_path)
 
 if __name__ == "__main__":
