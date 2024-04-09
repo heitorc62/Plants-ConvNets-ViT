@@ -44,6 +44,7 @@ class TransitionedImagesDataset(Dataset):
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
+        self.to_tensor = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
 
     def __len__(self):
         return len(self.image_data)
@@ -70,8 +71,8 @@ class TransitionedImagesDataset(Dataset):
         regular_image_tensor = self.transform(regular_image)
         seg_wb_image_tensor = self.transform(seg_wb_image)
 
-        return  regular_image_tensor, img_info["regular"]["regular_pred"], \
-                seg_wb_image_tensor, img_info["seg_wb"]["seg_wb_pred"], \
+        return  self.to_tensor(regular_image), regular_image_tensor, img_info["regular"]["regular_pred"], \
+                self.to_tensor(seg_wb_image), seg_wb_image_tensor, img_info["seg_wb"]["seg_wb_pred"], \
                 identifier
     
 
@@ -121,7 +122,7 @@ def get_visuals(img_tensors, cams):
         
         # Normalize the image to be in the range [0, 1]
         img = img.astype(np.float32) / 255.0
-        
+                
         visual = show_cam_on_image(img, cam, use_rgb=True)
         visuals.append(visual)
         
@@ -159,13 +160,13 @@ def main(
     
         
     for batch in dataloader:
-        regular_tensors, regular_preds, seg_wb_tensors, seg_wb_preds, identifier = batch
+        raw_regular_tensors, regular_tensors, regular_preds, raw_seg_wb_tensors, seg_wb_tensors, seg_wb_preds, identifier = batch
 
         regular_grayscale_cam = regular_cam(input_tensor=regular_tensors)
-        regular_visualization = get_visuals(regular_tensors, regular_grayscale_cam)
+        regular_visualization = get_visuals(raw_regular_tensors, regular_grayscale_cam)
         
         seg_wb_grayscale_cam = seg_wb_cam(input_tensor=seg_wb_tensors)
-        seg_wb_visualization = get_visuals(seg_wb_tensors, seg_wb_grayscale_cam)
+        seg_wb_visualization = get_visuals(raw_seg_wb_tensors, seg_wb_grayscale_cam)
         
         # Iterate through the batch and save each result
         for (id, regular_vis, seg_wb_vis, regular_pred, seg_wb_pred) in zip(identifier, regular_visualization, seg_wb_visualization, regular_preds, seg_wb_preds):
@@ -181,9 +182,6 @@ def main(
             seg_wb_image_path = os.path.join(label_dir, f"seg_wb_pred_{label_mappings[seg_wb_pred.item()]}.jpg")
             Image.fromarray(seg_wb_vis).save(seg_wb_image_path)
             
-            break
-        
-        break
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parses argument for VGG explainability program.")
