@@ -49,7 +49,17 @@ class TransitionedImagesDataset(Dataset):
         return len(self.image_data)
     
     def extract_identifier(self, regular_img_path):
-        return regular_img_path.replace("/image ", "")
+        # Extract the base name of the file
+        file_name = os.path.basename(regular_img_path)  # 'image (986).JPG'
+
+        # Split the name from the extension and replace spaces with underscores
+        name, _ = os.path.splitext(file_name)  # 'image (986)'
+        formatted_name = name.replace(' ', '_')  # 'image_(986)'
+
+        # Extract the directory name and replace underscores with spaces
+        dir_name = os.path.basename(os.path.dirname(regular_img_path))  # 'Tomato___healthy'
+        
+        return f"{dir_name}_{formatted_name}"
 
     def __getitem__(self, idx):
         img_info = self.image_data[idx]
@@ -69,26 +79,35 @@ class TransitionedImagesDataset(Dataset):
 def get_transitioned_images(path, directories):
     df = pd.read_csv(path)
     
-    transtioned_imgs = []
-    transitioned_img = {}
-    # loop through the rows using iterrows()
-    for index, row in df.iterrows():
-        tmp_dict = {}
-        if index % 2 == 0: # regular images
-            tmp_dict["regular_img_path"] = directories["regular_dir"] + "/" + row["image_path"]
-            tmp_dict["regular_pred"] = row["pred"]
-            transitioned_img["regular"] = tmp_dict
-        else: # seg_wb images
-            tmp_dict["seg_wb_img_path"] = directories["seg_wb_dir"] + "/" + row["image_path"]
-            tmp_dict["seg_wb_pred"] = row["pred"]
-            transitioned_img["seg_wb"] = tmp_dict
-            
-        transitioned_img["true_label"] = row["label"]
-        transtioned_imgs.append(transitioned_img)
+    transitioned_imgs = []
     
-    return transtioned_imgs
+    for index in range(0, len(df), 2):
+        row_regular = df.iloc[index]
+        row_seg_wb = df.iloc[index + 1] if index + 1 < len(df) else None
+        
+        # process regular images
+        transitioned_img = {}
+        if row_regular is not None:
+            transitioned_img["regular"] = {
+                "regular_img_path": directories["regular_dir"] + "/" + row_regular["image_path"],
+                "regular_pred": row_regular["pred"]
+            }
 
-def create_dir(id, output_dir):
+        # process seg_wb images
+        if row_seg_wb is not None:
+            transitioned_img["seg_wb"] = {
+                "seg_wb_img_path": directories["seg_wb_dir"] + "/" + row_seg_wb["image_path"],
+                "seg_wb_pred": row_seg_wb["pred"]
+            }
+            
+        # Assuming the true label is the same for both regular and seg_wb images and is stored in the first of the two rows
+        transitioned_img["true_label"] = row_regular["label"]
+
+        transitioned_imgs.append(transitioned_img)
+    
+    return transitioned_imgs
+
+def create_dir(output_dir, id):
     label_dir = os.path.join(output_dir, id)
     os.makedirs(label_dir, exist_ok=True)
     return label_dir
@@ -117,7 +136,6 @@ def main(
     
     print("Producing dataset's DF...")
     transitioned_imgs = get_transitioned_images(transitioned_imgs, directories)
-    
 
     print("Creating dataset...")
     dataset = TransitionedImagesDataset(transitioned_imgs)
@@ -162,6 +180,10 @@ def main(
             # Process and save seg_wb visualization
             seg_wb_image_path = os.path.join(label_dir, f"seg_wb_pred_{label_mappings[seg_wb_pred.item()]}.jpg")
             Image.fromarray(seg_wb_vis).save(seg_wb_image_path)
+            
+            break
+        
+        break
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parses argument for VGG explainability program.")
