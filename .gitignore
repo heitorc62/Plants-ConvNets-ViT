@@ -5,3 +5,5 @@ t-SNE/labelling_tool/IAT/main/assets/results
 t-SNE/results/images/
 BiasDiscover/Analysis/compiled_results/
 BiasDiscover/Analysis/results
+TCC/generalization/datasets/Bing_dataset
+TCC/generalization/datasets/IPM_dataset
