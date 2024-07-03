@@ -16,7 +16,7 @@ def initialize_model(num_classes=39, input_size = 224):
     return model_ft, input_size
 
 
-def define_optimizer(model_ft, device, feature_extract):
+def define_optimizer(model_ft, device):
     # Send the model to GPU
     model_ft = model_ft.to(device)
     params_to_update = model_ft.parameters()

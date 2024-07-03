@@ -21,7 +21,7 @@ class PlantVillageDataset(torch.utils.data.Dataset):
 
 
 
-def load_data(dataset_dir, testset_dir, input_size, batch_size=8, train_percent=0.8):
+def load_data(dataset_dir, testset_dir, input_size, batch_size=24, train_percent=0.8):
     # Define the transformations
     data_transforms = {
         'train': transforms.Compose([
@@ -49,8 +49,8 @@ def load_data(dataset_dir, testset_dir, input_size, batch_size=8, train_percent=
 
     
     # Create the datasets with respective transformations
-    train_dataset = PlantVillageDataset(train_dataset, transform=data_transforms['train_transform'])
-    val_dataset = PlantVillageDataset(val_dataset, transform=data_transforms['val_test_transform'])
+    train_dataset = PlantVillageDataset(train_dataset, transform=data_transforms['train'])
+    val_dataset = PlantVillageDataset(val_dataset, transform=data_transforms['val_test'])
 
     # Load the test dataset
     test_dataset = datasets.ImageFolder(testset_dir, data_transforms['val_test'])

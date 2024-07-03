@@ -18,8 +18,8 @@ def evaluate_model(model, dataloader, device):
             _, preds = torch.max(outputs, 1)
 
         running_corrects += torch.sum(preds == labels.data)
-        all_labels.extend(labels.cpu().numpy())
-        all_preds.extend(preds.cpu().numpy())
+        all_labels.extend([int(label) for label in labels.cpu().numpy()])
+        all_preds.extend([int(pred) for pred in preds.cpu().numpy()])
 
     acc = running_corrects.double() / len(dataloader.dataset)
     return acc.item(), all_labels, all_preds
@@ -35,8 +35,6 @@ def train_model(model, dataloaders, criterion, optimizer, scheduler, device, num
         'train_acc': [],
         'val_acc': [],
         'test_acc': [],
-        'val_labels': [],
-        'val_preds': [],
         'test_labels': [],
         'test_preds': []
     }
@@ -94,13 +92,13 @@ def train_model(model, dataloaders, criterion, optimizer, scheduler, device, num
             epoch_loss = running_loss / len(dataloaders[phase].dataset)
             epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
 
-            print('{} ---> {} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
+            print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
 
             if phase == 'val':
-                stats["val_acc"].append(epoch_acc)
+                stats["val_acc"].append(epoch_acc.item())
                 stats["val_loss"].append(epoch_loss)
             else:
-                stats["train_acc"].append(epoch_acc)
+                stats["train_acc"].append(epoch_acc.item())
                 stats["train_loss"].append(epoch_loss)
 
         # After each epoch, evaluate the model on the test set
@@ -117,7 +115,7 @@ def train_model(model, dataloaders, criterion, optimizer, scheduler, device, num
         print()
 
     time_elapsed = time.time() - since
-    print('{} ---> Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
+    print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
     print('Best Test Acc: {:4f}'.format(best_acc))
 
     # load best model weights

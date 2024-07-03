@@ -17,16 +17,22 @@ def main(epochs, dataset_dir, testset_dir, output_dir, device):
     print("The selected device is:", device)
     # Initialize the model for this run
     model_ft, input_size = initialize_model()
+    
     # Print the model we just instantiated
     print(model_ft)
+    
     # Load the data
     dataloaders_dict = load_data(dataset_dir, testset_dir, input_size)
+    
     # Define the optimizer
-    optimizer_ft = define_optimizer(model_ft, device)
+    optimizer_ft, scheduler = define_optimizer(model_ft, device)
+    
     # Define the loss function
-    criterion, scheduler = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss()
+    
     # Train and evaluate
     model, stats = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, scheduler, device, num_epochs=epochs)
+    
     # Save the model
     save_model(model, output_dir)
     # Save stats
@@ -50,4 +56,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print("The selected epochs is:", args.epochs)
 
-    main(args.epochs, args.dataset_dir, args.output_dir, args.device)
+    main(args.epochs, args.dataset_dir, args.testset_dir, args.output_dir, args.device)

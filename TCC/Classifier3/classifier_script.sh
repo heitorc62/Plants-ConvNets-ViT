@@ -1,12 +1,21 @@
 #!/bin/bash
 
-nohup python generalization.py \
-    --epochs 1 \
+nohup python run.py \
+    --epochs 30 \
     --device cuda:1 \
     --dataset_dir /home/heitorc62/PlantsConv/dataset/Plant_leave_diseases_dataset_without_augmentation \
-    --testset_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/test_datasets/IPM_dataset \
-    --outpur_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/Classifier3/results/REGULAR \
-    &> out/REGULAR.out
+    --testset_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/generalization/datasets/IPM_dataset \
+    --output_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/Classifier3/results/REGULAR \
+    &> out/REGULAR.out &
+
+
+nohup python run.py \
+    --epochs 30 \
+    --device cuda:1 \
+    --dataset_dir /home/heitorc62/PlantsConv/dataset/TCC_datasets/EXP \
+    --testset_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/generalization/datasets/IPM_dataset \
+    --output_dir /home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/Classifier3/results/EXP \
+    &> out/EXP.out &
 
 #nohup python generalization.py \
 #     --device cuda:1 \
