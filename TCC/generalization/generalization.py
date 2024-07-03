@@ -9,7 +9,7 @@ import os
 
 
 # Pass all images of IPM dataset into the loaded network and access performance metrics.
-def load_data(data_dir, input_size=224, batch_size=8, train_percent=0.8):
+def load_data(data_dir, input_size=224, batch_size=8):
     # Define your transform
     transform = transforms.Compose([
         transforms.RandomResizedCrop(input_size),
@@ -17,6 +17,7 @@ def load_data(data_dir, input_size=224, batch_size=8, train_percent=0.8):
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
+    
     # Load the dataset
     dataset = datasets.ImageFolder(data_dir, transform=transform)
     # Create the dataloaders
@@ -52,6 +53,16 @@ def inference(model, dataloader, device):
             _, preds = torch.max(outputs, 1)
             predictions.extend(preds.cpu().numpy())
             true_labels.extend(labels.cpu().numpy())
+            
+    # Calculate accuracy
+    #print("\n\n\n###########################################################\n\n\n")
+    #print(f"true_labels:{true_labels}")
+    #print("\n\n\n###########################################################\n\n\n")
+    #print(f"predictions:{predictions}")
+    #print("\n\n\n###########################################################\n\n\n")
+    correct_predictions = sum(p == t for p, t in zip(predictions, true_labels))
+    accuracy = correct_predictions / len(true_labels)
+    print(f"Accuracy: {accuracy:.4f}")
     
     return predictions, true_labels
 
@@ -60,7 +71,6 @@ def calculate_metrics(predictions, true_labels):
     precision = precision_score(true_labels, predictions, average='weighted')
     recall = recall_score(true_labels, predictions, average='weighted')
     f1 = f1_score(true_labels, predictions, average='weighted')
-    
     metrics = {
         "accuracy": accuracy,
         "precision": precision,
@@ -69,15 +79,15 @@ def calculate_metrics(predictions, true_labels):
     }
     return metrics
 
-def save_results(results, output_dir):
+def save_results(results, output_dir, name):
     os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, "results.json")
+    output_path = os.path.join(output_dir, f"results_{name}.json")
     
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
 
 
-def main(dataset_dir, output_dir, model_path, cuda_device):
+def main(dataset_dir, output_dir, model_path, model_name, cuda_device):
     device=torch.device(f"cuda:{cuda_device}" if torch.cuda.is_available() else "cpu")
     print("The selected device is:", device)
     # Initialize the model for this run
@@ -85,8 +95,9 @@ def main(dataset_dir, output_dir, model_path, cuda_device):
     # Load the data
     dataloader = load_data(dataset_dir)
     # Evaluate
-    results = inference(model, dataloader, cuda_device)
-    save_results(results, output_dir)
+    predictions, true_labels = inference(model, dataloader, cuda_device)
+    metrics = calculate_metrics(predictions, true_labels)
+    save_results(metrics, output_dir, model_name)
     
 
 
@@ -94,13 +105,16 @@ def main(dataset_dir, output_dir, model_path, cuda_device):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Access the performance of different models in a standardad dataset.")
-    parser.add_argument('--dataset_dir', type=str, default='TCC/generalization/datasets/IPM_dataset')
-    parser.add_argument('--output_dir', type=str, default='TCC/generalization/results')
+    parser.add_argument('--dataset_dir', type=str, default='/home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/test_datasets/IPM_dataset')
+    parser.add_argument('--output_dir', type=str, default='/home/heitorc62/PlantsConv/Plants-ConvNets-ViT/TCC/generalization/results')
     parser.add_argument('--cuda_device', type=int, default=1)
     parser.add_argument('--model_path', type=str)
     
     args = parser.parse_args()
     
+    parts = args.model_path.split('/')
+    model_name = parts[7]
+    
     print(f"The selected model is: {args.model_path}")
     
-    main(args.dataset_dir, args.output_dir, args.model_path, args.cuda_device)
+    main(args.dataset_dir, args.output_dir, args.model_path, model_name, args.cuda_device)
