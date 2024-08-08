@@ -80,8 +80,8 @@ def train_model(model, dataloaders, criterion, optimizer, scheduler, device, num
                         loss.backward()
                         optimizer.step()
 
-                if phase == 'train':
-                    scheduler.step()  # Adjust the learning rate
+                #if phase == 'train':
+                #    scheduler.step()  # Adjust the learning rate
                     
                     
                 # statistics
